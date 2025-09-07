@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Legal Care{% endblock %}</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('user.static', filename='navigation.css') }}">
+    <script src="{{ url_for('user.static', filename='navigation.js') }}" defer></script>
+</head>
+<body>
+    <!-- Header Navigation -->
+    <header class="header" id="header">
+        <nav class="nav">
+            <!-- Logo -->
+            <a href="#" class="logo">
+                <div class="logo-icon">
+                    <i class="fas fa-balance-scale"></i>
+                </div>
+                Legal Care
+            </a>
+
+            <!-- Desktop Navigation Links -->
+            <ul class="nav-links">
+                <li><a href="{{ url_for('user.user_dashboard') }}" class="active">Home</a></li>
+                <li class="nav-item">
+                    <a href="#">Services</a>
+                    <div class="dropdown">
+                        <a href="#">AI Legal Assistant</a>
+                        <a href="#">Lawyer Consultations</a>
+                        <a href="#">Document Preparation</a>
+                        <a href="#">Legal Protection</a>
+                    </div>
+                </li>
+                <li><a href="#">About</a></li>
+                <li><a href="#">Contact</a></li>
+                <li><a href="#">Updates</a></li>
+            </ul>
+
+            <!-- CTA Buttons -->
+            <div class="header-cta">
+                <a href="#" class="btn btn-outline">
+                    <i class="fas fa-phone"></i>
+                    Call Now
+                </a>
+                <a href="#" class="btn btn-primary">
+                    <i class="fas fa-calendar-alt"></i>
+                    Book Consultation
+                </a>
+            </div>
+
+            <!-- Mobile Menu Button -->
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <i class="fas fa-bars"></i>
+            </button>
+        </nav>
+    </header>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <nav class="mobile-nav">
+            <a href="#" class="active">Home</a>
+            <a href="#">Services</a>
+            <a href="#">About</a>
+            <a href="#">Contact</a>
+            <a href="#">Updates</a>
+            
+            <div class="mobile-cta">
+                <a href="#" class="btn btn-outline">
+                    <i class="fas fa-phone"></i>
+                    Call Now
+                </a>
+                <a href="#" class="btn btn-primary">
+                    <i class="fas fa-calendar-alt"></i>
+                    Book Consultation
+                </a>
+            </div>
+        </nav>
+    </div>
+
+    <!-- Main Content -->
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+
+</body>
+</html>

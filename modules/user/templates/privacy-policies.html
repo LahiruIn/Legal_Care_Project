@@ -1,0 +1,1133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Privacy Policy - LegalCare</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #2563eb;
+            --primary-hover: #1d4ed8;
+            --secondary-color: #64748b;
+            --success-color: #10b981;
+            --info-color: #3b82f6;
+            --dark-color: #0f172a;
+            --light-color: #f8fafc;
+            --border-color: #e2e8f0;
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            --gradient-primary: linear-gradient(135deg, var(--primary-color), var(--info-color));
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            line-height: 1.6;
+            color: var(--dark-color);
+            overflow-x: hidden;
+            font-weight: 400;
+            background-color: #f9fafb;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            text-decoration: none;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            border: none;
+            cursor: pointer;
+            font-family: inherit;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-primary {
+            background: var(--gradient-primary);
+            color: white;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-xl);
+        }
+
+        .btn-outline {
+            background: rgba(255, 255, 255, 0.9);
+            color: var(--primary-color);
+            border: 1px solid var(--border-color);
+            backdrop-filter: blur(10px);
+        }
+
+        .btn-outline:hover {
+            background: white;
+            border-color: var(--primary-color);
+            transform: translateY(-1px);
+        }
+
+        /* Navigation Bar - Enhanced */
+        .navbar {
+            position: sticky;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border-color);
+            z-index: 1000;
+            transition: all 0.3s ease;
+            padding: 0 5%;
+        }
+
+        .navbar.scrolled {
+            background: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1rem 0;
+        }
+
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            text-decoration: none;
+            color: var(--dark-color);
+            font-weight: 800;
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .nav-logo:hover {
+            color: var(--primary-color);
+            transform: scale(1.05);
+        }
+
+        .nav-logo i {
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-size: 2rem;
+        }
+
+        .nav-menu {
+            display: flex;
+            align-items: center;
+            gap: 2.5rem;
+            list-style: none;
+        }
+
+        .nav-link {
+            text-decoration: none;
+            color: var(--secondary-color);
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            position: relative;
+            padding: 0.75rem 0;
+        }
+
+        .nav-link:hover {
+            color: var(--primary-color);
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background: var(--gradient-primary);
+            transition: all 0.3s ease;
+            transform: translateX(-50%);
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        .nav-link.active {
+            color: var(--primary-color);
+        }
+
+        .nav-link.active::after {
+            width: 100%;
+        }
+
+        /* Mobile Menu Toggle */
+        .mobile-menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--dark-color);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .mobile-menu-toggle:hover {
+            color: var(--primary-color);
+        }
+
+        /* Page Header - Enhanced */
+        .page-header {
+            background: linear-gradient(135deg, var(--primary-color), var(--info-color));
+            color: white;
+            padding: 80px 0 60px;
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .page-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="0.5"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+            opacity: 0.3;
+        }
+
+        .page-header-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .page-header h1 {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+        }
+
+
+        .breadcrumb {
+            display: flex;
+            justify-content: center;
+            list-style: none;
+            gap: 0.5rem;
+        }
+
+        .breadcrumb li {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .breadcrumb a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+            padding: 0.25rem 0.5rem;
+            border-radius: 6px;
+        }
+
+        .breadcrumb a:hover {
+            color: white;
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .breadcrumb .separator {
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 0.7rem;
+        }
+
+        /* Main Content Layout */
+        .main-content {
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            gap: 3rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Table of Contents - Improved */
+        .toc-nav {
+            background: white;
+            border-radius: 16px;
+            padding: 2rem;
+            height: fit-content;
+            position: sticky;
+            top: 120px;
+            box-shadow: var(--shadow-md);
+            border: 1px solid var(--border-color);
+        }
+
+        .toc-nav h3 {
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+            color: var(--dark-color);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .toc-nav h3::before {
+            content: '';
+            width: 4px;
+            height: 20px;
+            background: var(--gradient-primary);
+            border-radius: 2px;
+        }
+
+        .toc-nav ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .toc-nav li {
+            margin-bottom: 0.25rem;
+        }
+
+        .toc-nav a {
+            color: var(--secondary-color);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: block;
+            padding: 0.75rem 1rem;
+            border-radius: 8px;
+            font-size: 0.9rem;
+        }
+
+        .toc-nav a:hover {
+            color: var(--primary-color);
+            background: rgba(37, 99, 235, 0.05);
+            transform: translateX(4px);
+        }
+
+        .toc-nav a.active {
+            color: var(--primary-color);
+            background: rgba(37, 99, 235, 0.1);
+            font-weight: 500;
+        }
+
+        /* Policy Content - Enhanced */
+        .policy-content-wrapper {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .policy-container {
+            background: white;
+            border-radius: 16px;
+            box-shadow: var(--shadow-md);
+            padding: 3rem;
+            border: 1px solid var(--border-color);
+            transition: all 0.3s ease;
+        }
+
+        .policy-container:hover {
+            box-shadow: var(--shadow-xl);
+            transform: translateY(-2px);
+        }
+
+        .policy-header {
+            margin-bottom: 2.5rem;
+            padding-bottom: 2rem;
+            border-bottom: 2px solid var(--light-color);
+            position: relative;
+        }
+
+        .policy-header::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 60px;
+            height: 2px;
+            background: var(--gradient-primary);
+        }
+
+        .policy-header h2 {
+            font-size: 2.2rem;
+            color: var(--dark-color);
+            margin-bottom: 0.75rem;
+            font-weight: 700;
+        }
+
+        .policy-header p {
+            color: var(--secondary-color);
+            font-size: 1.1rem;
+        }
+
+        .policy-content h3 {
+            font-size: 1.5rem;
+            color: var(--dark-color);
+            margin: 2.5rem 0 1.25rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .policy-content h3::before {
+            content: counter(section);
+            counter-increment: section;
+            background: var(--gradient-primary);
+            color: white;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9rem;
+            font-weight: 600;
+            flex-shrink: 0;
+        }
+
+        .policy-content {
+            counter-reset: section;
+        }
+
+        .policy-content h4 {
+            font-size: 1.2rem;
+            color: var(--dark-color);
+            margin: 1.5rem 0 0.75rem;
+            font-weight: 600;
+        }
+
+        .policy-content p {
+            color: var(--secondary-color);
+            margin-bottom: 1.25rem;
+            line-height: 1.7;
+            font-size: 1rem;
+        }
+
+        .policy-content ul, .policy-content ol {
+            margin: 1.5rem 0;
+            padding-left: 0;
+        }
+
+        .policy-content li {
+            margin-bottom: 1rem;
+            color: var(--secondary-color);
+            line-height: 1.6;
+            padding-left: 2rem;
+            position: relative;
+        }
+
+        .policy-content ul li::before {
+            content: '';
+            position: absolute;
+            left: 0.5rem;
+            top: 0.7rem;
+            width: 6px;
+            height: 6px;
+            background: var(--primary-color);
+            border-radius: 50%;
+        }
+
+        .policy-content .highlight {
+            background: linear-gradient(135deg, rgba(37, 99, 235, 0.05), rgba(59, 130, 246, 0.05));
+            border: 1px solid rgba(37, 99, 235, 0.1);
+            border-left: 4px solid var(--primary-color);
+            padding: 2rem;
+            border-radius: 12px;
+            margin: 2rem 0;
+            position: relative;
+        }
+
+        .policy-content .highlight::before {
+            content: '\f05a';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
+            color: var(--primary-color);
+            font-size: 1.2rem;
+        }
+
+        .last-updated {
+            background: linear-gradient(135deg, var(--light-color), rgba(248, 250, 252, 0.8));
+            padding: 1.5rem;
+            border-radius: 12px;
+            margin-top: 2rem;
+            font-size: 0.9rem;
+            color: var(--secondary-color);
+            border: 1px solid var(--border-color);
+        }
+
+        /* Contact Section Enhancement */
+        .contact-info {
+            background: var(--light-color);
+            padding: 2rem;
+            border-radius: 12px;
+            margin: 2rem 0;
+        }
+
+        .contact-info a {
+            color: var(--primary-color);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .contact-info a:hover {
+            text-decoration: underline;
+        }
+
+        /* Footer - Enhanced */
+        footer {
+            background: linear-gradient(135deg, var(--dark-color), #1e293b);
+            color: white;
+            padding: 4rem 0 2rem;
+            margin-top: 4rem;
+            position: relative;
+        }
+
+        footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 3rem;
+            padding: 0 20px;
+        }
+
+        .footer-col h4 {
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+            padding-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .footer-col h4::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 40px;
+            height: 2px;
+            background: var(--gradient-primary);
+        }
+
+        .footer-col ul {
+            list-style: none;
+        }
+
+        .footer-col ul li {
+            margin-bottom: 0.75rem;
+        }
+
+        .footer-col ul li a {
+            color: #cbd5e1;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .footer-col ul li a:hover {
+            color: white;
+            transform: translateX(4px);
+        }
+
+        .footer-col ul li a i {
+            width: 16px;
+            text-align: center;
+            opacity: 0.7;
+        }
+
+        .footer-col .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .footer-col .social-links a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 44px;
+            height: 44px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            color: white;
+            transition: all 0.3s ease;
+            font-size: 1.1rem;
+        }
+
+        .footer-col .social-links a:hover {
+            background: var(--primary-color);
+            transform: translateY(-3px) scale(1.05);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            margin-top: 3rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #94a3b8;
+            font-size: 0.9rem;
+            max-width: 1200px;
+            margin: 3rem auto 0;
+            padding: 2rem 20px 0;
+        }
+
+        /* Scroll to Top Button */
+        .scroll-to-top {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 50px;
+            height: 50px;
+            background: var(--gradient-primary);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            opacity: 0;
+            visibility: hidden;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: var(--shadow-md);
+        }
+
+        .scroll-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .scroll-to-top:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-xl);
+        }
+
+        /* Responsive Design - Enhanced */
+        @media (max-width: 1024px) {
+            .main-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .toc-nav {
+                position: static;
+                order: -1;
+            }
+
+            .footer-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .page-header h1 {
+                font-size: 3rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-menu {
+                position: fixed;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: rgba(255, 255, 255, 0.95);
+                backdrop-filter: blur(20px);
+                flex-direction: column;
+                gap: 0;
+                padding: 2rem;
+                border-top: 1px solid var(--border-color);
+                transform: translateY(-100%);
+                opacity: 0;
+                visibility: hidden;
+                transition: all 0.3s ease;
+            }
+
+            .nav-menu.active {
+                transform: translateY(0);
+                opacity: 1;
+                visibility: visible;
+            }
+
+            .nav-menu li {
+                width: 100%;
+            }
+
+            .nav-link {
+                padding: 1rem;
+                text-align: center;
+                border-bottom: 1px solid var(--border-color);
+            }
+
+            .mobile-menu-toggle {
+                display: block;
+            }
+
+            .page-header {
+                padding: 120px 0 80px;
+            }
+
+            .page-header h1 {
+                font-size: 2.5rem;
+            }
+
+            .policy-container {
+                padding: 2rem;
+            }
+
+            .toc-nav {
+                padding: 1.5rem;
+            }
+
+            .footer-container {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .page-header h1 {
+                font-size: 2rem;
+            }
+
+            .policy-header h2 {
+                font-size: 1.8rem;
+            }
+
+            .policy-content h3 {
+                font-size: 1.3rem;
+            }
+
+            .policy-container {
+                padding: 1.5rem;
+            }
+
+            .toc-nav {
+                padding: 1rem;
+            }
+
+            .scroll-to-top {
+                bottom: 1rem;
+                right: 1rem;
+                width: 45px;
+                height: 45px;
+            }
+        }
+
+        /* Loading Animation */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .policy-container {
+            animation: fadeInUp 0.6s ease forwards;
+        }
+
+        .policy-container:nth-child(2) {
+            animation-delay: 0.1s;
+        }
+
+        .policy-container:nth-child(3) {
+            animation-delay: 0.2s;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="#" class="nav-logo">
+                <i class="fas fa-balance-scale"></i>
+                Legal Care
+            </a>
+            
+            <ul class="nav-menu">
+                <li><a href="{{ url_for('user.home') }}" class="nav-link">Home</a></li>
+                <li><a href="{{ url_for('user.about') }}" class="nav-link">About</a></li>
+                <li><a href="{{ url_for('user.services') }}" class="nav-link">Services</a></li> 
+                <li><a href="{{ url_for('user.privacy_policies') }}" class="nav-link active">Privacy Policies</a></li>
+                <li><a href="{{ url_for('user.contact') }}" class="nav-link">Contact</a></li>
+            </ul>
+
+            <div class="nav-cta">
+                <a href="login.html" class="btn btn-primary">
+                    <i class="fas fa-user"></i>
+                    Login
+                </a>
+                <button class="mobile-menu-toggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <header class="page-header">
+        <div class="container">
+            <div class="page-header-content">
+                <h1>Privacy Policy</h1>
+                <ul class="breadcrumb">
+                    <li><a href="index.html">Home</a></li>
+                    <li class="separator"><i class="fas fa-chevron-right"></i></li>
+                    <li>Privacy Policy</li>
+                </ul>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <section class="section">
+        <div class="main-content">
+            <!-- Table of Contents -->
+            <div class="toc-nav">
+                <h3><i class="fas fa-list"></i> Table of Contents</h3>
+                <ul>
+                    <li><a href="#privacy-policy" data-section="privacy-policy">Privacy Policy</a></li>
+                    <li><a href="#information-collection" data-section="information-collection">Information Collection</a></li>
+                    <li><a href="#data-usage" data-section="data-usage">Data Usage</a></li>
+                    <li><a href="#cookies" data-section="cookies">Cookies & Tracking</a></li>
+                    <li><a href="#data-protection" data-section="data-protection">Data Protection</a></li>
+                    <li><a href="#user-rights" data-section="user-rights">Your Rights</a></li>
+                    <li><a href="#contact" data-section="contact">Contact Information</a></li>
+                </ul>
+            </div>
+
+            <!-- Policy Content -->
+            <div class="policy-content-wrapper">
+                <!-- Privacy Policy Section -->
+                <div class="policy-container" id="privacy-policy">
+                    <div class="policy-header">
+                        <h2>Privacy Policy</h2>
+                        <p>Last Updated: January 15, 2023</p>
+                    </div>
+                    
+                    <div class="policy-content">
+                        <p>At LegalCare, we are committed to protecting your privacy and ensuring the security of your personal information. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you use our services.</p>
+                        
+                        <h3 id="information-collection">Information We Collect</h3>
+                        <p>We may collect personal information that you provide to us when using our services, including:</p>
+                        <ul>
+                            <li>Contact information (name, email address, phone number)</li>
+                            <li>Demographic information (age, gender, location)</li>
+                            <li>Professional information (employment details, educational background)</li>
+                            <li>Case details and legal information you share with us</li>
+                            <li>Payment information for services rendered</li>
+                        </ul>
+                        
+                        <h3 id="data-usage">How We Use Your Information</h3>
+                        <p>We use the information we collect for various purposes, including:</p>
+                        <ul>
+                            <li>Providing, maintaining, and improving our services</li>
+                            <li>Communicating with you about your case or inquiry</li>
+                            <li>Processing transactions and sending related information</li>
+                            <li>Responding to your comments, questions, and requests</li>
+                            <li>Sending technical notices, updates, and security alerts</li>
+                            <li>Protecting, investigating, and deterring against fraudulent or unauthorized activity</li>
+                        </ul>
+                        
+                        <h3 id="cookies">Cookies and Tracking Technologies</h3>
+                        <p>We use cookies and similar tracking technologies to track activity on our website and hold certain information. Cookies are files with a small amount of data which may include an anonymous unique identifier.</p>
+                        <p>You can instruct your browser to refuse all cookies or to indicate when a cookie is being sent. However, if you do not accept cookies, you may not be able to use some portions of our service.</p>
+                        
+                        <h3 id="data-protection">Data Protection</h3>
+                        <p>We implement appropriate technical and organizational measures to protect your personal information against accidental or unlawful destruction, loss, alteration, unauthorized disclosure, or access.</p>
+                        
+                        <div class="highlight">
+                            <p><strong>Important Notice:</strong> While we strive to use commercially acceptable means to protect your personal information, no method of transmission over the Internet or method of electronic storage is 100% secure. We cannot guarantee absolute security of your data.</p>
+                        </div>
+                        
+                        <h4>Data Retention</h4>
+                        <p>We will retain your personal information only for as long as is necessary for the purposes set out in this Privacy Policy. We will retain and use your information to the extent necessary to comply with our legal obligations, resolve disputes, and enforce our policies.</p>
+                        
+                        <h4>Third-Party Disclosure</h4>
+                        <p>We may share your information with third parties in the following situations:</p>
+                        <ul>
+                            <li>With your explicit consent</li>
+                            <li>With service providers who perform services on our behalf</li>
+                            <li>For legal reasons, including to comply with applicable law or legal process</li>
+                            <li>In connection with a business transfer, such as a merger or acquisition</li>
+                        </ul>
+                        
+                        <h3 id="user-rights">Your Rights</h3>
+                        <p>Depending on your location, you may have the following rights regarding your personal information:</p>
+                        <ul>
+                            <li>The right to access and receive a copy of your personal information</li>
+                            <li>The right to rectify or update your personal information</li>
+                            <li>The right to request deletion of your personal information</li>
+                            <li>The right to restrict or object to our processing of your personal information</li>
+                            <li>The right to data portability</li>
+                            <li>The right to withdraw consent at any time</li>
+                        </ul>
+                        
+                        <h4>Children's Privacy</h4>
+                        <p>Our services are not intended for individuals under the age of 18. We do not knowingly collect personal information from children. If you become aware that a child has provided us with personal information, please contact us immediately.</p>
+                        
+                        <h4>International Data Transfers</h4>
+                        <p>Your information may be transferred to and processed in countries other than your own. We ensure that such transfers are subject to appropriate safeguards and comply with applicable data protection laws.</p>
+                        
+                        <div class="last-updated">
+                            <p><strong>Policy Updates:</strong> This Privacy Policy was last updated on January 15, 2023. We may update this policy from time to time. We will notify you of any material changes by posting the new Privacy Policy on this page and updating the "Last Updated" date. We encourage you to review this policy periodically.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Contact Information Section -->
+                <div class="policy-container" id="contact">
+                    <div class="policy-header">
+                        <h2>Contact Information</h2>
+                        <p>How to reach us with questions about our privacy policy</p>
+                    </div>
+                    
+                    <div class="policy-content">
+                        <p>If you have any questions or concerns about this Privacy Policy or our data practices, please don't hesitate to contact us. We're here to help and ensure your privacy concerns are addressed promptly.</p>
+                        
+                        <div class="contact-info">
+                            <h4><i class="fas fa-building"></i> LegalCare</h4>
+                            <p>
+                                <i class="fas fa-map-marker-alt"></i> 123 Legal Street, Colombo 07, Sri Lanka<br>
+                                <i class="fas fa-envelope"></i> Email: <a href="mailto:privacy@legalcare.lk">privacy@legalcare.lk</a><br>
+                                <i class="fas fa-phone"></i> Phone: <a href="tel:+94112345678">+94 11 234 5678</a><br>
+                                <i class="fas fa-clock"></i> Business Hours: Monday - Friday, 9:00 AM - 5:00 PM (GMT+5:30)
+                            </p>
+                        </div>
+                        
+                        <p>Our dedicated privacy team will respond to your inquiry within 48 hours during business days. For urgent legal matters requiring immediate attention, please call our main office number.</p>
+                        
+                        <h4>Data Protection Officer</h4>
+                        <p>LegalCare has appointed a qualified Data Protection Officer (DPO) who is responsible for overseeing questions in relation to this privacy policy. If you have any questions about this privacy policy, including any requests to exercise your legal rights, please contact our DPO using the details above.</p>
+                        
+                        <div class="highlight">
+                            <p><strong>Quick Response Guarantee:</strong> We understand that privacy matters are important to you. Our team is committed to providing clear, helpful responses to all privacy-related inquiries within two business days.</p>
+                        </div>
+                        
+                        <h4>Escalation Process</h4>
+                        <p>If you're not satisfied with our response to your privacy concerns, you have the right to lodge a complaint with the relevant data protection authority in your jurisdiction. We'll be happy to provide guidance on this process if needed.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Scroll to Top Button -->
+    <button class="scroll-to-top" id="scrollToTop">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-col">
+                <h4>LegalCare</h4>
+                <p>Providing expert legal services with integrity, professionalism, and unwavering commitment to our clients since 2020. Your trusted legal partner in Sri Lanka.</p>
+                <div class="social-links">
+                    <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                    <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+            
+            <div class="footer-col">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="index.html"><i class="fas fa-home"></i>Home</a></li>
+                    <li><a href="about.html"><i class="fas fa-info-circle"></i>About Us</a></li>
+                    <li><a href="services.html"><i class="fas fa-briefcase"></i>Services</a></li>
+                    <li><a href="privacy.html"><i class="fas fa-shield-alt"></i>Privacy Policy</a></li>
+                    <li><a href="contact.html"><i class="fas fa-envelope"></i>Contact Us</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-col">
+                <h4>Our Services</h4>
+                <ul>
+                    <li><a href="#"><i class="fas fa-building"></i>Corporate Law</a></li>
+                    <li><a href="#"><i class="fas fa-heart"></i>Family Law</a></li>
+                    <li><a href="#"><i class="fas fa-home"></i>Real Estate Law</a></li>
+                    <li><a href="#"><i class="fas fa-lightbulb"></i>Intellectual Property</a></li>
+                    <li><a href="#"><i class="fas fa-gavel"></i>Criminal Defense</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-col">
+                <h4>Contact Info</h4>
+                <ul>
+                    <li><a href="#"><i class="fas fa-map-marker-alt"></i>123 Legal Street, Colombo 07, Sri Lanka</a></li>
+                    <li><a href="tel:+94112345678"><i class="fas fa-phone"></i>+94 11 234 5678</a></li>
+                    <li><a href="mailto:info@legalcare.lk"><i class="fas fa-envelope"></i>info@legalcare.lk</a></li>
+                    <li><a href="#"><i class="fas fa-clock"></i>Mon-Fri: 9AM - 5PM</a></li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>&copy; 2023 LegalCare. All Rights Reserved. | Designed with care for your legal needs.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Navbar scroll effect
+        const navbar = document.querySelector('.navbar');
+        const scrollToTopBtn = document.getElementById('scrollToTop');
+        
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+            
+            // Show/hide scroll to top button
+            if (window.scrollY > 300) {
+                scrollToTopBtn.classList.add('visible');
+            } else {
+                scrollToTopBtn.classList.remove('visible');
+            }
+        });
+        
+        // Scroll to top functionality
+        scrollToTopBtn.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+        
+        // Mobile menu toggle
+        const mobileToggle = document.querySelector('.mobile-menu-toggle');
+        const navMenu = document.querySelector('.nav-menu');
+        
+        mobileToggle.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+            const icon = mobileToggle.querySelector('i');
+            
+            if (navMenu.classList.contains('active')) {
+                icon.classList.remove('fa-bars');
+                icon.classList.add('fa-times');
+            } else {
+                icon.classList.remove('fa-times');
+                icon.classList.add('fa-bars');
+            }
+        });
+        
+        // Close mobile menu when clicking on a link
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                navMenu.classList.remove('active');
+                const icon = mobileToggle.querySelector('i');
+                icon.classList.remove('fa-times');
+                icon.classList.add('fa-bars');
+            });
+        });
+        
+        // Smooth scrolling for table of contents with active state
+        const tocLinks = document.querySelectorAll('.toc-nav a');
+        const sections = document.querySelectorAll('.policy-container');
+        
+        tocLinks.forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 120,
+                        behavior: 'smooth'
+                    });
+                }
+                
+                // Update active state
+                tocLinks.forEach(link => link.classList.remove('active'));
+                this.classList.add('active');
+            });
+        });
+        
+        // Update active TOC link on scroll
+        const observerOptions = {
+            root: null,
+            rootMargin: '-120px 0px -50% 0px',
+            threshold: 0
+        };
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const id = entry.target.getAttribute('id');
+                    const activeLink = document.querySelector(`.toc-nav a[href="#${id}"]`);
+                    
+                    tocLinks.forEach(link => link.classList.remove('active'));
+                    if (activeLink) {
+                        activeLink.classList.add('active');
+                    }
+                }
+            });
+        }, observerOptions);
+        
+        sections.forEach(section => {
+            observer.observe(section);
+        });
+        
+        // Add loading animation delay
+        const policyContainers = document.querySelectorAll('.policy-container');
+        policyContainers.forEach((container, index) => {
+            container.style.animationDelay = `${index * 0.1}s`;
+        });
+        
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!navMenu.contains(e.target) && !mobileToggle.contains(e.target)) {
+                navMenu.classList.remove('active');
+                const icon = mobileToggle.querySelector('i');
+                icon.classList.remove('fa-times');
+                icon.classList.add('fa-bars');
+            }
+        });
+    </script>
+</body>
+</html>

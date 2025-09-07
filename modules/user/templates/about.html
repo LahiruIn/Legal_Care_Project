@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - LegalCare</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('user.static', filename='about.css') }}">
+    <script src="{{ url_for('user.static', filename='about.js') }}" defer></script>
+    
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="#" class="nav-logo">
+                <i class="fas fa-balance-scale"></i>
+                Legal Care
+            </a>
+            
+            <ul class="nav-menu">
+                <li><a href="{{ url_for('user.home') }}" class="nav-link">Home</a></li>
+                <li><a href="{{ url_for('user.about') }}" class="nav-link active">About</a></li>
+                <li><a href="{{ url_for('user.services') }}" class="nav-link">Services</a></li> 
+                <li><a href="{{ url_for('user.privacy_policies') }}" class="nav-link">Privacy Policies</a></li>
+                <li><a href="{{ url_for('user.contact') }}" class="nav-link">Contact</a></li>
+            </ul>
+
+            <div class="nav-cta">
+                <a href="login.html" class="btn btn-primary">
+                    <i class="fas fa-user"></i>
+                    Login
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <header class="page-header">
+        <div class="container">
+            <h1>About</h1>
+            <ul class="breadcrumb">
+                <li><a href="{{ url_for('user.home') }}">Home</a></li>
+                <li class="separator"><i class="fas fa-chevron-right"></i></li>
+                <li>About</li>
+            </ul>
+        </div>
+    </header>
+
+    <!-- About Section -->
+    <section class="section">
+        <div class="container">
+            <div class="about-grid">
+                <div class="about-content">
+                    <h3>Our Story</h3>
+                    <p>Founded in 2020, LegalCare has been at the forefront of providing exceptional legal services to clients across Sri Lanka. Our journey began with a simple vision: to make quality legal assistance accessible to everyone.</p>
+                    <p>Over the years, we've grown into a trusted legal partner for individuals and businesses alike, combining traditional legal expertise with cutting-edge technology to deliver comprehensive solutions.</p>
+                    <p>Our team of experienced attorneys specializes in various areas of law, ensuring that our clients receive the expert guidance they need to navigate complex legal challenges.</p>
+                    <a href="#" class="btn btn-primary">Our Services</a>
+                </div>
+                <div class="about-image">
+                    <img src="https://images.unsplash.com/photo-1589391886645-d51941baf7fb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Legal team discussion">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="section">
+        <div class="container">
+            <div class="section-title">
+                <h2>Why Choose Legal Care</h2>
+                <p>We are committed to delivering exceptional legal services with integrity and professionalism</p>
+            </div>
+            
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3>Client-Centered Approach</h3>
+                    <p>We prioritize your needs and goals, ensuring personalized legal solutions that deliver results.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-gavel"></i>
+                    </div>
+                    <h3>Expert Legal Team</h3>
+                    <p>Our attorneys specialize in various practice areas, bringing extensive experience to your case.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-lightbulb"></i>
+                    </div>
+                    <h3>Innovative Solutions</h3>
+                    <p>We combine legal expertise with technology to provide efficient and effective solutions.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Stats Section -->
+    <section class="stats-section">
+        <div class="container">
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <span class="stat-number">5000+</span>
+                    <span class="stat-label">Cases Resolved</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">98%</span>
+                    <span class="stat-label">Success Rate</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">50+</span>
+                    <span class="stat-label">Expert Lawyers</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">15+</span>
+                    <span class="stat-label">Years Experience</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-col">
+                <h4>LegalCare</h4>
+                <p>Providing expert legal services with integrity and professionalism since 2020.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+            
+            <div class="footer-col">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="{{ url_for('user.home') }}" class="nav-link">Home</a></li>
+                    <li><a href="{{ url_for('user.about') }}" class="nav-link">About</a></li>
+                    <li><a href="{{ url_for('user.services') }}" class="nav-link">Services</a></li> 
+                    <li><a href="{{ url_for('user.privacy_policies') }}" class="nav-link">Privacy Policies</a></li>
+                    <li><a href="{{ url_for('user.contact') }}" class="nav-link">Contact</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-col">
+                <h4>Our Services</h4>
+                <ul>
+                    <li><a href="#">Legal Consultation</a></li>
+                    <li><a href="#">Document Review</a></li>
+                    <li><a href="#">Case Representation</a></li>
+                    <li><a href="#">Contract Drafting</a></li>
+                    <li><a href="#">Legal Research</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-col">
+                <h4>Contact Info</h4>
+                <ul>
+                    <li><i class="fas fa-map-marker-alt"></i> 123 Legal Street, Colombo, Sri Lanka</li>
+                    <li><i class="fas fa-phone"></i> +94 11 234 5678</li>
+                    <li><i class="fas fa-envelope"></i> info@legalcare.lk</li>
+                    <li><i class="fas fa-clock"></i> Mon-Fri: 9AM - 5PM</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>&copy; 2023 LegalCare. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    
+</body>
+</html>

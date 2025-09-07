@@ -1,0 +1,253 @@
+{% extends "struc.html" %}
+
+{% block title %}Manage Lawyers{% endblock %}
+{% block page_title %}Manage Lawyers{% endblock %}
+{% block breadcrumb %}Manage Lawyers{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('admin.static', filename='add_lawyer.css') }}"/>
+{% endblock %}
+
+{% block content %}
+<script src="{{ url_for('admin.static', filename='add_lawyer.js') }}" defer></script>
+
+    <div class="form-container">
+        <form id="addLawyerForm" method="POST" action="{{ url_for('lawyer_mgmt.add_lawyer') }}" enctype="multipart/form-data">
+            <div class="form-header">
+                <h2><i class="fas fa-user-tie"></i> Add New Lawyer</h2>
+            </div>
+            
+            <div class="form-grid">
+                <!-- Personal Information -->
+                <div class="form-group">
+                    <label for="full_name">Full Name</label>
+                    <div class="input-wrapper">
+                        <input type="text" id="full_name" name="full_name" required placeholder="Enter lawyer's full name">
+                        <i class="fas fa-user input-icon"></i>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <div class="input-wrapper">
+                        <input type="email" id="email" name="email" required placeholder="lawyer@example.com">
+                        <i class="fas fa-envelope input-icon"></i>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="phone">Phone Number</label>
+                    <div class="input-wrapper">
+                        <input type="tel" id="phone" name="phone" placeholder="+94 77 123 4567">
+                        <i class="fas fa-phone input-icon"></i>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="nic">NIC Number</label>
+                    <div class="input-wrapper">
+                        <input type="text" id="nic" name="nic" placeholder="123456789V">
+                        <i class="fas fa-id-card input-icon"></i>
+                    </div>
+                </div>
+                
+                <!-- Professional Information -->
+                <div class="form-group">
+                    <label for="register_no">Bar Register Number</label>
+                    <div class="input-wrapper">
+                        <input type="text" id="register_no" name="register_no" required placeholder="BAR12345">
+                        <i class="fas fa-gavel input-icon"></i>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="law_side">Specialization</label>
+                    <select id="law_side" name="law_side" required>
+                        <option value="">Select specialization</option>
+                        <option value="Criminal Law">Criminal Law</option>
+                        <option value="Corporate Law">Corporate Law</option>
+                        <option value="Family Law">Family Law</option>
+                        <option value="Property Law">Property Law</option>
+                        <option value="Intellectual Property">Intellectual Property</option>
+                        <option value="Tax Law">Tax Law</option>
+                        <option value="Immigration Law">Immigration Law</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <div class="input-wrapper">
+                        <input type="text" id="username" name="username" required placeholder="lawyer.username">
+                        <i class="fas fa-user-tag input-icon"></i>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <div class="input-wrapper">
+                        <input type="password" id="password" name="password" required placeholder="••••••••">
+                        <i class="fas fa-lock input-icon"></i>
+                    </div>
+                </div>
+                
+                <!-- Status Toggle -->
+                <div class="form-group">
+                    <label>Account Status</label>
+                    <div class="status-toggle">
+                        <span class="toggle-label">Status:</span>
+                        <label class="toggle-switch">
+                            <input type="checkbox" id="status" name="status" checked>
+                            <span class="toggle-slider"></span>
+                        </label>
+                        <span class="status-text status-active" id="statusText">Active</span>
+                    </div>
+                </div>
+                
+                <!-- Enhanced Image Upload -->
+                <div class="form-group span-2">
+                    <label>Lawyer Profile Photo</label>
+                    <div class="image-upload-container">
+                        <div class="image-upload-wrapper">
+                            <div class="image-upload" id="imageUpload">
+                                <img id="imagePreview" class="image-preview" alt="Lawyer Photo Preview">
+                                <i class="fas fa-cloud-upload-alt pulse"></i>
+                                <p>Click to upload or drag & drop</p>
+                                <small>JPG, PNG (Max 2MB)</small>
+                                <input type="file" id="lawyer_img" name="lawyer_img" accept="image/*" style="display: none;">
+                            </div>
+                            <button type="button" class="btn-capture upload-btn" id="openCameraBtn">
+                                <i class="fas fa-camera"></i> Take Photo
+                            </button>
+                        </div>
+                        <div class="upload-actions">
+                            <button type="button" class="upload-btn btn-secondary" id="changeImageBtn" style="display: none;">
+                                <i class="fas fa-sync-alt"></i> Change
+                            </button>
+                            <button type="button" class="upload-btn btn-secondary" id="removeImageBtn" style="display: none;">
+                                <i class="fas fa-trash-alt"></i> Remove
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Address -->
+                <div class="form-group span-2">
+                    <label for="address">Office Address</label>
+                    <textarea id="address" name="address" placeholder="Enter full office address"></textarea>
+                </div>
+                
+                <!-- Notes -->
+                <div class="form-group span-2">
+                    <label for="lawyer_note">Additional Notes</label>
+                    <textarea id="lawyer_note" name="lawyer_note" placeholder="Any special qualifications, achievements, or notes about this lawyer..."></textarea>
+                </div>
+                
+                <!-- Enhanced Availability Section -->
+                <div class="availability-section">
+                    <h3><i class="fas fa-calendar-check"></i> Weekly Availability</h3>
+                    
+                    <div class="day-type-selector">
+                        <div class="day-type-card" id="weekdayCard">
+                            <h4><i class="fas fa-briefcase"></i> Weekdays</h4>
+                            <p>Monday to Friday availability</p>
+                            <input type="checkbox" id="weekdays" class="day-checkbox" name="day_type[]" value="weekdays" style="display: none;">
+                        </div>
+                        
+                        <div class="day-type-card" id="weekendCard">
+                            <h4><i class="fas fa-umbrella-beach"></i> Weekend</h4>
+                            <p>Saturday and Sunday availability</p>
+                            <input type="checkbox" id="weekend" class="day-checkbox" name="day_type[]" value="weekend" style="display: none;">
+                        </div>
+                    </div>
+                    
+                    <!-- Weekday Day Selection -->
+                    <div class="day-selection" id="weekday-day-selection">
+                        <h4>Select Weekdays</h4>
+                        <div>
+                            <input type="checkbox" id="monday" class="day-checkbox" name="weekday_days[]" value="Monday">
+                            <label for="monday" class="day-label"><i class="far fa-calendar-alt"></i> Monday</label>
+                            
+                            <input type="checkbox" id="tuesday" class="day-checkbox" name="weekday_days[]" value="Tuesday">
+                            <label for="tuesday" class="day-label"><i class="far fa-calendar-alt"></i> Tuesday</label>
+                            
+                            <input type="checkbox" id="wednesday" class="day-checkbox" name="weekday_days[]" value="Wednesday">
+                            <label for="wednesday" class="day-label"><i class="far fa-calendar-alt"></i> Wednesday</label>
+                            
+                            <input type="checkbox" id="thursday" class="day-checkbox" name="weekday_days[]" value="Thursday">
+                            <label for="thursday" class="day-label"><i class="far fa-calendar-alt"></i> Thursday</label>
+                            
+                            <input type="checkbox" id="friday" class="day-checkbox" name="weekday_days[]" value="Friday">
+                            <label for="friday" class="day-label"><i class="far fa-calendar-alt"></i> Friday</label>
+                        </div>
+                    </div>
+                    
+                    <!-- Weekend Day Selection -->
+                    <div class="day-selection" id="weekend-day-selection">
+                        <h4>Select Weekend Days</h4>
+                        <div>
+                            <input type="checkbox" id="saturday" class="day-checkbox" name="weekend_days[]" value="Saturday">
+                            <label for="saturday" class="day-label"><i class="far fa-calendar-alt"></i> Saturday</label>
+                            
+                            <input type="checkbox" id="sunday" class="day-checkbox" name="weekend_days[]" value="Sunday">
+                            <label for="sunday" class="day-label"><i class="far fa-calendar-alt"></i> Sunday</label>
+                        </div>
+                    </div>
+                    
+                    <div class="time-slots-container">
+                        <!-- Weekdays Availability -->
+                        <div class="time-slot-group" id="weekdays-availability">
+                            <h4><i class="far fa-clock"></i> Weekdays Time Slots</h4>
+                            <div class="time-slots">
+                                <div class="time-slot">
+                                    <input type="radio" id="weekday-morning" class="time-checkbox" name="weekday_time" value="8am-12pm">
+                                    <label for="weekday-morning" class="time-label">Morning (8:00 AM - 12:00 PM)</label>
+                                </div>
+                                <div class="time-slot">
+                                    <input type="radio" id="weekday-afternoon" class="time-checkbox" name="weekday_time" value="12pm-4pm">
+                                    <label for="weekday-afternoon" class="time-label">Afternoon (12:00 PM - 4:00 PM)</label>
+                                </div>
+                                <div class="time-slot">
+                                    <input type="radio" id="weekday-full" class="time-checkbox" name="weekday_time" value="8am-4pm">
+                                    <label for="weekday-full" class="time-label">Full Day (8:00 AM - 4:00 PM)</label>
+                                </div>
+                                <div class="time-slot">
+                                    <input type="radio" id="weekday-evening" class="time-checkbox" name="weekday_time" value="4pm-8pm">
+                                    <label for="weekday-evening" class="time-label">Evening (4:00 PM - 8:00 PM)</label>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Weekend Availability -->
+                        <div class="time-slot-group" id="weekend-availability">
+                            <h4><i class="far fa-clock"></i> Weekend Time Slots</h4>
+                            <div class="time-slots">
+                                <div class="time-slot">
+                                    <input type="radio" id="weekend-morning" class="time-checkbox" name="weekend_time" value="8am-12pm">
+                                    <label for="weekend-morning" class="time-label">Morning (8:00 AM - 12:00 PM)</label>
+                                </div>
+                                <div class="time-slot">
+                                    <input type="radio" id="weekend-afternoon" class="time-checkbox" name="weekend_time" value="12pm-4pm">
+                                    <label for="weekend-afternoon" class="time-label">Afternoon (12:00 PM - 4:00 PM)</label>
+                                </div>
+                                <div class="time-slot">
+                                    <input type="radio" id="weekend-full" class="time-checkbox" name="weekend_time" value="8am-4pm">
+                                    <label for="weekend-full" class="time-label">Full Day (8:00 AM - 4:00 PM)</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Form Actions -->
+                <div class="form-actions">
+                    <button type="button" class="btn btn-secondary" id="cancelBtn">
+                        <i class="fas fa-times"></i> Cancel
+                    </button>
+                    <button type="submit" class="btn btn-primary" id="saveBtn">
+                        <i class="fas fa-save"></i> Add Lawyer
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+{% endblock %}

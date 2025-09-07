@@ -1,0 +1,88 @@
+{% extends "struc.html" %}
+
+{% block title %}View User - {{ user.full_name }}{% endblock %}
+{% block page_title %}User Details{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('admin.static', filename='view_user.css') }}">
+{% endblock %}
+
+{% block breadcrumb %}
+<li class="breadcrumb-item"><a href="{{ url_for('user_mgmt.manage_users') }}">Users</a></li>
+<li class="breadcrumb-item active">Profile</li>
+{% endblock %}
+
+{% block content %}
+<div class="user-profile-wrapper fade-in">
+
+  <!-- Profile Sidebar -->
+  <aside class="profile-sidebar">
+    <div class="profile-photo">
+      {% if user.user_image %}
+        <img src="data:image/jpeg;base64,{{ user.user_image | b64encode }}" alt="{{ user.full_name }}'s Photo">
+      {% else %}
+        <div class="profile-initials">
+          {{ user.full_name[0] }}{{ user.full_name.split()[-1][0] if user.full_name.split()|length > 1 else '' }}
+        </div>
+      {% endif %}
+    </div>
+
+    <div class="profile-name">{{ user.full_name }}</div>
+
+    <div class="info-block">
+      <div class="info-label">User ID</div>
+      <div class="info-value">UC-{{ '%04d' % user.id }}</div>
+    </div>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="profile-main">
+    <!-- Combined Information Section -->
+    <section class="info-section">
+      <h3><i class="fas fa-info-circle"></i> User Information</h3>
+      <div class="info-grid">
+        <!-- Left Column -->
+        <div class="info-card">
+          <label><i class="fas fa-envelope"></i> Email</label>
+          <div>{{ user.email or 'Not provided' }}</div>
+
+          <label><i class="fas fa-phone"></i> NIC</label>
+          <div>{{ user.nic or 'Not provided' }}</div>
+
+          <label><i class="fas fa-map-marker-alt"></i> Address</label>
+          <div>{{ user.address or 'Not provided' }}</div>
+        </div>
+
+        <!-- Right Column -->
+        <div class="info-card">
+          <label><i class="fas fa-map-marker-alt"></i> City</label>
+          <div>{{ user.city or 'Not provided' }}</div>
+
+          <label><i class="fas fa-location-arrow"></i> District</label>
+          <div>{{ user.district or 'Not provided' }}</div>
+
+          <label><i class="fas fa-globe"></i> Province</label>
+          <div>{{ user.province or 'Not provided' }}</div>
+        </div>
+
+        <!-- Full Width Bottom Section -->
+        <div class="info-card full-width">
+          <div class="info-row">
+            <div class="info-col">
+              <label><i class="fas fa-gavel"></i> Interesting Law</label>
+              <div>{{ user.interesting_law or 'Not provided' }}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Actions -->
+    <div class="form-actions">
+      <a href="{{ url_for('user_mgmt.manage_users') }}" class="btn btn-secondary">
+        ← Back
+      </a>
+    </div>
+  </main>
+</div>
+{% endblock %}

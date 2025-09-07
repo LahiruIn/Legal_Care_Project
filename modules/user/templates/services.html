@@ -1,0 +1,1194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Legal Care - Our Services</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #2563eb;
+            --primary-hover: #1d4ed8;
+            --secondary-color: #64748b;
+            --success-color: #10b981;
+            --info-color: #3b82f6;
+            --warning-color: #f59e0b;
+            --dark-color: #0f172a;
+            --light-color: #f8fafc;
+            --border-color: #e2e8f0;
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            line-height: 1.6;
+            color: var(--dark-color);
+            overflow-x: hidden;
+            font-weight: 400;
+            background: var(--light-color);
+        }
+
+        /* Navigation Bar - Same as homepage */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border-color);
+            z-index: 1000;
+            transition: all 0.3s ease;
+            padding: 0 5%;
+        }
+
+        .navbar.scrolled {
+            background: rgba(255, 255, 255, 0.98);
+            box-shadow: var(--shadow-md);
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1rem 0;
+        }
+
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            text-decoration: none;
+            color: var(--dark-color);
+            font-weight: 700;
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .nav-logo:hover {
+            color: var(--primary-color);
+            transform: scale(1.05);
+        }
+
+        .nav-logo i {
+            color: var(--primary-color);
+            font-size: 2rem;
+        }
+
+        .nav-menu {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-link {
+            text-decoration: none;
+            color: var(--secondary-color);
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            position: relative;
+            padding: 0.5rem 0;
+        }
+
+        .nav-link:hover {
+            color: var(--primary-color);
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary-color);
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        .nav-link.active {
+            color: var(--primary-color);
+        }
+
+        .nav-link.active::after {
+            width: 100%;
+        }
+
+        .nav-cta {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .nav-phone {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--secondary-color);
+            font-weight: 500;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .nav-phone:hover {
+            color: var(--primary-color);
+        }
+
+        .nav-phone i {
+            color: var(--success-color);
+        }
+
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            border: none;
+            cursor: pointer;
+            font-family: inherit;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-primary {
+            background: var(--primary-color);
+            color: white;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-hover);
+            transform: translateY(-1px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--primary-color);
+            border: 1px solid var(--border-color);
+        }
+
+        .btn-outline:hover {
+            background: var(--light-color);
+            border-color: var(--primary-color);
+        }
+
+        .btn-lg {
+            padding: 1rem 2rem;
+            font-size: 1rem;
+        }
+
+        /* Page Header */
+        .page-header {
+            padding: 120px 5% 80px;
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--info-color) 100%);
+            color: white;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .page-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="1" fill="white" opacity="0.1"/><circle cx="75" cy="75" r="1" fill="white" opacity="0.1"/><circle cx="50" cy="10" r="0.5" fill="white" opacity="0.05"/><circle cx="10" cy="60" r="0.5" fill="white" opacity="0.05"/><circle cx="90" cy="30" r="0.5" fill="white" opacity="0.05"/></pattern></defs><rect width="100%" height="100%" fill="url(%23grain)"/></svg>');
+        }
+
+        .page-header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        .page-header h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            animation: fadeInUp 1s ease;
+        }
+
+        .page-header p {
+            font-size: 1.3rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+            animation: fadeInUp 1s ease 0.2s both;
+        }
+
+        .breadcrumb {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-top: 2rem;
+            animation: fadeInUp 1s ease 0.4s both;
+        }
+
+        .breadcrumb a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .breadcrumb a:hover {
+            color: white;
+        }
+
+        .breadcrumb span {
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        /* Services Section */
+        .services-section {
+            padding: 80px 5%;
+        }
+
+        .services-container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-header h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--dark-color);
+            margin-bottom: 1rem;
+        }
+
+        .section-header p {
+            font-size: 1.2rem;
+            color: var(--secondary-color);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+
+        .service-card {
+            background: white;
+            border-radius: 20px;
+            padding: 2.5rem;
+            box-shadow: var(--shadow-lg);
+            border: 1px solid var(--border-color);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-color), var(--info-color));
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .service-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-xl);
+        }
+
+        .service-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .service-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--primary-color), var(--info-color));
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .service-card:hover .service-icon {
+            transform: scale(1.1) rotate(5deg);
+        }
+
+        .service-icon i {
+            font-size: 2rem;
+            color: white;
+        }
+
+        .service-card h3 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--dark-color);
+            margin-bottom: 1rem;
+        }
+
+        .service-card p {
+            color: var(--secondary-color);
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+
+        .service-features {
+            list-style: none;
+            margin-bottom: 2rem;
+        }
+
+        .service-features li {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 0.5rem;
+            color: var(--secondary-color);
+            font-size: 0.9rem;
+        }
+
+        .service-features i {
+            color: var(--success-color);
+            font-size: 0.8rem;
+        }
+
+        .service-price {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: auto;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .price-info {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .price-amount {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+
+        .price-label {
+            font-size: 0.8rem;
+            color: var(--secondary-color);
+        }
+
+        /* Specialty Areas */
+        .specialty-section {
+            padding: 80px 5%;
+            background: white;
+        }
+
+        .specialty-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .specialty-item {
+            background: var(--light-color);
+            padding: 2rem;
+            border-radius: 15px;
+            border: 1px solid var(--border-color);
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .specialty-item:hover {
+            background: white;
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .specialty-item i {
+            font-size: 3rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        .specialty-item h4 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--dark-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .specialty-item p {
+            color: var(--secondary-color);
+            font-size: 0.9rem;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            padding: 80px 5%;
+            background: linear-gradient(135deg, var(--dark-color) 0%, #1e293b 100%);
+            color: white;
+            text-align: center;
+        }
+
+        .cta-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .cta-content h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .cta-content p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            margin-bottom: 2.5rem;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn-white {
+            background: white;
+            color: var(--dark-color);
+            border: 1px solid white;
+        }
+
+        .btn-white:hover {
+            background: transparent;
+            color: white;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+
+        .animate-on-scroll.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .nav-menu,
+            .nav-cta {
+                display: none;
+            }
+
+            .navbar {
+                padding: 0 4%;
+            }
+
+            .page-header h1 {
+                font-size: 2.5rem;
+            }
+
+            .page-header p {
+                font-size: 1.1rem;
+            }
+
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .service-card {
+                padding: 2rem;
+            }
+
+            .specialty-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .cta-content h2 {
+                font-size: 2rem;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .page-header {
+                padding: 100px 4% 60px;
+            }
+
+            .services-section,
+            .specialty-section,
+            .cta-section {
+                padding: 60px 4%;
+            }
+        }
+
+        /* Smooth scrolling */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Focus states for accessibility */
+        .btn:focus,
+        .nav-link:focus {
+            outline: 2px solid var(--primary-color);
+            outline-offset: 2px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="#" class="nav-logo">
+                <i class="fas fa-balance-scale"></i>
+                LegalCare
+            </a>
+            
+            <ul class="nav-menu">
+                <li><a href="#home" class="nav-link">Home</a></li>
+                <li><a href="#services" class="nav-link active">Services</a></li>
+                <li><a href="#lawyers" class="nav-link">Our Lawyers</a></li>
+                <li><a href="#about" class="nav-link">About</a></li>
+                <li><a href="#cases" class="nav-link">Case Studies</a></li>
+                <li><a href="#contact" class="nav-link">Contact</a></li>
+            </ul>
+
+            <div class="nav-cta">
+                <a href="tel:+94112345678" class="nav-phone">
+                    <i class="fas fa-phone"></i>
+                    +94 11 234 5678
+                </a>
+                <a href="#consultation" class="btn btn-primary">
+                    Free Consultation
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="page-header-content">
+            <h1>Our Legal Services</h1>
+            <p>Comprehensive legal solutions tailored to meet your unique needs with expert guidance and proven results</p>
+            <div class="breadcrumb">
+                <a href="#">Home</a>
+                <span><i class="fas fa-chevron-right"></i></span>
+                <span>Services</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Services -->
+    <section class="services-section">
+        <div class="services-container">
+            <div class="section-header">
+                <h2>Expert Legal Services</h2>
+                <p>Our experienced legal team provides comprehensive services across various practice areas, ensuring the best outcomes for our clients</p>
+            </div>
+
+            <div class="services-grid">
+                <!-- Corporate Law -->
+                <div class="service-card animate-on-scroll">
+                    <div class="service-icon">
+                        <i class="fas fa-building"></i>
+                    </div>
+                    <h3>Corporate Law</h3>
+                    <p>Complete corporate legal services including company formation, compliance, mergers & acquisitions, and corporate governance.</p>
+                    <ul class="service-features">
+                        <li><i class="fas fa-check"></i> Company Registration</li>
+                        <li><i class="fas fa-check"></i> Corporate Compliance</li>
+                        <li><i class="fas fa-check"></i> Contract Drafting</li>
+                        <li><i class="fas fa-check"></i> M&A Advisory</li>
+                    </ul>
+                    <div class="service-price">
+                        <div class="price-info">
+                            <span class="price-amount">LKR 50,000</span>
+                            <span class="price-label">Starting from</span>
+                        </div>
+                        <a href="#contact" class="btn btn-primary">Get Started</a>
+                    </div>
+                </div>
+
+                <!-- Family Law -->
+                <div class="service-card animate-on-scroll">
+                    <div class="service-icon">
+                        <i class="fas fa-heart"></i>
+                    </div>
+                    <h3>Family Law</h3>
+                    <p>Compassionate legal support for family matters including divorce, child custody, adoption, and domestic relations.</p>
+                    <ul class="service-features">
+                        <li><i class="fas fa-check"></i> Divorce Proceedings</li>
+                        <li><i class="fas fa-check"></i> Child Custody</li>
+                        <li><i class="fas fa-check"></i> Adoption Services</li>
+                        <li><i class="fas fa-check"></i> Property Division</li>
+                    </ul>
+                    <div class="service-price">
+                        <div class="price-info">
+                            <span class="price-amount">LKR 35,000</span>
+                            <span class="price-label">Starting from</span>
+                        </div>
+                        <a href="#contact" class="btn btn-primary">Get Started</a>
+                    </div>
+                </div>
+
+                <!-- Criminal Defense -->
+                <div class="service-card animate-on-scroll">
+                    <div class="service-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3>Criminal Defense</h3>
+                    <p>Aggressive criminal defense representation for all types of criminal charges with 24/7 emergency support.</p>
+                    <ul class="service-features">
+                        <li><i class="fas fa-check"></i> Criminal Representation</li>
+                        <li><i class="fas fa-check"></i> Bail Applications</li>
+                        <li><i class="fas fa-check"></i> Court Appearances</li>
+                        <li><i class="fas fa-check"></i> 24/7 Emergency Support</li>
+                    </ul>
+                    <div class="service-price">
+                        <div class="price-info">
+                            <span class="price-amount">LKR 75,000</span>
+                            <span class="price-label">Starting from</span>
+                        </div>
+                        <a href="#contact" class="btn btn-primary">Get Started</a>
+                    </div>
+                </div>
+
+                <!-- Property Law -->
+                <div class="service-card animate-on-scroll">
+                    <div class="service-icon">
+                        <i class="fas fa-home"></i>
+                    </div>
+                    <h3>Property Law</h3>
+                    <p>Complete real estate legal services including property transactions, title verification, and property disputes.</p>
+                    <ul class="service-features">
+                        <li><i class="fas fa-check"></i> Property Transfers</li>
+                        <li><i class="fas fa-check"></i> Title Verification</li>
+                        <li><i class="fas fa-check"></i> Property Disputes</li>
+                        <li><i class="fas fa-check"></i> Lease Agreements</li>
+                    </ul>
+                    <div class="service-price">
+                        <div class="price-info">
+                            <span class="price-amount">LKR 25,000</span>
+                            <span class="price-label">Starting from</span>
+                        </div>
+                        <a href="#contact" class="btn btn-primary">Get Started</a>
+                    </div>
+                </div>
+
+                <!-- Employment Law -->
+                <div class="service-card animate-on-scroll">
+                    <div class="service-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3>Employment Law</h3>
+                    <p>Comprehensive employment legal services for both employers and employees including contracts and disputes.</p>
+                    <ul class="service-features">
+                        <li><i class="fas fa-check"></i> Employment Contracts</li>
+                        <li><i class="fas fa-check"></i> Workplace Disputes</li>
+                        <li><i class="fas fa-check"></i> Termination Issues</li>
+                        <li><i class="fas fa-check"></i> HR Compliance</li>
+                    </ul>
+                    <div class="service-price">
+                        <div class="price-info">
+                            <span class="price-amount">LKR 30,000</span>
+                            <span class="price-label">Starting from</span>
+                        </div>
+                        <a href="#contact" class="btn btn-primary">Get Started</a>
+                    </div>
+                </div>
+
+                <!-- Immigration Law -->
+                <div class="service-card animate-on-scroll">
+                    <div class="service-icon">
+                        <i class="fas fa-passport"></i>
+                    </div>
+                    <h3>Immigration Law</h3>
+                    <p>Expert immigration services including visa applications, work permits, and citizenship assistance.</p>
+                    <ul class="service-features">
+                        <li><i class="fas fa-check"></i> Visa Applications</li>
+                        <li><i class="fas fa-check"></i> Work Permits</li>
+                        <li><i class="fas fa-check"></i> Citizenship Services</li>
+                        <li><i class="fas fa-check"></i> Appeal Processes</li>
+                    </ul>
+                    <div class="service-price">
+                        <div class="price-info">
+                            <span class="price-amount">LKR 45,000</span>
+                            <span class="price-label">Starting from</span>
+                        </div>
+                        <a href="#contact" class="btn btn-primary">Get Started</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Specialty Areas -->
+    <section class="specialty-section">
+        <div class="services-container">
+            <div class="section-header">
+                <h2>Specialized Practice Areas</h2>
+                <p>Additional areas of expertise to serve all your legal needs</p>
+            </div>
+
+            <div class="specialty-grid">
+                <div class="specialty-item animate-on-scroll">
+                    <i class="fas fa-file-contract"></i>
+                    <h4>Contract Law</h4>
+                    <p>Contract drafting, review, and dispute resolution</p>
+                </div>
+
+                <div class="specialty-item animate-on-scroll">
+                    <i class="fas fa-landmark"></i>
+                    <h4>Constitutional Law</h4>
+                    <p>Constitutional matters and fundamental rights cases</p>
+                </div>
+
+                <div class="specialty-item animate-on-scroll">
+                    <i class="fas fa-coins"></i>
+                    <h4>Banking & Finance</h4>
+                    <p>Banking regulations and financial law matters</p>
+                </div>
+
+                <div class="specialty-item animate-on-scroll">
+                    <i class="fas fa-leaf"></i>
+                    <h4>Environmental Law</h4>
+                    <p>Environmental compliance and sustainability law</p>
+                </div>
+
+                <div class="specialty-item animate-on-scroll">
+                    <i class="fas fa-lightbulb"></i>
+                    <h4>Intellectual Property</h4>
+                    <p>Patents, trademarks, and copyright protection</p>
+                </div>
+
+                <div class="specialty-item animate-on-scroll">
+                    <i class="fas fa-hand-holding-heart"></i>
+                    <h4>Personal Injury</h4>
+                    <p>Accident claims and personal injury compensation</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="cta-content">
+            <h2>Ready to Get Started?</h2>
+            <p>Contact us today for a free consultation and let our experienced legal team help you navigate your legal challenges with confidence.</p>
+            <div class="cta-buttons">
+                <a href="#consultation" class="btn btn-white btn-lg">
+                    <i class="fas fa-calendar-alt"></i>
+                    Schedule Consultation
+                </a>
+                <a href="#contact" class="btn btn-outline btn-lg">
+                    <i class="fas fa-phone"></i>
+                    Call Now
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Navigation scroll effects
+        window.addEventListener('scroll', function() {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Animate elements on scroll
+        function animateOnScroll() {
+            const elements = document.querySelectorAll('.animate-on-scroll');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            });
+
+            elements.forEach(element => {
+                observer.observe(element);
+            });
+        }
+
+        // Service card hover effects
+        function initServiceCards() {
+            const serviceCards = document.querySelectorAll('.service-card');
+            
+            serviceCards.forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-8px) scale(1.02)';
+                });
+                
+                card.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0) scale(1)';
+                });
+            });
+        }
+
+        // Button ripple effects
+        function initButtonEffects() {
+            const buttons = document.querySelectorAll('.btn');
+            
+            buttons.forEach(button => {
+                button.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    const ripple = document.createElement('span');
+                    const rect = this.getBoundingClientRect();
+                    const size = Math.max(rect.width, rect.height);
+                    const x = e.clientX - rect.left - size / 2;
+                    const y = e.clientY - rect.top - size / 2;
+                    
+                    ripple.style.width = ripple.style.height = size + 'px';
+                    ripple.style.left = x + 'px';
+                    ripple.style.top = y + 'px';
+                    ripple.style.position = 'absolute';
+                    ripple.style.borderRadius = '50%';
+                    ripple.style.background = 'rgba(255, 255, 255, 0.3)';
+                    ripple.style.transform = 'scale(0)';
+                    ripple.style.animation = 'ripple 0.6s linear';
+                    ripple.style.pointerEvents = 'none';
+                    
+                    this.appendChild(ripple);
+                    
+                    setTimeout(() => {
+                        if (ripple.parentNode) {
+                            ripple.remove();
+                        }
+                    }, 600);
+                });
+
+                button.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-2px)';
+                });
+
+                button.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0)';
+                });
+            });
+        }
+
+        // Smooth scrolling for anchor links
+        function initSmoothScrolling() {
+            const links = document.querySelectorAll('a[href^="#"]');
+            
+            links.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href').substring(1);
+                    const targetElement = document.getElementById(targetId);
+                    
+                    if (targetElement) {
+                        const offsetTop = targetElement.getBoundingClientRect().top + window.pageYOffset - 100;
+                        
+                        window.scrollTo({
+                            top: offsetTop,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+        }
+
+        // Service pricing animation
+        function initPricingAnimation() {
+            const priceElements = document.querySelectorAll('.price-amount');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const element = entry.target;
+                        const finalText = element.textContent;
+                        element.style.opacity = '0';
+                        
+                        setTimeout(() => {
+                            element.style.opacity = '1';
+                            element.style.transform = 'scale(1.2)';
+                            
+                            setTimeout(() => {
+                                element.style.transform = 'scale(1)';
+                            }, 200);
+                        }, 300);
+                    }
+                });
+            }, {
+                threshold: 0.5
+            });
+
+            priceElements.forEach(element => {
+                observer.observe(element);
+            });
+        }
+
+        // Specialty items hover effect
+        function initSpecialtyEffects() {
+            const specialtyItems = document.querySelectorAll('.specialty-item');
+            
+            specialtyItems.forEach(item => {
+                item.addEventListener('mouseenter', function() {
+                    const icon = this.querySelector('i');
+                    icon.style.transform = 'scale(1.2) rotate(10deg)';
+                    icon.style.color = 'var(--info-color)';
+                });
+                
+                item.addEventListener('mouseleave', function() {
+                    const icon = this.querySelector('i');
+                    icon.style.transform = 'scale(1) rotate(0deg)';
+                    icon.style.color = 'var(--primary-color)';
+                });
+            });
+        }
+
+        // Navigation active state
+        function initNavigation() {
+            const navLinks = document.querySelectorAll('.nav-link');
+            
+            navLinks.forEach(link => {
+                link.addEventListener('click', function() {
+                    navLinks.forEach(l => l.classList.remove('active'));
+                    this.classList.add('active');
+                });
+            });
+        }
+
+        // Parallax effect for page header
+        function initParallax() {
+            const header = document.querySelector('.page-header');
+            
+            window.addEventListener('scroll', function() {
+                const scrolled = window.pageYOffset;
+                const rate = scrolled * -0.5;
+                
+                if (header && scrolled < window.innerHeight) {
+                    header.style.transform = `translateY(${rate}px)`;
+                }
+            });
+        }
+
+        // Typing effect for page header
+        function initTypingEffect() {
+            const headerText = document.querySelector('.page-header h1');
+            if (!headerText) return;
+            
+            const text = headerText.textContent;
+            headerText.textContent = '';
+            headerText.style.borderRight = '2px solid white';
+            
+            let i = 0;
+            const typeSpeed = 100;
+            
+            function typeChar() {
+                if (i < text.length) {
+                    headerText.textContent += text.charAt(i);
+                    i++;
+                    setTimeout(typeChar, typeSpeed);
+                } else {
+                    setTimeout(() => {
+                        headerText.style.borderRight = 'none';
+                    }, 1000);
+                }
+            }
+            
+            setTimeout(typeChar, 500);
+        }
+
+        // Service cards stagger animation
+        function initStaggerAnimation() {
+            const cards = document.querySelectorAll('.service-card');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach((entry, index) => {
+                    if (entry.isIntersecting) {
+                        setTimeout(() => {
+                            entry.target.classList.add('visible');
+                        }, index * 100);
+                    }
+                });
+            }, {
+                threshold: 0.1
+            });
+
+            cards.forEach(card => {
+                observer.observe(card);
+            });
+        }
+
+        // Initialize all functions when DOM is loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            animateOnScroll();
+            initServiceCards();
+            initButtonEffects();
+            initSmoothScrolling();
+            initPricingAnimation();
+            initSpecialtyEffects();
+            initNavigation();
+            initParallax();
+            initTypingEffect();
+            initStaggerAnimation();
+        });
+
+        // CSS animation keyframes
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes ripple {
+                to {
+                    transform: scale(4);
+                    opacity: 0;
+                }
+            }
+            
+            @keyframes fadeInUp {
+                from {
+                    opacity: 0;
+                    transform: translateY(30px);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+            
+            @keyframes slideInFromLeft {
+                from {
+                    opacity: 0;
+                    transform: translateX(-50px);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateX(0);
+                }
+            }
+            
+            @keyframes slideInFromRight {
+                from {
+                    opacity: 0;
+                    transform: translateX(50px);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateX(0);
+                }
+            }
+            
+            .service-card:nth-child(odd) {
+                animation: slideInFromLeft 0.6s ease forwards;
+            }
+            
+            .service-card:nth-child(even) {
+                animation: slideInFromRight 0.6s ease forwards;
+            }
+            
+            .specialty-item {
+                animation: fadeInUp 0.6s ease forwards;
+            }
+            
+            .service-icon i {
+                transition: all 0.3s ease;
+            }
+            
+            .specialty-item i {
+                transition: all 0.3s ease;
+            }
+            
+            .price-amount {
+                transition: all 0.3s ease;
+            }
+        `;
+        document.head.appendChild(style);
+
+        // Handle window resize
+        window.addEventListener('resize', function() {
+            // Reinitialize effects that depend on viewport size
+            if (window.innerWidth <= 768) {
+                // Disable heavy animations on mobile
+                const serviceCards = document.querySelectorAll('.service-card');
+                serviceCards.forEach(card => {
+                    card.style.transform = 'none';
+                });
+            }
+        });
+
+        // Performance optimization: Throttle scroll events
+        function throttle(func, limit) {
+            let inThrottle;
+            return function() {
+                const args = arguments;
+                const context = this;
+                if (!inThrottle) {
+                    func.apply(context, args);
+                    inThrottle = true;
+                    setTimeout(() => inThrottle = false, limit);
+                }
+            }
+        }
+
+        // Apply throttling to scroll-based animations
+        window.addEventListener('scroll', throttle(function() {
+            // Scroll-based animations go here
+        }, 16)); // ~60fps
+    </script>
+</body>
+</html>

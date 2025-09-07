@@ -1,0 +1,206 @@
+{% extends "struc.html" %}
+
+{% block title %}View Appointments{% endblock %}
+{% block page_title %}View Appointments{% endblock %}
+{% block breadcrumb %}View Appointments{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('admin.static', filename='dashboard_appointment.css') }}"/>
+{% endblock %}
+
+{% block content %}
+<script src="{{ url_for('admin.static', filename='dashboard_appointment.js') }}" defer></script>
+
+<div class="dashboard-content fade-in">
+
+
+    <!-- Flash Messages -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        <div class="flash-messages">
+          {% for c, m in messages %}
+            <div class="flash {{ c }}">
+              <i class="fas fa-{% if c == 'success' %}check-circle{% elif c == 'error' %}exclamation-circle{% else %}info-circle{% endif %}"></i>
+              {{ m }}
+            </div>
+          {% endfor %}
+        </div>
+      {% endif %}
+    {% endwith %}
+
+    <!-- Statistics Cards -->
+    <div class="stats-container">
+      <div class="stat-card">
+        <div class="stat-header">
+          <div class="stat-icon total">
+            <i class="fas fa-calendar-alt"></i>
+          </div>
+        </div>
+        <div class="stat-value" id="total-count">{{ appts|length }}</div>
+        <div class="stat-label">Total Appointments</div>
+      </div>
+
+      <div class="stat-card pending">
+        <div class="stat-header">
+          <div class="stat-icon pending">
+            <i class="fas fa-clock"></i>
+          </div>
+        </div>
+        <div class="stat-value" id="pending-count">
+          {{ appts|selectattr('status', 'equalto', 'pending')|list|length }}
+        </div>
+        <div class="stat-label">Pending</div>
+      </div>
+
+      <div class="stat-card confirmed">
+        <div class="stat-header">
+          <div class="stat-icon confirmed">
+            <i class="fas fa-check-circle"></i>
+          </div>
+        </div>
+        <div class="stat-value" id="confirmed-count">
+          {{ appts|selectattr('status', 'equalto', 'confirmed')|list|length }}
+        </div>
+        <div class="stat-label">Confirmed</div>
+      </div>
+
+      <div class="stat-card cancelled">
+        <div class="stat-header">
+          <div class="stat-icon cancelled">
+            <i class="fas fa-times-circle"></i>
+          </div>
+        </div>
+        <div class="stat-value" id="cancelled-count">
+          {{ appts|selectattr('status', 'equalto', 'cancelled')|list|length }}
+        </div>
+        <div class="stat-label">Cancelled</div>
+      </div>
+    </div>
+
+    <!-- Filter Section -->
+    <div class="filter-section">
+      <div class="filter-header">
+        <i class="fas fa-filter"></i> Filter Appointments
+      </div>
+      <form class="filters" method="get" action="{{ url_for('admin.admin_appointments') }}">
+        <div class="filter-group">
+          <label class="filter-label">Search</label>
+          <input type="text" name="q" placeholder="Search user, email, or lawyer..." value="{{ filters.q or '' }}">
+        </div>
+        
+        <div class="filter-group">
+          <label class="filter-label">Status</label>
+          <select name="status">
+            <option value="">All Statuses</option>
+            {% for st in statuses %}
+              <option value="{{ st }}" {% if filters.status == st %}selected{% endif %}>
+                {{ st|capitalize }}
+              </option>
+            {% endfor %}
+          </select>
+        </div>
+        
+        <div class="filter-group">
+          <label class="filter-label">From Date</label>
+          <input type="date" name="from" value="{{ filters['from'] or '' }}">
+        </div>
+        
+        <div class="filter-group">
+          <label class="filter-label">To Date</label>
+          <input type="date" name="to" value="{{ filters['to'] or '' }}">
+        </div>
+        
+        <div class="filter-group">
+          <button type="submit" class="filter-btn">
+            <i class="fas fa-search"></i> Apply Filters
+          </button>
+        </div>
+      </form>
+    </div>
+
+    <!-- Appointments Table -->
+    <div class="table-section">
+      <div class="table-header">
+        <h3 class="table-title">All Appointments</h3>
+        <div class="table-count">
+          Showing {{ appts|length }} appointment{{ 's' if appts|length != 1 else '' }}
+        </div>
+      </div>
+
+      <div class="table-responsive">
+        <table>
+          <thead>
+            <tr>
+              <th style="width: 100px;"># ID</th>
+              <th style="width: 200px;">Date & Time</th>
+              <th style="width: 150px;">Lawyer</th>
+              <th style="width: 150px;">Client</th>
+              <th style="width: 180px;">Contact</th>
+              <th style="width: 100px;">Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% if appts|length == 0 %}
+              <tr>
+                <td colspan="6" class="empty-state">
+                  <i class="fas fa-calendar-times"></i>
+                  <div>No appointments found matching your criteria.</div>
+                </td>
+              </tr>
+            {% else %}
+              {% for a in appts %}
+                <tr>
+                  <td data-label="ID">
+                    <span class="appointment-id">AP-{{ '%04d' % a.id }}</span>
+                  </td>
+                  <td data-label="Date & Time">
+                    <div class="datetime-cell">
+                      <div class="main-datetime">
+                        <i class="fas fa-calendar-day"></i> {{ a.appt_date }}
+                        <br><i class="fas fa-clock"></i> {{ a.appt_time }}
+                      </div>
+                    
+                    </div>
+                  </td>
+                  <td data-label="Lawyer">
+                    <div class="lawyer-cell">
+                      <div class="lawyer-name">{{ a.lawyer_name }}</div>
+                      <div class="lawyer-specialty">{{ a.law_side or 'General Practice' }}</div>
+                    </div>
+                  </td>
+                  <td data-label="Client">
+                    <div class="client-name">{{ a.user_name }}</div>
+                  </td>
+                  <td data-label="Contact">
+                    <div class="contact-cell">
+                      <div class="contact-email">
+                        <i class="fas fa-envelope"></i> {{ a.user_email }}
+                      </div>
+                      {% if a.user_phone %}
+                        <div class="contact-phone">
+                          <i class="fas fa-phone"></i> {{ a.user_phone }}
+                        </div>
+                      {% endif %}
+                    </div>
+                  </td>
+                  <td data-label="Status">
+                    <span class="badge {{ a.status }}">
+                      {% if a.status == 'pending' %}
+                        <i class="fas fa-clock"></i>
+                      {% elif a.status == 'confirmed' %}
+                        <i class="fas fa-check"></i>
+                      {% elif a.status == 'cancelled' %}
+                        <i class="fas fa-times"></i>
+                      {% endif %}
+                      {{ a.status|capitalize }}
+                    </span>
+                  </td>
+                </tr>
+              {% endfor %}
+            {% endif %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+{% endblock %}

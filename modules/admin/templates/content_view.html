@@ -1,0 +1,262 @@
+{% extends "struc.html" %}
+
+{% block title %}Manage Content{% endblock %}
+{% block page_title %}View Content{% endblock %}
+{% block breadcrumb %}View Content{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('admin.static', filename='content_view.css') }}"/>
+{% endblock %}
+
+{% block content %}
+<script src="{{ url_for('admin.static', filename='content_view.js') }}" defer></script>
+
+<div class="dashboard-content fade-in">
+
+  <!-- Flash Messages -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        <div class="flash-messages">
+          {% for c, m in messages %}
+            <div class="flash {{ c }}">
+              <i class="fas fa-{% if c == 'success' %}check-circle{% elif c == 'error' %}exclamation-circle{% else %}info-circle{% endif %}"></i>
+              {{ m }}
+            </div>
+          {% endfor %}
+        </div>
+      {% endif %}
+    {% endwith %}
+
+    <div class="header-section">
+      <!-- Action Bar -->
+      <div class="action-bar">
+        <a class="btn outline" href="{{ url_for('admin.admin_content_list') }}">
+          <i class="fas fa-arrow-left"></i>
+          Back to List
+        </a>
+        <button class="btn copy-link-btn" onclick="copyPageLink()">
+          <i class="fas fa-link"></i>
+          Copy Link
+        </button>
+        <button class="btn share-btn" onclick="shareContent()">
+          <i class="fas fa-share-alt"></i>
+          Share
+        </button>
+      </div>
+    </div>
+
+    <!-- Flash Messages -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        {% for category, message in messages %}
+          <div class="flash {{ category }}">
+            <i class="fas fa-{% if category == 'success' %}check-circle{% elif category == 'error' %}exclamation-circle{% elif category == 'warning' %}exclamation-triangle{% else %}info-circle{% endif %}"></i>
+            {{ message }}
+          </div>
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
+
+    <!-- Main Layout -->
+    <div class="main-layout">
+      <!-- Content Main -->
+      <div class="content-main">
+        <div class="card glow-effect">
+          <!-- Content Header -->
+          <div class="content-header">
+            <div class="content-header-content">
+              <div style="display: flex; align-items: center; margin-bottom: 16px;">
+                <div class="content-type-icon">
+                  <i class="fas fa-{% if item.kind == 'update' %}sync-alt{% elif item.kind == 'document' %}file-alt{% elif item.kind == 'news' %}newspaper{% elif item.kind == 'image' %}image{% else %}file{% endif %}"></i>
+                </div>
+                <div class="content-type-badge">
+                  <i class="fas fa-{% if item.kind == 'update' %}sync-alt{% elif item.kind == 'document' %}file-alt{% elif item.kind == 'news' %}newspaper{% elif item.kind == 'image' %}image{% else %}file{% endif %}"></i>
+                  {{ item.kind|capitalize }}
+                </div>
+              </div>
+              
+              <h1 class="content-title">{{ item.title }}</h1>
+              
+              <div class="content-meta">
+                <div class="meta-item">
+                  <i class="fas fa-calendar-plus"></i>
+                  Created: {{ item.created_at }}
+                </div>
+                {% if item.updated_at %}
+                <div class="meta-item">
+                  <i class="fas fa-calendar-edit"></i>
+                  Updated: {{ item.updated_at }}
+                </div>
+                {% endif %}
+                <div class="meta-item">
+                  {% if item.published_at %}
+                    <span class="status-badge published">
+                      <i class="fas fa-globe"></i>
+                      Published: {{ item.published_at }}
+                    </span>
+                  {% else %}
+                    <span class="status-badge draft">
+                      <i class="fas fa-eye-slash"></i>
+                      Draft
+                    </span>
+                  {% endif %}
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Content Body -->
+          <div class="content-body">
+            <!-- Hero Image Section -->
+            {% if item.image_path %}
+            <div class="content-section">
+              <div class="image-container">
+                <img class="hero-image" src="{{ url_for('admin.static', filename=item.image_path) }}" 
+                     alt="{{ item.title }}" 
+                     loading="lazy" />
+              </div>
+            </div>
+            {% endif %}
+
+            <!-- Summary Section -->
+            {% if item.summary %}
+            <div class="content-section">
+              <h3 class="section-title">
+                <i class="fas fa-align-left"></i>
+                Summary
+              </h3>
+              <div class="summary-text">{{ item.summary }}</div>
+            </div>
+            {% endif %}
+
+            <!-- Body Content Section -->
+            {% if item.body %}
+            <div class="content-section">
+              <h3 class="section-title">
+                <i class="fas fa-file-text"></i>
+                Content
+              </h3>
+              <div class="body-content">{{ item.body }}</div>
+            </div>
+            {% endif %}
+
+            <!-- Document Section -->
+            {% if item.doc_path %}
+            <div class="content-section">
+              <h3 class="section-title">
+                <i class="fas fa-paperclip"></i>
+                Attached Document
+              </h3>
+              <div class="document-preview">
+                <div class="document-icon">
+                  <i class="fas fa-file-pdf"></i>
+                </div>
+                <h4 style="margin-bottom: 8px; color: var(--dark-color);">Document Available</h4>
+                <p style="color: var(--secondary-color); margin-bottom: 16px;">Click below to open the attached document</p>
+                <a class="btn" href="{{ url_for('admin.static', filename=item.doc_path) }}" target="_blank">
+                  <i class="fas fa-external-link-alt"></i>
+                  Open Document
+                </a>
+              </div>
+            </div>
+            {% endif %}
+
+            <!-- External Link Section -->
+            {% if item.external_link %}
+            <div class="content-section">
+              <h3 class="section-title">
+                <i class="fas fa-external-link-alt"></i>
+                External Resource
+              </h3>
+              <div class="external-link-preview">
+                <div class="link-icon">
+                  <i class="fas fa-globe"></i>
+                </div>
+                <h4 style="margin-bottom: 8px; color: var(--dark-color);">External Link Available</h4>
+                <p style="color: var(--secondary-color); margin-bottom: 16px;">Access additional resources or official documentation</p>
+                <a class="btn" href="{{ item.external_link }}" target="_blank" rel="noopener noreferrer">
+                  <i class="fas fa-external-link-alt"></i>
+                  Visit Link
+                </a>
+              </div>
+            </div>
+            {% endif %}
+
+            <!-- Empty State -->
+            {% if not item.summary and not item.body and not item.doc_path and not item.external_link %}
+            <div class="content-section">
+              <div class="no-content">
+                <i class="fas fa-file-plus" style="font-size: 48px; margin-bottom: 16px; opacity: 0.5;"></i>
+                <p>No content available for this item.</p>
+                <p style="margin-top: 8px;">
+                  <a href="{{ url_for('admin.admin_content_edit', content_id=item.id) }}" class="btn">
+                    <i class="fas fa-edit"></i>
+                    Add Content
+                  </a>
+                </p>
+              </div>
+            </div>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+
+      <!-- Quick Actions Sidebar -->
+      <div class="quick-actions">
+        <h4>
+          <i class="fas fa-bolt"></i>
+          Quick Actions
+        </h4>
+        <a class="btn" href="{{ url_for('admin.admin_content_edit', content_id=item.id) }}">
+          <i class="fas fa-edit"></i>
+          Edit
+        </a>
+        {% if not item.published_at %}
+        <button class="btn share-btn" onclick="publishContent()">
+          <i class="fas fa-globe"></i>
+          Publish Now
+        </button>
+        {% endif %}
+        <button class="btn copy-link-btn" onclick="copyPageLink()">
+          <i class="fas fa-copy"></i>
+          Copy URL
+        </button>
+        <button class="btn secondary" onclick="window.print()">
+          <i class="fas fa-print"></i>
+          Print
+        </button>
+
+        <!-- Metadata -->
+        <div style="margin-top: 0;">
+          <div class="metadata-item">
+            <div class="metadata-label">Content ID</div>
+            <div class="metadata-value">#{{ item.id }}</div>
+          </div>
+          <div class="metadata-item">
+            <div class="metadata-label">Type</div>
+            <div class="metadata-value">{{ item.kind|capitalize }}</div>
+          </div>
+          {% if item.published_at %}
+          <div class="metadata-item">
+            <div class="metadata-label">Status</div>
+            <div class="metadata-value" style="color: var(--success-color); display: flex; align-items: center; gap: 6px;">
+              <i class="fas fa-check-circle"></i> Published
+            </div>
+          </div>
+          {% else %}
+          <div class="metadata-item">
+            <div class="metadata-label">Status</div>
+            <div class="metadata-value" style="color: var(--warning-color); display: flex; align-items: center; gap: 6px;">
+              <i class="fas fa-clock"></i> Draft
+            </div>
+          </div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification Container -->
+  <div id="toastContainer" style="position: fixed; top: 20px; right: 20px; z-index: 1000;"></div>
+
+  {% endblock %}

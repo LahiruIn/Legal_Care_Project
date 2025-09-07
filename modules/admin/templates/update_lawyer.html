@@ -1,0 +1,218 @@
+{% extends "struc.html" %}
+
+{% block title %}Update Lawyer - {{ lawyer.full_name }}{% endblock %}
+{% block page_title %}Update Lawyer{% endblock %}
+{% block breadcrumb %}
+<li class="breadcrumb-item"><a href="{{ url_for('lawyer_mgmt.manage_lawyers') }}">Lawyers</a></li>
+<li class="breadcrumb-item active">Update</li>
+{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('admin.static', filename='add_lawyer.css') }}">
+{% endblock %}
+
+{% block content %}
+<script src="{{ url_for('admin.static', filename='update_lawyer.js') }}" defer></script>
+
+<div class="form-container">
+    <form method="POST" action="{{ url_for('lawyer_mgmt.update_lawyer', id=lawyer.id) }}" enctype="multipart/form-data">
+        <div class="form-header">
+            <h2><i class="fas fa-user-edit"></i> Update Lawyer Profile</h2>
+        </div>
+
+        <div class="form-grid">
+            <div class="form-group">
+                <label for="full_name">Full Name</label>
+                <div class="input-wrapper">
+                    <input type="text" id="full_name" name="full_name" value="{{ lawyer.full_name }}" required>
+                    <i class="fas fa-user input-icon"></i>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="email">Email Address</label>
+                <div class="input-wrapper">
+                    <input type="email" id="email" name="email" value="{{ lawyer.email }}" required>
+                    <i class="fas fa-envelope input-icon"></i>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="phone">Phone Number</label>
+                <div class="input-wrapper">
+                    <input type="tel" id="phone" name="phone" value="{{ lawyer.phone }}">
+                    <i class="fas fa-phone input-icon"></i>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="nic">NIC Number</label>
+                <div class="input-wrapper">
+                    <input type="text" id="nic" name="nic" value="{{ lawyer.nic }}">
+                    <i class="fas fa-id-card input-icon"></i>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="register_no">Bar Register Number</label>
+                <div class="input-wrapper">
+                    <input type="text" id="register_no" name="register_no" value="{{ lawyer.register_no }}" required>
+                    <i class="fas fa-gavel input-icon"></i>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="law_side">Specialization</label>
+                <select id="law_side" name="law_side" required>
+                    <option value="">Select specialization</option>
+                    {% for option in ["Criminal Law", "Corporate Law", "Family Law", "Property Law", "Intellectual Property", "Tax Law", "Immigration Law"] %}
+                        <option value="{{ option }}" {% if lawyer.law_side == option %}selected{% endif %}>{{ option }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="username">Username</label>
+                <div class="input-wrapper">
+                    <input type="text" id="username" name="username" value="{{ lawyer.username }}" required>
+                    <i class="fas fa-user-tag input-icon"></i>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Account Status</label>
+                <div class="status-toggle">
+                    <span class="toggle-label">Status:</span>
+                    <label class="toggle-switch">
+                        <input type="checkbox" name="status" {% if lawyer.status %}checked{% endif %}>
+                        <span class="toggle-slider"></span>
+                    </label>
+                    <span class="status-text" id="statusText">{{ "Active" if lawyer.status else "Inactive" }}</span>
+                </div>
+            </div>
+
+            <div class="form-group span-2">
+                <label>Current Photo</label>
+                {% if lawyer.lawyer_img %}
+                    <img src="data:image/jpeg;base64,{{ lawyer.lawyer_img | b64encode }}" class="img-thumbnail" style="width: 200px;">
+                {% else %}
+                    <p>No photo available</p>
+                {% endif %}
+            </div>
+
+            <div class="form-group span-2">
+                <label>Upload New Photo</label>
+                <input type="file" name="lawyer_img" accept="image/*">
+            </div>
+
+            <div class="form-group span-2">
+                <label for="address">Office Address</label>
+                <textarea id="address" name="address">{{ lawyer.address }}</textarea>
+            </div>
+
+            <div class="form-group span-2">
+                <label for="lawyer_note">Additional Notes</label>
+                <textarea id="lawyer_note" name="lawyer_note">{{ lawyer.lawyer_note }}</textarea>
+            </div>
+
+            <div class="availability-section span-2">
+              <h3><i class="fas fa-calendar-check"></i> Weekly Availability</h3>
+
+              <div class="day-type-selector">
+                  <!-- Weekdays Card -->
+                  <div class="day-type-card {% if 'Monday' in lawyer.avb_days %}selected{% endif %}" id="weekdayCard">
+                      <h4><i class="fas fa-briefcase"></i> Weekdays</h4>
+                      <p>Monday to Friday availability</p>
+                      <input type="checkbox" id="weekdays" class="day-checkbox" name="day_type[]" value="weekdays"
+                            style="display: none;"
+                            {% if 'Monday' in lawyer.avb_days %}checked{% endif %}>
+                  </div>
+
+                  <!-- Weekend Card (🛠 fixed checkbox logic) -->
+                  <div class="day-type-card {% if lawyer.weekend_time or 'Saturday' in lawyer.avb_days or 'Sunday' in lawyer.avb_days %}selected{% endif %}" id="weekendCard">
+                      <h4><i class="fas fa-umbrella-beach"></i> Weekend</h4>
+                      <p>Saturday and Sunday availability</p>
+                      <input type="checkbox" id="weekend" class="day-checkbox" name="day_type[]" value="weekend"
+                            style="display: none;"
+                            {% if lawyer.weekend_time or 'Saturday' in lawyer.avb_days or 'Sunday' in lawyer.avb_days %}checked{% endif %}>
+                  </div>
+              </div>
+
+              <!-- Select Weekday Days -->
+              <div class="day-selection" id="weekday-day-selection"
+                  {% if not 'Monday' in lawyer.avb_days %}style="display: none;"{% endif %}>
+                  <h4>Select Weekdays</h4>
+                  {% for day in ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"] %}
+                      <input type="checkbox" id="{{ day|lower }}" class="day-checkbox" name="weekday_days[]" value="{{ day }}"
+                            {% if day in lawyer.avb_days %}checked{% endif %}>
+                      <label for="{{ day|lower }}" class="day-label"><i class="far fa-calendar-alt"></i> {{ day }}</label>
+                  {% endfor %}
+              </div>
+
+              <!-- Select Weekend Days -->
+              <div class="day-selection" id="weekend-day-selection"
+                  {% if not 'Saturday' in lawyer.avb_days and not 'Sunday' in lawyer.avb_days %}style="display: none;"{% endif %}>
+                  <h4>Select Weekend Days</h4>
+                  {% for day in ["Saturday", "Sunday"] %}
+                      <input type="checkbox" id="{{ day|lower }}" class="day-checkbox" name="weekend_days[]" value="{{ day }}"
+                            {% if day in lawyer.avb_days %}checked{% endif %}>
+                      <label for="{{ day|lower }}" class="day-label"><i class="far fa-calendar-alt"></i> {{ day }}</label>
+                  {% endfor %}
+              </div>
+
+              <!-- Time Slot Selection -->
+              <div class="time-slots-container">
+                  <!-- Weekdays -->
+                  <div class="time-slot-group" id="weekday-availability"
+                      {% if not 'Monday' in lawyer.avb_days %}style="display: none;"{% endif %}>
+                      <h4><i class="far fa-clock"></i> Weekdays Time Slots</h4>
+                      <div class="time-slots">
+                          {% for slot, label in {
+                              "8am-12pm": "Morning (8:00 AM - 12:00 PM)",
+                              "12pm-4pm": "Afternoon (12:00 PM - 4:00 PM)",
+                              "8am-4pm": "Full Day (8:00 AM - 4:00 PM)",
+                              "4pm-8pm": "Evening (4:00 PM - 8:00 PM)"
+                          }.items() %}
+                          <div class="time-slot">
+                              <input type="radio" id="weekday-{{ loop.index }}" class="time-checkbox" name="weekday_time"
+                                    value="{{ slot }}" {% if lawyer.weekday_time == slot %}checked{% endif %}>
+                              <label for="weekday-{{ loop.index }}" class="time-label">{{ label }}</label>
+                          </div>
+                          {% endfor %}
+                      </div>
+                  </div>
+
+                  <!-- Weekend (🛠 fixed id) -->
+                  <div class="time-slot-group" id="weekend-availability"
+                      {% if not 'Saturday' in lawyer.avb_days and not 'Sunday' in lawyer.avb_days %}style="display: none;"{% endif %}>
+                      <h4><i class="far fa-clock"></i> Weekend Time Slots</h4>
+                      <div class="time-slots">
+                          {% for slot, label in {
+                              "8am-12pm": "Morning (8:00 AM - 12:00 PM)",
+                              "12pm-4pm": "Afternoon (12:00 PM - 4:00 PM)",
+                              "8am-4pm": "Full Day (8:00 AM - 4:00 PM)",
+                              "4pm-8pm": "Evening (4:00 PM - 8:00 PM)"
+                          }.items() %}
+                          <div class="time-slot">
+                              <input type="radio" id="weekend-{{ loop.index }}" class="time-checkbox" name="weekend_time"
+                                    value="{{ slot }}" {% if lawyer.weekend_time == slot %}checked{% endif %}>
+                              <label for="weekend-{{ loop.index }}" class="time-label">{{ label }}</label>
+                          </div>
+                          {% endfor %}
+                      </div>
+                  </div>
+              </div>
+          </div>
+
+            <div class="form-actions span-2">
+                <a href="{{ url_for('lawyer_mgmt.manage_lawyers') }}" class="btn btn-secondary">
+                    <i class="fas fa-times"></i> Cancel
+                </a>
+                <button type="submit" class="btn btn-primary">
+                    <i class="fas fa-save"></i> Save Changes
+                </button>
+            </div>
+        </div>
+    </form>
+</div>
+{% endblock %}

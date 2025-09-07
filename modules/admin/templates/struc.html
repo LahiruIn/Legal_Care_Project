@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Legal Care - {% block title %}Admin Dashboard{% endblock %}</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"/>
+  <link rel="stylesheet" href="{{ url_for('admin.static', filename='dashboard.css') }}"/>
+  <script src="{{ url_for('admin.static', filename='dashboard.js') }}" defer></script>
+  {% block extra_css %}{% endblock %}
+</head>
+
+<body>
+  <!-- ========== SIDEBAR MENU ========== -->
+  <div class="sidebar" id="sidebar">
+    <div class="logo">
+      <div class="logo-icon"><i class="fas fa-scale-balanced"></i></div>
+      <div class="logo-text">Legal Care</div>
+    </div>
+
+    <div class="nav-menu">
+      <div class="nav-section">
+        <div class="nav-section-title">Main</div>
+        <div class="nav-item">
+          <a href="{{ url_for('admin.admin_dashboard') }}" class="nav-link {% if active_page == 'dashboard' %}active{% endif %}">
+            <div class="nav-icon"><i class="fas fa-chart-pie"></i></div>
+            <span class="nav-text">Dashboard</span>
+          </a>
+        </div>
+      </div>
+
+      <div class="nav-section">
+        <div class="nav-section-title">Management</div>
+        <div class="nav-item">
+      <a href="{{ url_for('user_mgmt.manage_users') }}" class="nav-link {% if active_page == 'users' %}active{% endif %}">
+        <div class="nav-icon"><i class="fas fa-users"></i></div>
+        <span class="nav-text">Users</span>
+      </a>
+    </div>
+        <div class="nav-item">
+          <a href="{{ url_for('lawyer_mgmt.manage_lawyers') }}" class="nav-link {% if active_page == 'lawyers' %}active{% endif %}">
+            <div class="nav-icon"><i class="fas fa-gavel"></i></div>
+            <span class="nav-text">Lawyers</span>
+          </a>
+        </div>
+        <div class="nav-item">
+          <a href="{{ url_for('admin.admin_appointments') }}" class="nav-link {% if active_page == 'appointments' %}active{% endif %}">
+            <div class="nav-icon"><i class="fas fa-calendar-check"></i></div>
+            <span class="nav-text">Appointment</span>
+          </a>
+        </div>
+        <div class="nav-item">
+          <a href="{{ url_for('admin.admin_content_list') }}" class="nav-link {% if active_page == 'law_content' %}active{% endif %}">
+            <div class="nav-icon"><i class="fas fa-credit-card"></i></div>
+            <span class="nav-text">Law Content</span>
+          </a>
+        </div>
+      </div>
+
+      <div class="nav-section">
+        <div class="nav-section-title">Support</div>
+        <div class="nav-item">
+          <a href="#" class="nav-link">
+            <div class="nav-icon"><i class="fas fa-headset"></i></div>
+            <span class="nav-text">Support</span>
+          </a>
+        </div>
+        <div class="nav-item">
+          <a href="{{ url_for('admin.admin_logout') }}" class="nav-link">
+            <div class="nav-icon"><i class="fas fa-sign-out-alt"></i></div>
+            <span class="nav-text">Logout</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="main-content">
+    <header class="header">
+      <div class="header-left">
+        <button class="menu-toggle" id="toggleMenu">
+          <i class="fas fa-bars"></i>
+        </button>
+        <div>
+          <h1 class="page-title">{% block page_title %}Dashboard{% endblock %}</h1>
+          <div class="breadcrumb">
+            <span class="breadcrumb-item"><i class="fas fa-home"></i> Home</span>
+            <span class="breadcrumb-separator"><i class="fas fa-chevron-right"></i></span>
+            <span class="breadcrumb-item">{% block breadcrumb %}Dashboard{% endblock %}</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="header-right">
+        <div class="search-container">
+          <input type="text" class="search-input" placeholder="Search anything...">
+          <i class="fas fa-search search-icon"></i>
+        </div>
+        <div class="header-actions">
+          <button class="header-btn"><i class="fas fa-bell"></i><div class="notification-badge"></div></button>
+          <button class="header-btn"><i class="fas fa-envelope"></i></button>
+        </div>
+        <div class="user-profile">
+          <div class="user-avatar">{{ username[:2].upper() }}</div>
+          <div class="user-info">
+            <div class="user-name">{{ username }}</div>
+            <div class="user-role">Administrator</div>
+          </div>
+          <i class="fas fa-chevron-down" style="color: var(--secondary-color); font-size: 12px;"></i>
+        </div>
+      </div>
+    </header>
+
+    <!-- ========== CONTENT BLOCK ========== -->
+    <div class="dashboard-content fade-in">
+      {% block content %}{% endblock %}
+    </div>
+  </div>
+
+  {% block extra_js %}{% endblock %}
+</body>
+</html>

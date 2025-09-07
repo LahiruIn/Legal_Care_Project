@@ -1,0 +1,205 @@
+{% extends "struc.html" %}
+
+{% block title %}Manage Content{% endblock %}
+{% block page_title %}Manage Content{% endblock %}
+{% block breadcrumb %}Add Content{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('admin.static', filename='content_new.css') }}"/>
+{% endblock %}
+
+{% block content %}
+<script src="{{ url_for('admin.static', filename='content_new.js') }}" defer></script>
+
+<div class="dashboard-content fade-in">
+
+  <!-- Flash Messages -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        <div class="flash-messages">
+          {% for c, m in messages %}
+            <div class="flash {{ c }}">
+              <i class="fas fa-{% if c == 'success' %}check-circle{% elif c == 'error' %}exclamation-circle{% else %}info-circle{% endif %}"></i>
+              {{ m }}
+            </div>
+          {% endfor %}
+        </div>
+      {% endif %}
+    {% endwith %}
+
+     <div class="card">
+      <form method="post" enctype="multipart/form-data" action="{{ url_for('admin.admin_content_new') }}" id="contentForm">
+
+        <!-- Page Header -->
+    <div class="page-header">
+      <h3 class="page-titlel">
+        <i class="fas fa-plus-circle"></i>
+        Create New Law Content
+      </h3>
+    </div>
+        
+        <!-- Basic Information Section -->
+        <div class="form-section">
+          <h2 class="section-title">
+            <i class="fas fa-info-circle"></i>
+            Basic Information
+          </h2>
+          
+          <div class="form-group">
+            <label class="required">
+              <i class="fas fa-tag"></i>
+              Content Type
+            </label>
+            <select name="kind" required id="contentType">
+              <option value="">Select content type...</option>
+              <option value="update">Law Update</option>
+              <option value="document">Law Document</option>
+              <option value="news">Law News</option>
+              <option value="image">Law Image</option>
+            </select>
+            <div class="note info">
+              <i class="fas fa-info-circle"></i>
+              Choose the type of legal content you're creating
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="required">
+              <i class="fas fa-heading"></i>
+              Title
+            </label>
+            <input name="title" placeholder="e.g., Criminal Procedure (Amendment) Act 2025" required maxlength="200" id="titleInput" />
+            <div class="char-counter" id="titleCounter">0 / 200 characters</div>
+          </div>
+
+          <div class="form-group">
+            <label>
+              <i class="fas fa-align-left"></i>
+              Summary
+            </label>
+            <textarea name="summary" placeholder="Brief summary of the content (recommended for better SEO)" maxlength="500" id="summaryInput"></textarea>
+            <div class="char-counter" id="summaryCounter">0 / 500 characters</div>
+            <div class="note">
+              <i class="fas fa-lightbulb"></i>
+              A good summary helps users understand the content at a glance
+            </div>
+          </div>
+        </div>
+
+        <!-- Content Section -->
+        <div class="form-section">
+          <h3 class="section-title">
+            <i class="fas fa-file-text"></i>
+            Content Details
+          </h3>
+          
+          <div class="form-group">
+            <label>
+              <i class="fas fa-paragraph"></i>
+              Full Content
+            </label>
+            <textarea name="body" placeholder="Enter the full text content here..." class="textarea-large" id="bodyInput"></textarea>
+            <div class="note">
+              <i class="fas fa-info-circle"></i>
+              Detailed content body - supports basic HTML formatting
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>
+              <i class="fas fa-external-link-alt"></i>
+              External Link
+            </label>
+            <input name="external_link" type="url" placeholder="https://example.com/official-document" id="externalLink" />
+            <div class="note">
+              <i class="fas fa-info-circle"></i>
+              Optional link to external resources or official documents
+            </div>
+          </div>
+        </div>
+
+        <!-- Media & Files Section -->
+        <div class="form-section">
+          <h3 class="section-title">
+            <i class="fas fa-paperclip"></i>
+            Media & Attachments
+          </h3>
+          
+          <div class="row">
+            <div class="form-group">
+              <label>
+                <i class="fas fa-image"></i>
+                Hero Image
+              </label>
+              <div class="file-input-wrapper">
+                <div class="file-input">
+                  <input type="file" name="image_file" accept=".png,.jpg,.jpeg,.gif,.webp" id="imageFile" />
+                  <label for="imageFile" class="file-input-label" id="imageLabel">
+                    <i class="fas fa-cloud-upload-alt"></i>
+                    <span>Choose image file</span>
+                  </label>
+                </div>
+              </div>
+              <div class="note" id="imageNote">
+                <i class="fas fa-info-circle"></i>
+                Supports PNG, JPG, GIF, WEBP formats
+              </div>
+            </div>
+            
+            <div class="form-group">
+              <label>
+                <i class="fas fa-file-pdf"></i>
+                Document File
+              </label>
+              <div class="file-input-wrapper">
+                <div class="file-input">
+                  <input type="file" name="doc_file" accept=".pdf,.doc,.docx,.ppt,.pptx,.xls,.xlsx,.txt" id="docFile" />
+                  <label for="docFile" class="file-input-label" id="docLabel">
+                    <i class="fas fa-cloud-upload-alt"></i>
+                    <span>Choose document file</span>
+                  </label>
+                </div>
+              </div>
+              <div class="note" id="docNote">
+                <i class="fas fa-info-circle"></i>
+                Supports PDF, DOC, PPT, XLS, TXT formats
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Publishing Options -->
+        <div class="form-section">
+          <h3 class="section-title">
+            <i class="fas fa-globe"></i>
+            Publishing Options
+          </h3>
+          
+          <div class="checkbox-wrapper">
+            <input type="checkbox" name="publish_now" id="publishNow" />
+            <label for="publishNow">
+              <i class="fas fa-eye"></i>
+              Publish immediately
+            </label>
+          </div>
+          <div class="note">
+            <i class="fas fa-info-circle"></i>
+            If unchecked, content will be saved as draft and can be published later
+          </div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="btnbar">
+          <button class="btn" type="submit" id="submitBtn">
+            <i class="fas fa-save"></i>
+            Create Content
+          </button>
+          <a class="btn secondary" href="{{ url_for('admin.admin_content_list') }}">
+            <i class="fas fa-arrow-left"></i>
+            Back to List
+          </a>
+        </div>
+      </form>
+    </div>
+  </div>
+{% endblock %}

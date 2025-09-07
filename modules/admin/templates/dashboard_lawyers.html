@@ -1,0 +1,149 @@
+{% extends "struc.html" %}
+
+{% block title %}Manage Lawyers{% endblock %}
+{% block page_title %}Manage Lawyers{% endblock %}
+{% block breadcrumb %}Manage Lawyers{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('admin.static', filename='dashboard_lawyer.css') }}"/>
+{% endblock %}
+
+{% block content %}
+<script src="{{ url_for('admin.static', filename='dashboard_lawyer.js') }}" defer></script>
+
+<div class="dashboard-content fade-in">
+
+  <!-- Flash Messages -->
+  {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+      <div class="flash-messages">
+        {% for category, message in messages %}
+          <div class="alert alert-{{ category }}">{{ message }}</div>
+        {% endfor %}
+      </div>
+    {% endif %}
+  {% endwith %}
+
+  <!-- Lawyer Management Header -->
+  <div class="lawyer-management-header">
+    <div class="header-left">
+      <div class="lawyer-stats">
+        <div class="stat-card">
+          <div class="stat-value" id="visible-lawyers">{{ lawyers | length }}</div> <!-- New -->
+          <div class="stat-label">Total Lawyers</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value active" id="active-lawyers">
+            {{ lawyers | selectattr('status', 'equalto', 1) | list | length }}
+          </div>
+          <div class="stat-label">Active</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value inactive" id="inactive-lawyers">
+            {{ lawyers | selectattr('status', 'equalto', 0) | list | length }}
+          </div>
+          <div class="stat-label">Inactive</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="header-right">
+      <a href="{{ url_for('lawyer_mgmt.add_lawyer') }}" class="btn btn-primary add-lawyer-btn">
+        <i class="fas fa-user-plus"></i> Add Lawyer
+      </a>
+    </div>
+  </div>
+
+  <!-- Lawyer Table -->
+  <div class="table-card">
+    <div class="table-header">
+      <h3>Registered Lawyers</h3>
+      <div class="table-controls">
+        <div class="search-container">
+        <input type="text" class="search-input" placeholder="Search lawyers..." id="lawyer-search" />
+        <button class="search-btn"><i class="fas fa-search"></i></button>
+      </div>
+      <div class="filter-dropdown">
+        <select class="form-select" id="lawyer-filter">
+          <option value="all">All Lawyers</option>
+          <option value="active">Active Only</option>
+          <option value="inactive">Inactive Only</option>
+        </select>
+      </div>
+      </div>
+    </div>
+
+    <div class="table-responsive">
+      <div class="table-scroll-container">
+        <table class="lawyer-table" id="lawyers-table">
+          <thead>
+            
+            <tr>
+              <th class="select-col"><input type="checkbox" id="selectAll"></th>
+              <th>Lawyer ID</th>
+              <th>Name</th>
+              <th>Register No</th>
+              <th>Specialization</th>
+              <th>Active Status</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for lawyer in lawyers %}
+            <tr data-status="{{ lawyer.status }}" data-specialization="{{ lawyer.law_side.lower() }}">
+              <td><input type="checkbox" class="lawyer-checkbox" value="{{ lawyer.id }}"></td>
+              <td>LC-{{ '%04d' % lawyer.id }}</td>
+              <td>
+                <div class="user-cell">
+                  {% if lawyer.lawyer_img %}
+                    <img class="user-avatar-img" src="data:image/jpeg;base64,{{ lawyer.lawyer_img | b64encode }}" alt="{{ lawyer.full_name }}" />
+                  {% else %}
+                    <div class="user-avatar" style="background-color: #3b82f6;">
+                      {{ lawyer.full_name[:1] }}{{ lawyer.full_name.split()[-1][:1] if lawyer.full_name.split()|length > 1 else '' }}
+                    </div>
+                  {% endif %}
+                  <div class="user-details">
+                    <div class="user-name">{{ lawyer.full_name }}</div>
+                    <div class="user-email">{{ lawyer.email }}</div>
+                  </div>
+                </div>
+              </td>
+              <td>{{ lawyer.register_no }}</td>
+              <td>{{ lawyer.law_side }}</td>
+              <td>
+                {% if lawyer.status == 1 %}
+                  <span class="status-badge active">Active</span>
+                {% else %}
+                  <span class="status-badge inactive">Inactive</span>
+                {% endif %}
+              </td>
+              <td>
+                <div class="action-buttons">
+                  <a href="{{ url_for('lawyer_mgmt.view_lawyer', id=lawyer.id) }}" class="action-btn view-btn" title="View">
+                    <i class="fas fa-eye"></i>
+                  </a>
+                  <a href="{{ url_for('lawyer_mgmt.update_lawyer', id=lawyer.id) }}" class="action-btn edit-btn" title="Edit">
+                    <i class="fas fa-edit"></i>
+                  </a>
+                  <form method="POST" action="{{ url_for('lawyer_mgmt.delete_lawyer', id=lawyer.id) }}" 
+                  onsubmit="return confirm('Are you sure you want to delete this lawyer?');" 
+                  style="display:inline;">
+                    <button type="submit" class="action-btn delete-btn" title="Delete">
+                      <i class="fas fa-trash-alt"></i>
+                    </button>
+                  </form>
+                </div>
+              </td>
+            </tr>
+            {% else %}
+            <tr>
+              <td colspan="7" class="text-center">No lawyers found.</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

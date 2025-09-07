@@ -1,0 +1,1311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Legal Updates & Documents • LegalCare</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary-color: #2563eb;
+      --primary-hover: #1d4ed8;
+      --secondary-color: #64748b;
+      --success-color: #10b981;
+      --info-color: #3b82f6;
+      --dark-color: #0f172a;
+      --light-color: #f8fafc;
+      --border-color: #e2e8f0;
+      --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+      --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+      --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+      --bg: #0b1020;
+      --card: #121833;
+      --ink: #eaf2ff;
+      --muted: #a5b4fc;
+      --line: #1f2a59;
+      --brand: #5b8cff;
+      --chip: #1a2450;
+      --accent: #00d4ff;
+      --btn: #6e8cff;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      line-height: 1.6;
+      color: var(--dark-color);
+      background: var(--light-color);
+      font-weight: 400;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    /* Navigation Bar - Improved */
+    .navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border-color);
+      z-index: 1000;
+      transition: all 0.3s ease;
+      padding: 0 5%;
+    }
+
+    .navbar.scrolled {
+      background: rgba(255, 255, 255, 0.98);
+      box-shadow: var(--shadow-md);
+    }
+
+    .nav-container {
+      max-width: 1400px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1rem 0;
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      text-decoration: none;
+      color: var(--dark-color);
+      font-weight: 700;
+      font-size: 1.5rem;
+      transition: all 0.3s ease;
+    }
+
+    .nav-logo:hover {
+      color: var(--primary-color);
+      transform: scale(1.05);
+    }
+
+    .nav-logo i {
+      color: var(--primary-color);
+      font-size: 2rem;
+    }
+
+    .nav-menu {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .nav-link {
+      text-decoration: none;
+      color: var(--secondary-color);
+      font-weight: 500;
+      font-size: 0.95rem;
+      transition: all 0.3s ease;
+      position: relative;
+      padding: 0.5rem 0;
+    }
+
+    .nav-link:hover {
+      color: var(--primary-color);
+    }
+
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--primary-color);
+      transition: width 0.3s ease;
+    }
+
+    .nav-link:hover::after {
+      width: 100%;
+    }
+
+    .nav-link.active {
+      color: var(--primary-color);
+    }
+
+    .nav-link.active::after {
+      width: 100%;
+    }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    /* Profile Section with Dropdown - Improved */
+    .nav-profile {
+      position: relative;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.5rem;
+      border-radius: 8px;
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+
+    .nav-profile:hover {
+      background: rgba(0, 0, 0, 0.05);
+    }
+
+    .profile-avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--primary-color), var(--info-color));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: 600;
+      font-size: 1rem;
+    }
+
+    .profile-info {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .profile-name {
+      font-weight: 600;
+      font-size: 0.9rem;
+      color: var(--dark-color);
+    }
+
+    .profile-role {
+      font-size: 0.75rem;
+      color: var(--secondary-color);
+    }
+
+    .profile-dropdown-icon {
+      margin-left: 0.5rem;
+      font-size: 0.8rem;
+      color: var(--secondary-color);
+      transition: transform 0.3s ease;
+    }
+
+    .profile-dropdown-icon.rotated {
+      transform: rotate(180deg);
+    }
+
+    /* Dropdown Menu */
+    .profile-dropdown {
+      position: absolute;
+      top: 100%;
+      right: 0;
+      background: white;
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      box-shadow: var(--shadow-xl);
+      min-width: 220px;
+      opacity: 0;
+      visibility: visible;
+      transform: translateY(-10px);
+      transition: all 0.3s ease;
+      z-index: 1001;
+      margin-top: 0.5rem;
+    }
+
+    .profile-dropdown.active {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+
+    .dropdown-header {
+      padding: 1rem;
+      border-bottom: 1px solid var(--border-color);
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .dropdown-avatar {
+      width: 45px;
+      height: 45px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--primary-color), var(--info-color));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: 600;
+      font-size: 1.1rem;
+    }
+
+    .dropdown-user-info h4 {
+      font-weight: 600;
+      color: var(--dark-color);
+      margin-bottom: 0.2rem;
+      font-size: 0.95rem;
+    }
+
+    .dropdown-user-info p {
+      color: var(--secondary-color);
+      font-size: 0.8rem;
+    }
+
+    .dropdown-menu {
+      list-style: none;
+      padding: 0.5rem 0;
+    }
+
+    .dropdown-item {
+      padding: 0.75rem 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      color: var(--dark-color);
+      text-decoration: none;
+      transition: all 0.3s ease;
+      font-size: 0.9rem;
+      font-weight: 500;
+    }
+
+    .dropdown-item:hover {
+      background: var(--light-color);
+      color: var(--primary-color);
+      padding-left: 1.25rem;
+    }
+
+    .dropdown-item i {
+      width: 16px;
+      color: var(--secondary-color);
+      transition: color 0.3s ease;
+    }
+
+    .dropdown-item:hover i {
+      color: var(--primary-color);
+    }
+
+    .dropdown-item.logout {
+      border-top: 1px solid var(--border-color);
+      margin-top: 0.5rem;
+      color: #dc2626;
+    }
+
+    .dropdown-item.logout:hover {
+      background: rgba(220, 38, 38, 0.1);
+      color: #dc2626;
+    }
+
+    .dropdown-item.logout i {
+      color: #dc2626;
+    }
+
+    .mobile-menu-toggle {
+      display: none;
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      color: var(--dark-color);
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .mobile-menu-toggle:hover {
+      color: var(--primary-color);
+      transform: scale(1.1);
+    }
+
+    /* Mobile Menu */
+    .mobile-menu {
+      position: fixed;
+      top: 0;
+      left: -100%;
+      width: 300px;
+      height: 100vh;
+      background: white;
+      box-shadow: var(--shadow-xl);
+      transition: left 0.3s ease;
+      z-index: 1001;
+      padding: 2rem;
+    }
+
+    .mobile-menu.active {
+      left: 0;
+    }
+
+    .mobile-menu-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 2rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .mobile-menu-close {
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      color: var(--dark-color);
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .mobile-menu-close:hover {
+      color: var(--primary-color);
+      transform: scale(1.1);
+    }
+
+    /* Mobile Profile Section */
+    .mobile-nav-profile {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 1.5rem 0;
+      border-bottom: 1px solid var(--border-color);
+      margin-bottom: 1rem;
+    }
+
+    .mobile-nav-menu {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .mobile-nav-menu li {
+      border-bottom: 1px solid rgba(226, 232, 240, 0.5);
+    }
+
+    .mobile-nav-menu .nav-link {
+      display: block;
+      padding: 1rem 0;
+      font-size: 1.1rem;
+      border-bottom: none;
+    }
+
+    .mobile-nav-menu .nav-link::after {
+      display: none;
+    }
+
+    .mobile-logout {
+      margin-top: 1rem;
+      padding-top: 1rem;
+      border-top: 1px solid var(--border-color);
+    }
+
+    .mobile-logout a {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      color: #dc2626;
+      text-decoration: none;
+      font-weight: 500;
+      padding: 0.75rem 0;
+      transition: all 0.3s ease;
+    }
+
+    .mobile-logout a:hover {
+      padding-left: 0.5rem;
+    }
+
+    .mobile-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 999;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+    }
+
+    .mobile-overlay.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .btn-outline {
+      background: transparent !important;
+      color: var(--primary-color) !important;
+      border: 2px solid var(--primary-color) !important;
+      padding: 0.65rem 1.4rem !important;
+      border-radius: 10px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.9rem;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      white-space: nowrap;
+    }
+
+    .btn-outline:hover {
+      background: var(--primary-color) !important;
+      color: white !important;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+    }
+
+    /* Main Content */
+    .main-content {
+      flex: 1;
+      padding: 120px 2rem 2rem;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .hero {
+      background: linear-gradient(135deg, rgba(37, 99, 235, 0.08), rgba(59, 130, 246, 0.05));
+      border: 1px solid var(--border-color);
+      border-radius: 16px;
+      padding: 2.5rem;
+      box-shadow: var(--shadow-sm);
+      margin-bottom: 2rem;
+    }
+
+    .hero h1 {
+      font-size: 2.25rem;
+      font-weight: 700;
+      color: var(--dark-color);
+      margin-bottom: 0.5rem;
+    }
+
+    .hero p {
+      color: var(--secondary-color);
+      font-size: 1.1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .filters {
+      display: grid;
+      grid-template-columns: 1fr 1fr auto;
+      gap: 1rem;
+      margin: 1.5rem 0;
+    }
+
+    @media (max-width: 800px) {
+      .filters {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .select, .input, .btn {
+      padding: 0.875rem 1rem;
+      border: 1px solid var(--border-color);
+      border-radius: 10px;
+      font-family: inherit;
+      font-size: 1rem;
+      transition: all 0.3s ease;
+    }
+
+    .select, .input {
+      background: white;
+      color: var(--dark-color);
+    }
+
+    .select:focus, .input:focus {
+      outline: none;
+      border-color: var(--primary-color);
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+    }
+
+    .btn {
+      background: var(--primary-color);
+      color: white;
+      border: none;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+    }
+
+    .btn:hover {
+      background: var(--primary-hover);
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
+    }
+
+    .chips {
+      display: flex;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+      margin-top: 1rem;
+    }
+
+    .chip {
+      padding: 0.5rem 1rem;
+      border: 1px solid var(--border-color);
+      border-radius: 999px;
+      background: rgba(37, 99, 235, 0.08);
+      color: var(--primary-color);
+      font-size: 0.85rem;
+      font-weight: 500;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+
+    @media (max-width: 1000px) {
+      .grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 640px) {
+      .grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .card {
+      background: white;
+      border-radius: 12px;
+      box-shadow: var(--shadow-md);
+      overflow: hidden;
+      border: 1px solid var(--border-color);
+      transition: all 0.3s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-xl);
+    }
+
+    .thumb {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      background: #f1f5f9;
+    }
+
+    .card-content {
+      padding: 1.5rem;
+    }
+
+    .card-category {
+      display: inline-block;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--primary-color);
+      background: rgba(37, 99, 235, 0.1);
+      padding: 0.35rem 0.75rem;
+      border-radius: 6px;
+      margin-bottom: 0.75rem;
+    }
+
+    .card-title {
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: var(--dark-color);
+      margin-bottom: 0.75rem;
+      line-height: 1.4;
+    }
+
+    .card-summary {
+      color: var(--secondary-color);
+      font-size: 0.95rem;
+      margin-bottom: 1rem;
+      line-height: 1.5;
+    }
+
+    .card-meta {
+      color: var(--secondary-color);
+      font-size: 0.85rem;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .card-meta i {
+      color: var(--primary-color);
+    }
+
+    .card-actions {
+      display: flex;
+      gap: 0.75rem;
+    }
+
+    .action-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      padding: 0.6rem 1rem;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      font-weight: 500;
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+
+    .btn-primary {
+      background: var(--primary-color);
+      color: white;
+      border: none;
+    }
+
+    .btn-primary:hover {
+      background: var(--primary-hover);
+      transform: translateY(-2px);
+    }
+
+    .btn-secondary {
+      background: transparent;
+      color: var(--secondary-color);
+      border: 1px solid var(--border-color);
+    }
+
+    .btn-secondary:hover {
+      background: #f8fafc;
+      transform: translateY(-2px);
+    }
+
+    .empty-state {
+      text-align: center;
+      padding: 3rem 1rem;
+      color: var(--secondary-color);
+      background: white;
+      border-radius: 12px;
+      border: 1px solid var(--border-color);
+      margin-top: 2rem;
+    }
+
+    .empty-state i {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+      color: #cbd5e1;
+    }
+
+    .empty-state p {
+      margin-bottom: 1.5rem;
+    }
+
+    .pagination {
+      display: flex;
+      gap: 0.5rem;
+      justify-content: center;
+      margin: 3rem 0 1rem;
+    }
+
+    .page-item {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .page-link, .page-current {
+      padding: 0.6rem 1rem;
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 500;
+      transition: all 0.3s ease;
+    }
+
+    .page-link {
+      color: var(--dark-color);
+      background: white;
+    }
+
+    .page-link:hover {
+      background: #f8fafc;
+      transform: translateY(-2px);
+    }
+
+    .page-current {
+      background: var(--primary-color);
+      color: white;
+      border-color: var(--primary-color);
+    }
+
+    /* Footer Styles - Improved to match homepage */
+    footer {
+      background: var(--dark-color);
+      color: white;
+      padding: 2rem 0 0.5rem;
+      margin-top: auto;
+    }
+
+    .footer-container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 2rem;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .footer-col h4 {
+      font-size: 1.1rem;
+      margin-bottom: 1rem;
+      position: relative;
+      padding-bottom: 0.5rem;
+    }
+
+    .footer-col h4::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 40px;
+      height: 2px;
+      background: var(--primary-color);
+    }
+
+    .footer-col p {
+      margin-bottom: 1rem;
+      line-height: 1.5;
+      color: #cbd5e1;
+      font-size: 0.9rem;
+    }
+
+    .footer-col ul {
+      list-style: none;
+    }
+
+    .footer-col ul li {
+      margin-bottom: 0.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.9rem;
+    }
+
+    .footer-col ul li a {
+      color: #cbd5e1;
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+
+    .footer-col ul li a:hover {
+      color: white;
+      padding-left: 5px;
+    }
+
+    .footer-col ul li i {
+      color: var(--primary-color);
+      width: 16px;
+      font-size: 0.9rem;
+    }
+
+    .social-links {
+      display: flex;
+      gap: 0.75rem;
+      margin-top: 1rem;
+    }
+
+    .social-links a {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 35px;
+      height: 35px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 50%;
+      color: white;
+      transition: all 0.3s ease;
+      font-size: 0.9rem;
+    }
+
+    .social-links a:hover {
+      background: var(--primary-color);
+      transform: translateY(-3px);
+    }
+
+    .footer-bottom {
+      max-width: 1400px;
+      margin: 1.5rem auto 0;
+      padding: 1rem 2rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      text-align: center;
+      color: #94a3b8;
+      font-size: 0.85rem;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .nav-menu,
+      .nav-profile {
+        display: none;
+      }
+
+      .mobile-menu-toggle {
+        display: block;
+      }
+
+      .navbar {
+        padding: 0 1rem;
+        height: 70px;
+      }
+
+      .nav-container {
+        padding: 0;
+      }
+
+      .nav-logo {
+        font-size: 1.3rem;
+      }
+
+      .nav-logo i {
+        font-size: 1.5rem;
+      }
+
+      .main-content {
+        padding: 90px 1rem 2rem;
+      }
+
+      .hero {
+        padding: 1.5rem;
+      }
+
+      .hero h1 {
+        font-size: 1.75rem;
+      }
+
+      .footer-container {
+        grid-template-columns: 1fr;
+        text-align: center;
+        padding: 0 1rem;
+      }
+
+      .footer-col h4::after {
+        left: 50%;
+        transform: translateX(-50%);
+      }
+
+      .social-links {
+        justify-content: center;
+      }
+
+      .footer-bottom {
+        padding: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation Bar - Improved -->
+  <nav class="navbar">
+    <div class="nav-container">
+      <a href="{{ url_for('user.home') }}" class="nav-logo">
+        <i class="fas fa-balance-scale"></i>
+        LegalCare
+      </a>
+      
+      <ul class="nav-menu">
+        <li><a href="{{ url_for('user.home') }}" class="nav-link">Home</a></li>
+        <li><a href="{{ url_for('assistant_bp.index') }}" class="nav-link">AI Assistant</a></li>
+        <li><a href="{{ url_for('user_lawyers_bp.list_lawyers') }}" class="nav-link">Our Lawyers</a></li>
+        <li><a href="{{ url_for('user_appt.my_appointments') }}" class="nav-link">Appointments</a></li>
+        <li><a href="{{ url_for('user_content_bp.content_list') }}" class="nav-link active">Law Updates</a></li>
+      </ul>
+
+      <div class="nav-right">
+        <!-- Profile Section with Dropdown -->
+        <div class="nav-profile" id="userProfile">
+          <div class="profile-avatar">
+            <span id="userInitials">LI</span>
+          </div>
+          <div class="profile-info">
+            <span class="profile-name" id="userName">Lahiru Ind</span>
+            <span class="profile-role" id="userRole">User</span>
+          </div>
+          <i class="fas fa-chevron-down profile-dropdown-icon" id="dropdownIcon"></i>
+          
+          <!-- Dropdown Menu -->
+          <div class="profile-dropdown" id="profileDropdown">
+            <div class="dropdown-header">
+              <div class="dropdown-avatar">
+                <span id="dropdownInitials">JD</span>
+              </div>
+              <div class="dropdown-user-info">
+                <h4 id="dropdownUserName">John Doe</h4>
+                <p id="dropdownUserEmail">john.doe@example.com</p>
+              </div>
+            </div>
+            <ul class="dropdown-menu">
+              <li><a href="{{ url_for('user.user_profile') }}" class="dropdown-item">
+                <i class="fas fa-user"></i>
+                My Profile
+              </a></li>
+              <li><a href="#" class="dropdown-item">
+                <i class="fas fa-cog"></i>
+                Settings
+              </a></li>
+              <li><a href="#" class="dropdown-item">
+                <i class="fas fa-file-alt"></i>
+                My Documents
+              </a></li>
+              <li><a href="#" class="dropdown-item">
+                <i class="fas fa-bell"></i>
+                Notifications
+              </a></li>
+              <li><a href="{{ url_for('user.user_logout') }}" class="dropdown-item logout">
+                <i class="fas fa-sign-out-alt"></i>
+                Logout
+              </a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <button class="mobile-menu-toggle">
+        <i class="fas fa-bars"></i>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Mobile Menu -->
+  <div class="mobile-overlay"></div>
+  <div class="mobile-menu">
+    <div class="mobile-menu-header">
+      <a href="{{ url_for('user.home') }}" class="nav-logo">
+        <i class="fas fa-balance-scale"></i>
+        LegalCare
+      </a>
+      <button class="mobile-menu-close">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+    
+    <!-- Mobile Profile Section -->
+    <div class="mobile-nav-profile">
+      <div class="profile-avatar">
+        <span id="mobileUserInitials">JD</span>
+      </div>
+      <div class="profile-info">
+        <span class="profile-name" id="mobileUserName">John Doe</span>
+        <span class="profile-role" id="mobileUserRole">Client</span>
+      </div>
+    </div>
+    
+    <ul class="mobile-nav-menu">
+      <li><a href="{{ url_for('user.home') }}" class="nav-link">Home</a></li>
+      <li><a href="{{ url_for('assistant_bp.index') }}" class="nav-link">AI Assistant</a></li>
+      <li><a href="{{ url_for('user_lawyers_bp.list_lawyers') }}" class="nav-link">Our Lawyers</a></li>
+      <li><a href="{{ url_for('user_appt.my_appointments') }}" class="nav-link">Appointments</a></li>
+      <li><a href="{{ url_for('user_content_bp.content_list') }}" class="nav-link active">Law Updates</a></li>
+    </ul>
+    
+    <div class="mobile-logout">
+      <a href="{{ url_for('user.user_logout') }}">
+        <i class="fas fa-sign-out-alt"></i>
+        Logout
+      </a>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <main class="main-content">
+    <div class="container">
+      <div class="hero">
+        <h1>Legal Updates & Documents</h1>
+        <p>Browse official updates, documents, news, and image notices from LegalCare.</p>
+        
+        <form class="filters" method="get" action="{{ url_for('user_content_bp.content_list') }}">
+          <select class="select" name="kind">
+            <option value="" {% if not current_kind %}selected{% endif %}>All Types</option>
+            <option value="update" {% if current_kind=='update' %}selected{% endif %}>Law Updates</option>
+            <option value="document" {% if current_kind=='document' %}selected{% endif %}>Documents</option>
+            <option value="news" {% if current_kind=='news' %}selected{% endif %}>News</option>
+            <option value="image" {% if current_kind=='image' %}selected{% endif %}>Images</option>
+          </select>
+          <input class="input" type="text" name="q" value="{{ q or '' }}" placeholder="Search title or summary…">
+          <button class="btn" type="submit">
+            <i class="fas fa-filter"></i> Filter
+          </button>
+        </form>
+        
+        <div class="chips">
+          <span class="chip">Published items only</span>
+          {% if total %}<span class="chip">{{ total }} result{{ '' if total==1 else 's' }}</span>{% endif %}
+        </div>
+      </div>
+
+      {% if items|length == 0 %}
+        <div class="empty-state">
+          <i class="fas fa-file-alt"></i>
+          <h3>No content found</h3>
+          <p>Try adjusting your filters or search terms to find what you're looking for.</p>
+          <a href="{{ url_for('user_content_bp.content_list') }}" class="action-btn btn-primary">
+            <i class="fas fa-refresh"></i> Clear Filters
+          </a>
+        </div>
+      {% else %}
+        <div class="grid">
+          {% for it in items %}
+            <article class="card">
+              {% if it.image_path %}
+                <img class="thumb" src="{{ url_for('admin.static', filename=it.image_path) }}" alt="{{ it.title }}">
+              {% else %}
+                <div class="thumb" style="display: flex; align-items: center; justify-content: center; background: #f1f5f9; color: #94a3b8;">
+                  <i class="fas fa-file-alt" style="font-size: 3rem;"></i>
+                </div>
+              {% endif %}
+              
+              <div class="card-content">
+                <span class="card-category">{{ it.kind }}</span>
+                <h3 class="card-title">{{ it.title }}</h3>
+                
+                {% if it.summary %}
+                  <p class="card-summary">{{ it.summary }}</p>
+                {% endif %}
+                
+                <div class="card-meta">
+                  <i class="fas fa-calendar-alt"></i>
+                  <span>{% if it.published_at %}Published {{ it.published_at }}{% else %}Created {{ it.created_at }}{% endif %}</span>
+                </div>
+                
+                <div class="card-actions">
+                  <a class="action-btn btn-primary" href="{{ url_for('user_content_bp.content_view', content_id=it.id) }}">
+                    <i class="fas fa-eye"></i> View
+                  </a>
+                  
+                  {% if it.doc_path %}
+                    <a class="action-btn btn-secondary" href="{{ url_for('admin.static', filename=it.doc_path) }}" target="_blank">
+                      <i class="fas fa-download"></i> Document
+                    </a>
+                  {% elif it.external_link %}
+                    <a class="action-btn btn-secondary" href="{{ it.external_link }}" target="_blank">
+                      <i class="fas fa-external-link-alt"></i> Link
+                    </a>
+                  {% endif %}
+                </div>
+              </div>
+            </article>
+          {% endfor %}
+        </div>
+
+        {% if pages > 1 %}
+          <nav class="pagination" aria-label="Pagination">
+            {% for p in range(1, pages+1) %}
+              <div class="page-item">
+                {% if p == page %}
+                  <span class="page-current">{{ p }}</span>
+                {% else %}
+                  <a class="page-link" href="{{ url_for('user_content_bp.content_list', kind=current_kind or None, q=q or None, page=p) }}">{{ p }}</a>
+                {% endif %}
+              </div>
+            {% endfor %}
+          </nav>
+        {% endif %}
+      {% endif %}
+    </div>
+  </main>
+
+  <!-- Footer - Improved to match homepage -->
+  <footer>
+    <div class="footer-container">
+      <div class="footer-col">
+        <h4>LegalCare</h4>
+        <p>Providing expert legal services with integrity and professionalism since 2020.</p>
+        <div class="social-links">
+          <a href="#"><i class="fab fa-facebook-f"></i></a>
+          <a href="#"><i class="fab fa-twitter"></i></a>
+          <a href="#"><i class="fab fa-instagram"></i></a>
+          <a href="#"><i class="fab fa-linkedin-in"></i></a>
+        </div>
+      </div>
+      
+      <div class="footer-col">
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="{{ url_for('user.home') }}">Home</a></li>
+          <li><a href="{{ url_for('assistant_bp.index') }}">AI Assistant</a></li>
+          <li><a href="{{ url_for('user_lawyers_bp.list_lawyers') }}">Our Lawyers</a></li>
+          <li><a href="{{ url_for('user_appt.my_appointments') }}">Appointments</a></li>
+          <li><a href="{{ url_for('user_content_bp.content_list') }}">Law Updates</a></li>
+        </ul>
+      </div>
+      
+      <div class="footer-col">
+        <h4>Our Services</h4>
+        <ul>
+          <li><a href="#">Legal Consultation</a></li>
+          <li><a href="#">Document Review</a></li>
+          <li><a href="#">Case Representation</a></li>
+          <li><a href="#">Contract Drafting</a></li>
+          <li><a href="#">Legal Research</a></li>
+        </ul>
+      </div>
+      
+      <div class="footer-col">
+        <h4>Contact Info</h4>
+        <ul>
+          <li><i class="fas fa-map-marker-alt"></i> 123 Legal Street, Colombo, Sri Lanka</li>
+          <li><i class="fas fa-phone"></i> +94 11 234 5678</li>
+          <li><i class="fas fa-envelope"></i> info@legalcare.lk</li>
+          <li><i class="fas fa-clock"></i> Mon-Fri: 9AM - 5PM</li>
+        </ul>
+      </div>
+    </div>
+    
+    <div class="footer-bottom">
+      <p>&copy; 2023 LegalCare. All Rights Reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Navbar scroll effect
+      const navbar = document.querySelector('.navbar');
+      window.addEventListener('scroll', function() {
+        if (window.scrollY > 50) {
+          navbar.classList.add('scrolled');
+        } else {
+          navbar.classList.remove('scrolled');
+        }
+      });
+
+      // Profile dropdown functionality
+      function initProfileDropdown() {
+        const profileButton = document.getElementById('userProfile');
+        const dropdown = document.getElementById('profileDropdown');
+        const dropdownIcon = document.getElementById('dropdownIcon');
+        let isOpen = false;
+
+        // Toggle dropdown on profile click
+        profileButton.addEventListener('click', function(e) {
+          e.preventDefault();
+          e.stopPropagation();
+          
+          if (isOpen) {
+            closeDropdown();
+          } else {
+            openDropdown();
+          }
+        });
+
+        function openDropdown() {
+          dropdown.classList.add('active');
+          dropdownIcon.classList.add('rotated');
+          isOpen = true;
+        }
+
+        function closeDropdown() {
+          dropdown.classList.remove('active');
+          dropdownIcon.classList.remove('rotated');
+          isOpen = false;
+        }
+
+        // Close dropdown when clicking outside
+        document.addEventListener('click', function(e) {
+          if (!profileButton.contains(e.target) && !dropdown.contains(e.target)) {
+            closeDropdown();
+          }
+        });
+
+        // Close dropdown on escape key
+        document.addEventListener('keydown', function(e) {
+          if (e.key === 'Escape' && isOpen) {
+            closeDropdown();
+          }
+        });
+
+        // Prevent dropdown from closing when clicking inside it
+        dropdown.addEventListener('click', function(e) {
+          e.stopPropagation();
+        });
+      }
+
+      // Mobile menu functionality
+      function initNavigation() {
+        const mobileToggle = document.querySelector('.mobile-menu-toggle');
+        const mobileMenu = document.querySelector('.mobile-menu');
+        const mobileOverlay = document.querySelector('.mobile-overlay');
+        const mobileClose = document.querySelector('.mobile-menu-close');
+
+        // Mobile menu functionality
+        function openMobileMenu() {
+          mobileMenu.classList.add('active');
+          mobileOverlay.classList.add('active');
+          document.body.style.overflow = 'hidden';
+        }
+
+        function closeMobileMenu() {
+          mobileMenu.classList.remove('active');
+          mobileOverlay.classList.remove('active');
+          document.body.style.overflow = '';
+        }
+
+        if (mobileToggle) {
+          mobileToggle.addEventListener('click', openMobileMenu);
+        }
+
+        if (mobileClose) {
+          mobileClose.addEventListener('click', closeMobileMenu);
+        }
+
+        if (mobileOverlay) {
+          mobileOverlay.addEventListener('click', closeMobileMenu);
+        }
+
+        // Close mobile menu on link click
+        const mobileNavLinks = document.querySelectorAll('.mobile-nav-menu .nav-link');
+        mobileNavLinks.forEach(link => {
+          link.addEventListener('click', closeMobileMenu);
+        });
+
+        // Handle window resize
+        window.addEventListener('resize', function() {
+          if (window.innerWidth > 768) {
+            closeMobileMenu();
+          }
+        });
+
+        // Escape key to close mobile menu
+        document.addEventListener('keydown', function(e) {
+          if (e.key === 'Escape') {
+            closeMobileMenu();
+          }
+        });
+      }
+
+      // Enhanced filter form interactions
+      const filterForm = document.querySelector('.filters');
+      if (filterForm) {
+        const inputs = filterForm.querySelectorAll('.select, .input');
+        inputs.forEach(input => {
+          input.addEventListener('focus', function() {
+            this.style.transform = 'translateY(-1px)';
+            this.style.boxShadow = '0 4px 12px rgba(37, 99, 235, 0.15)';
+          });
+          
+          input.addEventListener('blur', function() {
+            this.style.transform = 'translateY(0)';
+            this.style.boxShadow = '';
+          });
+        });
+      }
+
+      // Initialize components
+      initProfileDropdown();
+      initNavigation();
+    });
+  </script>
+</body>
+</html>

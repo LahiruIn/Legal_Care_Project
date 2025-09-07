@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Appointment #{{ appt.id }}</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    body{font-family:system-ui,Arial;margin:0;background:#f7fafc}
+    .wrap{max-width:800px;margin:24px auto;padding:0 16px}
+    .card{background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:16px}
+    a{color:#2563eb;text-decoration:none}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <p><a href="{{ url_for('user_lawyers_bp.list_lawyers') }}">← Back to lawyers</a></p>
+    <div class="card">
+      <h2>Appointment Request Submitted</h2>
+      <p><b>Reference:</b> #{{ appt.id }}</p>
+      <p><b>Lawyer:</b> {{ appt.lawyer_name }} ({{ appt.law_side }})</p>
+      <p><b>Date:</b> {{ appt.appt_date }} &nbsp; <b>Time:</b> {{ appt.appt_time }}</p>
+      <p><b>Status:</b> {{ appt.status|capitalize }}</p>
+      <p><b>Your details:</b> {{ appt.user_name }} — {{ appt.user_email }} — {{ appt.user_phone }}</p>
+      {% if appt.notes %}<p><b>Notes:</b> {{ appt.notes }}</p>{% endif %}
+    </div>
+  </div>
+</body>
+</html>

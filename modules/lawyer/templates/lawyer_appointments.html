@@ -1,0 +1,211 @@
+{% extends "strucl.html" %}
+
+{% block title %}Manage Appointments{% endblock %}
+{% block page_title %}Manage Appointments{% endblock %}
+{% block breadcrumb %}Manage Appointments{% endblock %}
+
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('lawyer.static', filename='lawyer_appointment.css') }}"/>
+{% endblock %}
+
+{% block content %}
+<script src="{{ url_for('lawyer.static', filename='lawyer_appointment.js') }}" defer></script>
+
+<div class="dashboard-content fade-in">
+            <!-- Flash Messages -->
+            {% with messages = get_flashed_messages(with_categories=true) %}
+              {% if messages %}
+                {% for c,m in messages %}
+                  <div class="flash {{ c }}">
+                    <i class="fas fa-{{ 'check-circle' if c == 'success' else 'exclamation-triangle' }}"></i>
+                    {{ m }}
+                  </div>
+                {% endfor %}
+              {% endif %}
+            {% endwith %}
+            
+            <!-- Header Section -->
+
+              <div class="headerr-contentt">
+                <div class="headerr-leftt">
+                </div>
+              </div>
+              <div class="stats-grid">
+                <div class="stat-card">
+                  <div class="stat-number">{{ appts|length }}</div>
+                  <div class="stat-label">Total</div>
+                </div>
+                <div class="stat-card">
+                  <div class="stat-number">{{ appts|selectattr('status', 'equalto', 'pending')|list|length }}</div>
+                  <div class="stat-label">Pending</div>
+                </div>
+                <div class="stat-card">
+                  <div class="stat-number">{{ appts|selectattr('status', 'equalto', 'confirmed')|list|length }}</div>
+                  <div class="stat-label">Confirmed</div>
+                </div>
+                <div class="stat-card">
+                  <div class="stat-number">{{ appts|selectattr('status', 'equalto', 'done')|list|length }}</div>
+                  <div class="stat-label">Done</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Filters Section -->
+            <div class="filters-card">
+              <form class="filters-form" method="get" action="{{ url_for('lawyer_appt.lawyer_appointments') }}">
+                <div class="form-group">
+                  <label class="form-label">Status</label>
+                  <select name="status" class="form-select">
+                    <option value="">All statuses</option>
+                    {% for s in statuses %}
+                      <option value="{{ s }}" {% if filters.status==s %}selected{% endif %}>{{ s|capitalize }}</option>
+                    {% endfor %}
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label class="form-label">From Date</label>
+                  <input type="date" name="from" value="{{ filters.from or '' }}" class="form-input">
+                </div>
+                <div class="form-group">
+                  <label class="form-label">To Date</label>
+                  <input type="date" name="to" value="{{ filters.to or '' }}" class="form-input">
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Search</label>
+                  <input type="text" name="q" value="{{ filters.q or '' }}" placeholder="Name, email, or phone" class="form-input">
+                </div>
+                <div class="form-group">
+                  <button type="submit" class="filter-btn">
+                    <i class="fas fa-search"></i>
+                    Filter
+                  </button>
+                </div>
+              </form>
+            </div>
+
+            <!-- Appointments Table -->
+            <div class="table-card">
+              <div class="table-header">
+                <h3 class="table-title">
+                  <i class="fas fa-calendar-alt"></i>
+                  Appointments List
+                </h3>
+              </div>
+              <div class="table-container">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>ID</th>
+                      <th>User</th>
+                      <th>Contact</th>
+                      <th>Date & Time</th>
+                      <th>Notes</th>
+                      <th>Status</th>
+                      <th>Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {% if appts|length == 0 %}
+                      <tr>
+                        <td colspan="7">
+                          <div class="empty-state">
+                            <i class="fas fa-calendar-times"></i>
+                            <h3>No appointments found</h3>
+                            <p>No appointments match your current filters.</p>
+                          </div>
+                        </td>
+                      </tr>
+                    {% else %}
+                      {% for a in appts %}
+                        <tr class="status-{{ a.status }}-row">
+                          <td>{{ a.id }}</td>
+                          <td>
+                            <div class="user-info">
+                              <div class="user-avatar">
+                                {{ a.user_name[0]|upper }}
+                              </div>
+                              <div class="user-details">
+                                <h4>{{ a.user_name }}</h4>
+                              </div>
+                            </div>
+                          </td>
+                          <td>
+                            <div class="contact-info">
+                              <div>
+                                <i class="fas fa-envelope"></i>
+                                {{ a.user_email }}
+                              </div>
+                              <div>
+                                <i class="fas fa-phone"></i>
+                                {{ a.user_phone }}
+                              </div>
+                            </div>
+                          </td>
+                          <td>
+                            <div class="datetime-info">
+                              <div class="date">{{ a.appt_date }}</div>
+                              <div class="time">{{ a.appt_time }}</div>
+                            </div>
+                          </td>
+                          <td>
+                            <div class="notes-cell" title="{{ a.notes or '' }}">
+                              {{ a.notes or 'No notes' }}
+                            </div>
+                          </td>
+                          <td>
+                            <span class="status-badge status-{{ a.status }}">
+                              {% if a.status == 'pending' %}
+                                <i class="fas fa-clock"></i>
+                              {% elif a.status == 'confirmed' %}
+                                <i class="fas fa-check"></i>
+                              {% elif a.status == 'done' %}
+                                <i class="fas fa-check-double"></i>
+                              {% elif a.status == 'cancelled' %}
+                                <i class="fas fa-times"></i>
+                              {% endif %}
+                              {{ a.status|capitalize }}
+                            </span>
+                          </td>
+                          <td>
+                            <div class="actions">
+                              <form class="action-form" method="post" action="{{ url_for('lawyer_appt.lawyer_update_appt_status', appt_id=a.id) }}">
+                                <input type="hidden" name="status" value="confirmed">
+                                <button class="action-btn btn-accept" type="submit" title="Accept Appointment">
+                                  <i class="fas fa-check"></i>
+                                  <span>Accept</span>
+                                </button>
+                              </form>
+                              <form class="action-form" method="post" action="{{ url_for('lawyer_appt.lawyer_update_appt_status', appt_id=a.id) }}">
+                                <input type="hidden" name="status" value="pending">
+                                <button class="action-btn btn-pending" type="submit" title="Mark as Pending">
+                                  <i class="fas fa-clock"></i>
+                                  <span>Pending</span>
+                                </button>
+                              </form>
+                              <form class="action-form" method="post" action="{{ url_for('lawyer_appt.lawyer_update_appt_status', appt_id=a.id) }}">
+                                <input type="hidden" name="status" value="done">
+                                <button class="action-btn btn-done" type="submit" title="Mark as Done">
+                                  <i class="fas fa-check-double"></i>
+                                  <span>Done</span>
+                                </button>
+                              </form>
+                              <form class="action-form" method="post" action="{{ url_for('lawyer_appt.lawyer_update_appt_status', appt_id=a.id) }}">
+                                <input type="hidden" name="status" value="cancelled">
+                                <button class="action-btn btn-cancel" type="submit" title="Cancel Appointment">
+                                  <i class="fas fa-times"></i>
+                                  <span>Cancel</span>
+                                </button>
+                              </form>
+                            </div>
+                          </td>
+                        </tr>
+                      {% endfor %}
+                    {% endif %}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+        </div>
+    </div>
+      {% endblock %}

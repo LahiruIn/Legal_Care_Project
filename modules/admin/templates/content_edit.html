@@ -1,0 +1,277 @@
+{% extends "struc.html" %}
+
+{% block title %}Manage Content{% endblock %}
+{% block page_title %}Manage Content{% endblock %}
+{% block breadcrumb %}Manage Content{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('admin.static', filename='content_edit.css') }}"/>
+{% endblock %}
+
+{% block content %}
+<script src="{{ url_for('admin.static', filename='content_edit.js') }}" defer></script>
+
+<div class="dashboard-content fade-in">
+
+  <!-- Flash Messages -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        <div class="flash-messages">
+          {% for c, m in messages %}
+            <div class="flash {{ c }}">
+              <i class="fas fa-{% if c == 'success' %}check-circle{% elif c == 'error' %}exclamation-circle{% else %}info-circle{% endif %}"></i>
+              {{ m }}
+            </div>
+          {% endfor %}
+        </div>
+      {% endif %}
+    {% endwith %}
+
+    <!-- Main Content -->
+    <div class="card glow-effect">
+      <!-- Card Header -->
+      <div class="card-header">
+        <div class="card-header-content">
+          <div>
+            <div class="content-type">
+              <i class="{% if item.kind == 'update' %}{% elif item.kind == 'document' %}{% elif item.kind == 'news' %}{% elif item.kind == 'image' %}{% else %}fas fa-file{% endif %}"></i>
+            </div>
+          </div>
+          <h2 class="card-title">
+            <i class="fas fa-file-edit"></i>
+            Update Law Content: {{ item.title }}
+          </h2>
+          <p class="card-subtitle">Content ID: #{{ item.id }} • Last updated: {{ item.updated_at or 'Never' }}</p>
+        </div>
+      </div>
+
+      <!-- Card Body -->
+      <div class="card-body">
+        <form method="post" enctype="multipart/form-data" action="{{ url_for('admin.admin_content_edit', content_id=item.id) }}" id="editForm">
+          
+          <!-- Basic Information Section -->
+          <div class="form-section">
+            <h3 class="section-title">
+              <i class="fas fa-info-circle"></i>
+              Basic Information
+            </h3>
+            
+            <div class="form-group">
+              <label class="required">
+                <i class="fas fa-tag"></i>
+                Content Type
+              </label>
+              <select name="kind" required id="contentType">
+                {% for opt in ['update','document','news','image'] %}
+                  <option value="{{ opt }}" {% if item.kind==opt %}selected{% endif %}>
+                    {{ opt|capitalize }}
+                  </option>
+                {% endfor %}
+              </select>
+              <div class="note">
+                <i class="fas fa-info-circle"></i>
+                Choose the appropriate type for your legal content
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="required">
+                <i class="fas fa-heading"></i>
+                Title
+              </label>
+              <input name="title" value="{{ item.title }}" required maxlength="200" id="titleInput" />
+              <div class="char-counter" id="titleCounter">{{ item.title|length }} / 200 characters</div>
+            </div>
+
+            <div class="form-group">
+              <label>
+                <i class="fas fa-align-left"></i>
+                Summary
+              </label>
+              <textarea name="summary" placeholder="Brief summary of the content..." maxlength="500" id="summaryInput">{{ item.summary or '' }}</textarea>
+              <div class="char-counter" id="summaryCounter">{{ (item.summary or '')|length }} / 500 characters</div>
+              <div class="note">
+                <i class="fas fa-lightbulb"></i>
+                A concise summary helps users understand the content at a glance
+              </div>
+            </div>
+          </div>
+
+          <!-- Content Section -->
+          <div class="form-section">
+            <h3 class="section-title">
+              <i class="fas fa-file-text"></i>
+              Content Details
+            </h3>
+            
+            <div class="form-group">
+              <label>
+                <i class="fas fa-paragraph"></i>
+                Full Content
+              </label>
+              <textarea name="body" class="textarea-large" placeholder="Enter the detailed content here..." id="bodyInput">{{ item.body or '' }}</textarea>
+              <div class="note">
+                <i class="fas fa-info-circle"></i>
+                Detailed content body - supports basic HTML formatting
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label>
+                <i class="fas fa-external-link-alt"></i>
+                External Link
+              </label>
+              <input name="external_link" type="url" value="{{ item.external_link or '' }}" placeholder="https://example.com/official-document" />
+              <div class="note">
+                <i class="fas fa-info-circle"></i>
+                Optional link to external resources or official documents
+              </div>
+            </div>
+          </div>
+
+          <!-- Media & Files Section -->
+          <div class="form-section">
+            <h3 class="section-title">
+              <i class="fas fa-paperclip"></i>
+              Media & Attachments
+            </h3>
+            
+            <div class="form-row">
+              <!-- Image Upload -->
+              <div class="form-group">
+                <label>
+                  <i class="fas fa-image"></i>
+                  Hero Image
+                </label>
+                
+                {% if item.image_path %}
+                  <div class="file-preview">
+                    <img src="{{ url_for('admin.static', filename=item.image_path) }}" alt="Current image" />
+                    <div class="remove-file-wrapper">
+                      <label>
+                        <input type="checkbox" name="remove_image" id="removeImage" />
+                        <i class="fas fa-trash-alt"></i>
+                        Remove current image
+                      </label>
+                    </div>
+                  </div>
+                {% endif %}
+                
+                <div class="file-input-group" id="imageInputGroup">
+                  <i class="fas fa-cloud-upload-alt" style="font-size: 32px; color: var(--secondary-color); margin-bottom: 12px;"></i>
+                  <p style="margin-bottom: 8px; font-weight: 500;">Choose new image file</p>
+                  <input type="file" name="image_file" accept=".png,.jpg,.jpeg,.gif,.webp" id="imageFile" />
+                  <p style="font-size: 12px; color: var(--secondary-color);">PNG, JPG, GIF, WEBP formats supported</p>
+                </div>
+                
+                <div class="note" id="imageNote">
+                  <i class="fas fa-info-circle"></i>
+                  Upload a new image to replace the current one
+                </div>
+              </div>
+              
+              <!-- Document Upload -->
+              <div class="form-group">
+                <label>
+                  <i class="fas fa-file-pdf"></i>
+                  Document File
+                </label>
+                
+                {% if item.doc_path %}
+                  <div class="file-preview">
+                    <div style="padding: 12px; text-align: center; background: var(--light-color); border-radius: 6px;">
+                      <i class="fas fa-file-pdf" style="font-size: 24px; color: var(--danger-color); margin-bottom: 8px;"></i>
+                      <p style="font-weight: 500; margin-bottom: 8px;">Current Document</p>
+                      <a href="{{ url_for('admin.static', filename=item.doc_path) }}" target="_blank" class="file-preview-link">
+                        <i class="fas fa-external-link-alt"></i>
+                        Open current document
+                      </a>
+                    </div>
+                    <div class="remove-file-wrapper">
+                      <label>
+                        <input type="checkbox" name="remove_doc" id="removeDoc" />
+                        <i class="fas fa-trash-alt"></i>
+                        Remove current document
+                      </label>
+                    </div>
+                  </div>
+                {% endif %}
+                
+                <div class="file-input-group" id="docInputGroup">
+                  <i class="fas fa-file-upload" style="font-size: 32px; color: var(--secondary-color); margin-bottom: 12px;"></i>
+                  <p style="margin-bottom: 8px; font-weight: 500;">Choose new document file</p>
+                  <input type="file" name="doc_file" accept=".pdf,.doc,.docx,.ppt,.pptx,.xls,.xlsx,.txt" id="docFile" />
+                  <p style="font-size: 12px; color: var(--secondary-color);">PDF, DOC, PPT, XLS, TXT formats supported</p>
+                </div>
+                
+                <div class="note" id="docNote">
+                  <i class="fas fa-info-circle"></i>
+                  Upload a new document to replace the current one
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Publishing Options -->
+          <div class="form-section">
+            <h3 class="section-title">
+              <i class="fas fa-globe"></i>
+              Publishing Options
+            </h3>
+            
+            <div class="publish-status">
+              <div class="status-indicator {% if not item.published_at %}draft{% endif %}"></div>
+              <div style="flex-grow: 1;">
+                <div style="font-weight: 600; margin-bottom: 4px;">
+                  Current Status: 
+                  {% if item.published_at %}
+                    <span style="color: var(--success-color);">Published</span>
+                  {% else %}
+                    <span style="color: var(--warning-color);">Draft</span>
+                  {% endif %}
+                </div>
+                {% if item.published_at %}
+                  <div style="font-size: 13px; color: var(--secondary-color);">
+                    Published on {{ item.published_at }}
+                  </div>
+                {% else %}
+                  <div style="font-size: 13px; color: var(--secondary-color);">
+                    Content is currently saved as draft
+                  </div>
+                {% endif %}
+              </div>
+            </div>
+            
+            <div class="checkbox-wrapper" style="margin-top: 16px;">
+              <input type="checkbox" name="published" id="publishedCheckbox" {% if item.published_at %}checked{% endif %} />
+              <label for="publishedCheckbox">
+                <i class="fas fa-globe"></i>
+                <span>Make this content publicly visible</span>
+              </label>
+            </div>
+            <div class="note">
+              <i class="fas fa-info-circle"></i>
+              When published, this content will be visible to all website visitors
+            </div>
+          </div>
+
+          <!-- Form Actions -->
+          <div class="form-actions">
+            <button class="btn" type="submit" id="saveBtn">
+              <i class="fas fa-save"></i>
+              Save Changes
+            </button>
+            <a class="btn secondary" href="{{ url_for('admin.admin_content_view', content_id=item.id) }}">
+              <i class="fas fa-times"></i>
+              Cancel
+            </a>
+            <a class="btn outline" href="{{ url_for('admin.admin_content_list') }}">
+              <i class="fas fa-arrow-left"></i>
+              Back to List
+            </a>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  {% endblock %}

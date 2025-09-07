@@ -1,0 +1,118 @@
+{% extends "struc.html" %}
+
+{% block title %}View Lawyer - {{ lawyer.full_name }}{% endblock %}
+{% block page_title %}Lawyer Details{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('admin.static', filename='view_lawyer.css') }}">
+{% endblock %}
+
+{% block breadcrumb %}
+<li class="breadcrumb-item"><a href="{{ url_for('lawyer_mgmt.manage_lawyers') }}">Lawyers</a></li>
+<li class="breadcrumb-item active">Profile</li>
+{% endblock %}
+
+{% block content %}
+<div class="lawyer-profile-wrapper fade-in">
+
+  <!-- Profile Sidebar -->
+  <aside class="profile-sidebar">
+    <div class="profile-photo">
+      {% if lawyer.lawyer_img %}
+        <img src="data:image/jpeg;base64,{{ lawyer.lawyer_img | b64encode }}" alt="{{ lawyer.full_name }}'s Photo">
+      {% else %}
+        <div class="profile-initials">
+          {{ lawyer.full_name[0] }}{{ lawyer.full_name.split()[-1][0] if lawyer.full_name.split()|length > 1 else '' }}
+        </div>
+      {% endif %}
+    </div>
+
+    <div class="profile-name">{{ lawyer.full_name }}</div>
+    <div class="profile-role">{{ lawyer.law_side or 'Legal Professional' }}</div>
+
+    <div class="status-label {{ 'active' if lawyer.status else 'inactive' }}">
+      <i class="fas fa-circle"></i> {{ 'Active' if lawyer.status else 'Inactive' }}
+    </div>
+
+    <div class="info-block">
+      <div class="info-label">Reg. No</div>
+      <div class="info-value">{{ lawyer.register_no or 'N/A' }}</div>
+    </div>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="profile-main">
+    <!-- Combined Information Section -->
+    <section class="info-section">
+      <h3><i class="fas fa-info-circle"></i> Lawyer Information</h3>
+      <div class="info-grid">
+        <!-- Left Column -->
+        <div class="info-card">
+          <label><i class="fas fa-envelope"></i> Email</label>
+          <div>{{ lawyer.email or 'Not provided' }}</div>
+
+          <label><i class="fas fa-phone"></i> Phone</label>
+          <div>{{ lawyer.phone or 'Not provided' }}</div>
+
+          <label><i class="fas fa-map-marker-alt"></i> Address</label>
+          <div>{{ lawyer.address or 'Not provided' }}</div>
+        </div>
+
+        <!-- Right Column -->
+        <div class="info-card">
+          <label><i class="fas fa-id-card"></i> NIC</label>
+          <div>{{ lawyer.nic or 'Not provided' }}</div>
+
+          <label><i class="fas fa-user"></i> Username</label>
+          <div>{{ lawyer.username }}</div>
+        </div>
+
+        <!-- Full Width Bottom Section -->
+        <div class="info-card full-width">
+          <div class="info-row">
+            <div class="info-col">
+              <label><i class="fas fa-calendar-day"></i> Available Days</label>
+              <div class="badge-group">
+                {% if lawyer.avb_date %}
+                  {% for day in lawyer.avb_date.split(',') %}
+                    <span class="badge">{{ day.strip() }}</span>
+                  {% endfor %}
+                {% else %}
+                  <span>Not specified</span>
+                {% endif %}
+              </div>
+            </div>
+            
+            <div class="info-col">
+              <label><i class="fas fa-clock"></i> Available Time</label>
+              <div class="badge-group">
+                {% if lawyer.avb_time %}
+                  {% for time in lawyer.avb_time.split(',') %}
+                    <span class="badge">{{ time.strip() }}</span>
+                  {% endfor %}
+                {% else %}
+                  <span>Not specified</span>
+                {% endif %}
+              </div>
+            </div>
+          </div>
+
+          {% if lawyer.lawyer_note %}
+          <div class="notes-section">
+            <label><i class="fas fa-sticky-note"></i> Notes</label>
+            <div class="notes-content">{{ lawyer.lawyer_note }}</div>
+          </div>
+          {% endif %}
+        </div>
+      </div>
+    </section>
+
+    <!-- Actions -->
+    <div class="form-actions">
+      <a href="{{ url_for('lawyer_mgmt.manage_lawyers') }}" class="btn btn-secondary">
+        ← Back
+      </a>
+    </div>
+  </main>
+</div>
+{% endblock %}

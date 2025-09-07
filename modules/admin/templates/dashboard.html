@@ -1,0 +1,207 @@
+{% extends "struc.html" %} 
+
+{% block title %}Admin Dashboard{% endblock %}
+{% block page_title %}Dashboard{% endblock %}
+{% block breadcrumb %}Dashboard{% endblock %}
+
+{% block content %}
+<!-- Dashboard Content -->
+<div class="dashboard-content fade-in">
+
+    <!-- Stats Grid -->
+    <div class="stats-grid">
+        <div class="stat-card primary">
+            <div class="stat-header">
+                <div class="stat-icon">
+                    <i class="fas fa-users"></i>
+                </div>
+                <button class="stat-menu">
+                    <i class="fas fa-ellipsis-h"></i>
+                </button>
+            </div>
+            <div class="stat-value" data-value="37">19</div>
+            <div class="stat-label">Total Users</div>
+            <div class="stat-footer">
+                <div class="stat-change positive">
+                    <i class="fas fa-arrow-up"></i>
+                    +12.5%
+                </div>
+                <div class="stat-period">vs last month</div>
+            </div>
+        </div>
+
+        <div class="stat-card success">
+            <div class="stat-header">
+                <div class="stat-icon">
+                    <i class="fas fa-gavel"></i>
+                </div>
+                <button class="stat-menu">
+                    <i class="fas fa-ellipsis-h"></i>
+                </button>
+            </div>
+            <div class="stat-value" data-value="54">54</div>
+            <div class="stat-label">Active Lawyers</div>
+            
+        </div>
+
+        <div class="stat-card warning">
+            <div class="stat-header">
+                <div class="stat-icon">
+                    <i class="fas fa-calendar-check"></i>
+                </div>
+                <button class="stat-menu">
+                    <i class="fas fa-ellipsis-h"></i>
+                </button>
+            </div>
+            <div class="stat-value" data-value="26">28</div>
+            <div class="stat-label">Total Appointments</div>
+            <div class="stat-footer">
+                <div class="stat-change positive">
+                    <i class="fas fa-arrow-up"></i>
+                    +15.3%
+                </div>
+                <div class="stat-period">vs last month</div>
+            </div>
+        </div>
+
+    
+    </div>
+
+    <!-- Charts Section -->
+    <div class="charts-section">
+        <div class="chart-card">
+            <div class="chart-header">
+                <h3 class="chart-title">Users Growth</h3>
+                <div class="chart-actions">
+                    <select class="chart-filter">
+                        <option>Last 7 days</option>
+                        <option>Last 30 days</option>
+                        <option>Last 3 months</option>
+                        <option>Last year</option>
+                    </select>
+                    <button class="header-btn"> 
+                        <i class="fas fa-download"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="chart-content">
+                <i class="fas fa-chart-line" style="margin-right: 10px; font-size: 20px;"></i>
+                Interactive Users Growth Chart
+                <div class="loading" style="margin-left: 10px;"></div>
+            </div>
+        </div>
+
+        <div class="chart-card">
+            <div class="chart-header">
+                <h3 class="chart-title">Case Distribution</h3>
+                <div class="chart-actions">
+                    <button class="header-btn">
+                        <i class="fas fa-expand"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="chart-content">
+                <i class="fas fa-chart-pie" style="margin-right: 10px; font-size: 20px;"></i>
+                Case Types Chart
+                <div class="loading" style="margin-left: 10px;"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Activity Section -->
+    <div class="activity-section">
+        <div class="activity-card">
+            <div class="activity-header">
+                <h3 class="activity-title">Recent Activity</h3>
+                <a href="#" class="view-all-btn">View All Activities</a>
+            </div>
+            <div class="activity-list">
+                <div class="activity-item">
+                    <div class="activity-avatar" style="background: linear-gradient(135deg, var(--success-color), #059669);">
+                        <i class="fas fa-user-plus"></i>
+                    </div>
+                    <div class="activity-content">
+                        <div class="activity-text">New user registration completed</div>
+                        <div class="activity-time">2 minutes ago</div>
+                    </div>
+                    <div class="activity-value">+1</div>
+                </div>
+
+                <div class="activity-item">
+                    <div class="activity-avatar" style="background: linear-gradient(135deg, var(--primary-color), #3b82f6);">
+                        <i class="fas fa-gavel"></i>
+                    </div>
+                    <div class="activity-content">
+                        <div class="activity-text">New case #1024 opened</div>
+                        <div class="activity-time">5 minutes ago</div>
+                    </div>
+                    <div class="activity-value">$28.50</div>
+                </div>
+
+                <div class="activity-item">
+                    <div class="activity-avatar" style="background: linear-gradient(135deg, var(--warning-color), #d97706);">
+                        <i class="fas fa-credit-card"></i>
+                    </div>
+                    <div class="activity-content">
+                        <div class="activity-text">Payment processed successfully</div>
+                        <div class="activity-time">12 minutes ago</div>
+                    </div>
+                    <div class="activity-value">$45.75</div>
+                </div>
+
+                <div class="activity-item">
+                    <div class="activity-avatar" style="background: linear-gradient(135deg, #8b5cf6, #7c3aed);">
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <div class="activity-content">
+                        <div class="activity-text">5-star rating received from client</div>
+                        <div class="activity-time">18 minutes ago</div>
+                    </div>
+                    <div class="activity-value">★ 5.0</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="activity-card">
+            <div class="activity-header">
+                <h3 class="activity-title">Top Performers</h3>
+                <a href="#" class="view-all-btn">View Rankings</a>
+            </div>
+            <div class="activity-list">
+                <div class="activity-item">
+                    <div class="activity-avatar" style="background: linear-gradient(135deg, #fbbf24, #f59e0b);">
+                        🥇
+                    </div>
+                    <div class="activity-content">
+                        <div class="activity-text">Michael Johnson</div>
+                        <div class="activity-time">12 cases this month</div>
+                    </div>
+                    <div class="activity-value">★ 4.9</div>
+                </div>
+
+                <div class="activity-item">
+                    <div class="activity-avatar" style="background: linear-gradient(135deg, #9ca3af, #6b7280);">
+                        🥈
+                    </div>
+                    <div class="activity-content">
+                        <div class="activity-text">Sarah Williams</div>
+                        <div class="activity-time">9 cases this month</div>
+                    </div>
+                    <div class="activity-value">★ 4.8</div>
+                </div>
+
+                <div class="activity-item">
+                    <div class="activity-avatar" style="background: linear-gradient(135deg, #cd7c2f, #92400e);">
+                        🥉
+                    </div>
+                    <div class="activity-content">
+                        <div class="activity-text">David Chen</div>
+                        <div class="activity-time">8 cases this month</div>
+                    </div>
+                    <div class="activity-value">★ 4.7</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

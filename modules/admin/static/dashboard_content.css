@@ -1,0 +1,486 @@
+:root {
+      --primary-color: #2563eb;
+      --primary-hover: #1d4ed8;
+      --primary-light: #dbeafe;
+      --secondary-color: #64748b;
+      --secondary-light: #f1f5f9;
+      --success-color: #10b981;
+      --success-light: #d1fae5;
+      --warning-color: #f59e0b;
+      --warning-light: #fef3c7;
+      --danger-color: #ef4444;
+      --danger-light: #fee2e2;
+      --info-color: #3b82f6;
+      --info-light: #dbeafe;
+      --dark-color: #0f172a;
+      --light-color: #f8fafc;
+      --border-color: #e2e8f0;
+      --border-radius: 12px;
+      --shadow-sm: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+      --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+      --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+      --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, Arial, sans-serif;
+      background: #f7fafc;
+      color: var(--dark-color);
+      line-height: 1.6;
+    }
+
+    .dashboard-content {
+      max-width: 1600px;
+      margin: 0 auto;
+      padding: 24px 20px;
+      animation: fadeIn 0.5s ease-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Flash Messages */
+    .flash-messages {
+      margin-bottom: 24px;
+    }
+
+    .flash {
+      padding: 12px 16px;
+      border-radius: 8px;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .flash.success {
+      background: var(--success-light);
+      color: #065f46;
+      border: 1px solid rgba(16, 185, 129, 0.2);
+    }
+
+    .flash.error {
+      background: var(--danger-light);
+      color: #991b1b;
+      border: 1px solid rgba(239, 68, 68, 0.2);
+    }
+
+    .flash.info {
+      background: var(--info-light);
+      color: #1e40af;
+      border: 1px solid rgba(59, 130, 246, 0.2);
+    }
+
+    /* Top Bar */
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 24px;
+      padding: 20px;
+      background: white;
+      border-radius: var(--border-radius);
+      box-shadow: var(--shadow-sm);
+      border: 1px solid var(--border-color);
+    }
+
+    .btn {
+      background: var(--primary-color);
+      color: white;
+      border: none;
+      padding: 12px 20px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      transition: var(--transition);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .btn:hover {
+      background: var(--primary-hover);
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
+    }
+
+    .btn.danger {
+      background: var(--danger-color);
+    }
+
+    .btn.danger:hover {
+      background: #dc2626;
+    }
+
+    .btn.secondary {
+      background: var(--secondary-color);
+    }
+
+    .btn.secondary:hover {
+      background: #475569;
+    }
+
+    /* Table Section */
+    .table-section {
+      background: white;
+      border-radius: var(--border-radius);
+      box-shadow: var(--shadow-sm);
+      border: 1px solid var(--border-color);
+      overflow: hidden;
+    }
+
+    .table-header {
+      padding: 24px;
+      border-bottom: 1px solid var(--border-color);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: var(--light-color);
+    }
+
+    .table-title {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--dark-color);
+    }
+
+    .table-filters {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .filter-group {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .filter-label {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--secondary-color);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .table-filters input,
+    .table-filters select {
+      padding: 8px 12px;
+      border: 1px solid var(--border-color);
+      border-radius: 6px;
+      background: white;
+      font-size: 14px;
+      transition: var(--transition);
+      font-family: inherit;
+      min-width: 150px;
+    }
+
+    .table-filters input:focus,
+    .table-filters select:focus {
+      outline: none;
+      border-color: var(--primary-color);
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+    }
+
+    .table-filters .btn {
+      padding: 8px 16px;
+      font-size: 14px;
+      margin-top: 18px;
+    }
+
+    .table-count {
+      font-size: 14px;
+      color: var(--secondary-color);
+      font-weight: 500;
+      margin-left: 16px;
+    }
+
+    .table-responsive {
+      overflow-x: auto;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 0;
+      margin: 0;
+      border: none;
+      border-radius: 0;
+    }
+
+    th {
+      background: var(--light-color);
+      color: var(--dark-color);
+      font-weight: 700;
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      padding: 18px 16px;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      border-bottom: 2px solid var(--border-color);
+      white-space: nowrap;
+    }
+
+    td {
+      padding: 18px 16px;
+      border-bottom: 1px solid var(--border-color);
+      vertical-align: middle;
+      transition: var(--transition);
+    }
+
+    tbody tr {
+      transition: var(--transition);
+    }
+
+    tbody tr:hover {
+      background: rgba(37, 99, 235, 0.03);
+    }
+
+    tbody tr:last-child td {
+      border-bottom: none;
+    }
+
+    .thumb {
+      width: 80px;
+      height: 60px;
+      object-fit: cover;
+      border: 1px solid var(--border-color);
+      border-radius: 6px;
+      transition: var(--transition);
+    }
+
+    .thumb:hover {
+      transform: scale(1.05);
+      box-shadow: var(--shadow-md);
+    }
+
+    .muted {
+      color: var(--secondary-color);
+      font-size: 13px;
+      margin-top: 6px;
+      display: block;
+      line-height: 1.4;
+    }
+
+    .lawyer-name {
+      font-weight: 600;
+      color: var(--dark-color);
+    }
+
+    .appointment-id {
+      font-weight: 600;
+      color: var(--primary-color);
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 12px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .badge.update {
+      background: var(--info-light);
+      color: #1e40af;
+      border: 1px solid rgba(59, 130, 246, 0.2);
+    }
+
+    .badge.document {
+      background: var(--success-light);
+      color: #065f46;
+      border: 1px solid rgba(16, 185, 129, 0.2);
+    }
+
+    .badge.news {
+      background: var(--warning-light);
+      color: #92400e;
+      border: 1px solid rgba(245, 158, 11, 0.2);
+    }
+
+    .badge.image {
+      background: var(--primary-light);
+      color: #3730a3;
+      border: 1px solid rgba(79, 70, 229, 0.2);
+    }
+
+    .actions {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .actions .btn {
+      padding: 8px 12px;
+      font-size: 13px;
+    }
+
+    .empty-state {
+      text-align: center;
+      padding: 60px 24px;
+      color: var(--secondary-color);
+    }
+
+    .empty-state i {
+      font-size: 56px;
+      margin-bottom: 16px;
+      color: #cbd5e1;
+      opacity: 0.7;
+    }
+
+    .empty-state div {
+      font-size: 16px;
+      margin-top: 12px;
+      font-weight: 500;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 1024px) {
+      .table-filters {
+        flex-wrap: wrap;
+        gap: 12px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .dashboard-content {
+        padding: 16px;
+      }
+      
+      .topbar {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 16px;
+        padding: 16px;
+      }
+      
+      .table-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 16px;
+        padding: 20px;
+      }
+      
+      .table-filters {
+        width: 100%;
+        justify-content: flex-start;
+      }
+      
+      .table-responsive {
+        font-size: 14px;
+      }
+      
+      th, td {
+        padding: 14px 10px;
+      }
+      
+      .actions {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+
+    @media (max-width: 640px) {
+      table {
+        display: block;
+        width: 100%;
+      }
+      
+      thead {
+        display: none;
+      }
+      
+      tbody, tr, td {
+        display: block;
+        width: 100%;
+      }
+      
+      tr {
+        margin-bottom: 16px;
+        border: 1px solid var(--border-color);
+        border-radius: var(--border-radius);
+        padding: 16px;
+        box-shadow: var(--shadow-sm);
+      }
+      
+      td {
+        padding: 12px 0;
+        border-bottom: 1px solid var(--border-color);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      
+      td:last-child {
+        border-bottom: none;
+      }
+      
+      td::before {
+        content: attr(data-label);
+        font-weight: 700;
+        text-transform: uppercase;
+        font-size: 12px;
+        color: var(--secondary-color);
+        margin-right: 12px;
+      }
+      
+      .actions {
+        flex-direction: row;
+        justify-content: flex-end;
+      }
+
+      .table-filters {
+        flex-direction: column;
+        gap: 12px;
+        width: 100%;
+      }
+
+      .table-filters input,
+      .table-filters select {
+        min-width: 100%;
+      }
+    }
+
+    /* Print Styles */
+    @media print {
+      .topbar, .table-filters {
+        display: none;
+      }
+      
+      .table-section {
+        box-shadow: none;
+        border: none;
+      }
+      
+      body, .dashboard-content {
+        padding: 0;
+        background: white;
+        color: black;
+      }
+      
+      table {
+        page-break-inside: auto;
+      }
+      
+      tr {
+        page-break-inside: avoid;
+        page-break-after: auto;
+      }
+    }

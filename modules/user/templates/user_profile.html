@@ -1,0 +1,1416 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile - LegalCare</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #2563eb;
+            --primary-hover: #1d4ed8;
+            --secondary-color: #64748b;
+            --success-color: #10b981;
+            --error-color: #ef4444;
+            --warning-color: #f59e0b;
+            --dark-color: #0f172a;
+            --light-color: #f8fafc;
+            --border-color: #e2e8f0;
+            --card-bg: #ffffff;
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            line-height: 1.6;
+            color: var(--dark-color);
+            background-color: #f9fafb;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Navigation Bar - Improved */
+        .navbar {
+            position: sticky;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border-color);
+            z-index: 1000;
+            transition: all 0.3s ease;
+            padding: 0 5%;
+        }
+
+        .navbar.scrolled {
+            background: rgba(255, 255, 255, 0.98);
+            box-shadow: var(--shadow-md);
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1rem 0;
+        }
+
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            text-decoration: none;
+            color: var(--dark-color);
+            font-weight: 700;
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .nav-logo:hover {
+            color: var(--primary-color);
+            transform: scale(1.05);
+        }
+
+        .nav-logo i {
+            color: var(--primary-color);
+            font-size: 2rem;
+        }
+
+        .nav-menu {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-link {
+            text-decoration: none;
+            color: var(--secondary-color);
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            position: relative;
+            padding: 0.5rem 0;
+        }
+
+        .nav-link:hover {
+            color: var(--primary-color);
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary-color);
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        .nav-link.active {
+            color: var(--primary-color);
+        }
+
+        .nav-link.active::after {
+            width: 100%;
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        /* Profile Section with Dropdown */
+        .nav-profile {
+            position: relative;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.5rem;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .nav-profile:hover {
+            background: rgba(0, 0, 0, 0.05);
+        }
+
+        .profile-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary-color), #3b82f6);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+            font-size: 1rem;
+        }
+
+        .profile-info {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .profile-name {
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: var(--dark-color);
+        }
+
+        .profile-role {
+            font-size: 0.75rem;
+            color: var(--secondary-color);
+        }
+
+        .profile-dropdown-icon {
+            margin-left: 0.5rem;
+            font-size: 0.8rem;
+            color: var(--secondary-color);
+            transition: transform 0.3s ease;
+        }
+
+        .profile-dropdown-icon.rotated {
+            transform: rotate(180deg);
+        }
+
+        /* Dropdown Menu */
+        .profile-dropdown {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background: white;
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            box-shadow: var(--shadow-lg);
+            min-width: 220px;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: all 0.3s ease;
+            z-index: 1001;
+            margin-top: 0.5rem;
+        }
+
+        .profile-dropdown.active {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .dropdown-header {
+            padding: 1rem;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .dropdown-avatar {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary-color), #3b82f6);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        .dropdown-user-info h4 {
+            font-weight: 600;
+            color: var(--dark-color);
+            margin-bottom: 0.2rem;
+            font-size: 0.95rem;
+        }
+
+        .dropdown-user-info p {
+            color: var(--secondary-color);
+            font-size: 0.8rem;
+        }
+
+        .dropdown-menu {
+            list-style: none;
+            padding: 0.5rem 0;
+        }
+
+        .dropdown-item {
+            padding: 0.75rem 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            color: var(--dark-color);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .dropdown-item:hover {
+            background: var(--light-color);
+            color: var(--primary-color);
+            padding-left: 1.25rem;
+        }
+
+        .dropdown-item i {
+            width: 16px;
+            color: var(--secondary-color);
+            transition: color 0.3s ease;
+        }
+
+        .dropdown-item:hover i {
+            color: var(--primary-color);
+        }
+
+        .dropdown-item.logout {
+            border-top: 1px solid var(--border-color);
+            margin-top: 0.5rem;
+            color: #dc2626;
+        }
+
+        .dropdown-item.logout:hover {
+            background: rgba(220, 38, 38, 0.1);
+            color: #dc2626;
+        }
+
+        .dropdown-item.logout i {
+            color: #dc2626;
+        }
+
+        .mobile-menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--dark-color);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .mobile-menu-toggle:hover {
+            color: var(--primary-color);
+            transform: scale(1.1);
+        }
+
+        /* Mobile Menu */
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            left: -100%;
+            width: 300px;
+            height: 100vh;
+            background: white;
+            box-shadow: var(--shadow-lg);
+            transition: left 0.3s ease;
+            z-index: 1001;
+            padding: 2rem;
+        }
+
+        .mobile-menu.active {
+            left: 0;
+        }
+
+        .mobile-menu-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--border-color);
+            position: relative;
+        }
+
+        .mobile-menu-close {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--dark-color);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: absolute;
+            right: 0;
+            top: 0;
+        }
+
+        .mobile-menu-close:hover {
+            color: var(--primary-color);
+            transform: scale(1.1);
+        }
+
+        /* Mobile Profile Section */
+        .mobile-nav-profile {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1.5rem 0;
+            border-bottom: 1px solid var(--border-color);
+            margin-bottom: 1rem;
+        }
+
+        .mobile-nav-menu {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+        }
+
+        .mobile-nav-menu li {
+            border-bottom: 1px solid rgba(226, 232, 240, 0.5);
+        }
+
+        .mobile-nav-menu .nav-link {
+            display: block;
+            padding: 1rem 0;
+            font-size: 1.1rem;
+            border-bottom: none;
+        }
+
+        .mobile-nav-menu .nav-link::after {
+            display: none;
+        }
+
+        .mobile-logout {
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .mobile-logout a {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            color: #dc2626;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.75rem 0;
+            transition: all 0.3s ease;
+        }
+
+        .mobile-logout a:hover {
+            padding-left: 0.5rem;
+        }
+
+        .mobile-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .mobile-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            border: none;
+            cursor: pointer;
+            font-family: inherit;
+        }
+
+        .btn-primary {
+            background: var(--primary-color);
+            color: white;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-hover);
+            transform: translateY(-1px);
+            box-shadow: var(--shadow-md);
+        }
+
+        /* Page Header */
+        .page-header {
+            background: linear-gradient(135deg, var(--primary-color), var(--primary-hover));
+            color: white;
+            padding: 80px 0 60px;
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .page-header h1 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+        }
+
+        .breadcrumb {
+            display: flex;
+            justify-content: center;
+            list-style: none;
+            gap: 0.5rem;
+        }
+
+        .breadcrumb li {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .breadcrumb a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+
+        .breadcrumb a:hover {
+            color: white;
+        }
+
+        .breadcrumb .separator {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.8rem;
+        }
+
+        /* Flash Messages */
+        .flash-messages {
+            max-width: 800px;
+            margin: 0 auto 2rem;
+            padding: 0 20px;
+        }
+
+        .flash-message {
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .flash-success {
+            background-color: #ecfdf5;
+            color: #065f46;
+            border-left: 4px solid var(--success-color);
+        }
+
+        .flash-error {
+            background-color: #fef2f2;
+            color: #991b1b;
+            border-left: 4px solid var(--error-color);
+        }
+
+        .flash-warning {
+            background-color: #fffbeb;
+            color: #92400e;
+            border-left: 4px solid var(--warning-color);
+        }
+
+        /* Profile Content */
+        .profile-container {
+            display: flex;
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        @media (max-width: 768px) {
+            .profile-container {
+                flex-direction: column;
+            }
+        }
+
+        /* Profile Sidebar */
+        .profile-sidebar {
+            flex: 1;
+            max-width: 300px;
+        }
+
+        @media (max-width: 768px) {
+            .profile-sidebar {
+                max-width: 100%;
+            }
+        }
+
+        .profile-card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            box-shadow: var(--shadow-md);
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .user-summary {
+            text-align: center;
+            padding: 2rem 1rem;
+        }
+
+        .avatar {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary-color), var(--primary-hover));
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            margin: 0 auto 1rem;
+        }
+
+        .user-summary h2 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .user-summary p {
+            color: var(--secondary-color);
+        }
+
+        .quick-stats {
+            list-style: none;
+        }
+
+        .quick-stats li {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .quick-stats li:last-child {
+            border-bottom: none;
+        }
+
+        .stat-value {
+            font-weight: 600;
+            color: var(--primary-color);
+        }
+
+        /* Profile Form */
+        .profile-form-container {
+            flex: 2;
+        }
+
+        .form-card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            box-shadow: var(--shadow-md);
+            padding: 2rem;
+        }
+
+        .form-header {
+            margin-bottom: 2rem;
+        }
+
+        .form-header h2 {
+            font-size: 1.75rem;
+            color: var(--dark-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .form-header p {
+            color: var(--secondary-color);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-row {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        @media (max-width: 640px) {
+            .form-row {
+                flex-direction: column;
+                gap: 0;
+            }
+        }
+
+        .form-half {
+            flex: 1;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: var(--dark-color);
+        }
+
+        .input-group {
+            position: relative;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            font-family: inherit;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        input:focus, select:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        }
+
+        .input-icon {
+            position: absolute;
+            right: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--secondary-color);
+        }
+
+        .password-note {
+            font-size: 0.875rem;
+            color: var(--secondary-color);
+            margin-top: 0.5rem;
+        }
+
+        .btn-block {
+            display: block;
+            width: 100%;
+            justify-content: center;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 1rem;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            border: none;
+            cursor: pointer;
+            font-family: inherit;
+        }
+
+        /* Footer - Improved to match homepage */
+        footer {
+            background: var(--dark-color);
+            color: white;
+            padding: 2rem 0 0.5rem;
+            margin-top: auto;
+        }
+
+        .footer-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 5%;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .footer-col h4 {
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+
+        .footer-col h4::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 40px;
+            height: 2px;
+            background: var(--primary-color);
+        }
+
+        .footer-col p {
+            margin-bottom: 1rem;
+            line-height: 1.5;
+            color: #cbd5e1;
+            font-size: 0.9rem;
+        }
+
+        .footer-col ul {
+            list-style: none;
+        }
+
+        .footer-col ul li {
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .footer-col ul li a {
+            color: #cbd5e1;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .footer-col ul li a:hover {
+            color: white;
+            padding-left: 5px;
+        }
+
+        .footer-col ul li i {
+            color: var(--primary-color);
+            width: 16px;
+            font-size: 0.9rem;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 0.75rem;
+            margin-top: 1rem;
+        }
+
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 35px;
+            height: 35px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            color: white;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+
+        .social-links a:hover {
+            background: var(--primary-color);
+            transform: translateY(-3px);
+        }
+
+        .footer-bottom {
+            max-width: 1400px;
+            margin: 1.5rem auto 0;
+            padding: 1rem 5%;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+            color: #94a3b8;
+            font-size: 0.85rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .footer-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-menu,
+            .nav-profile {
+                display: none;
+            }
+
+            .mobile-menu-toggle {
+                display: block;
+            }
+
+            .navbar {
+                padding: 0 4%;
+            }
+
+            .nav-container {
+                padding: 0.75rem 0;
+            }
+
+            .nav-logo {
+                font-size: 1.3rem;
+            }
+
+            .nav-logo i {
+                font-size: 1.5rem;
+            }
+
+            .page-header h1 {
+                font-size: 2.5rem;
+            }
+
+            .footer-container {
+                grid-template-columns: 1fr;
+                text-align: center;
+                gap: 1rem;
+            }
+
+            .footer-col h4::after {
+                left: 50%;
+                transform: translateX(-50%);
+            }
+
+            .social-links {
+                justify-content: center;
+            }
+            
+            footer {
+                padding: 1.5rem 0 0.5rem;
+            }
+            
+            .footer-col {
+                margin-bottom: 1rem;
+            }
+            
+            .footer-col h4 {
+                margin-bottom: 0.75rem;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .page-header h1 {
+                font-size: 2rem;
+            }
+            
+            .mobile-menu {
+                width: 280px;
+            }
+            
+            .footer-container {
+                gap: 0.75rem;
+            }
+            
+            .footer-col h4 {
+                font-size: 1rem;
+            }
+            
+            .footer-col ul li {
+                font-size: 0.85rem;
+            }
+            
+            .social-links a {
+                width: 30px;
+                height: 30px;
+            }
+        }
+
+        /* Smooth scrolling and accessibility */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        .btn:focus {
+            outline: 2px solid var(--primary-color);
+            outline-offset: 2px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar - Improved -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="{{ url_for('user.home') }}" class="nav-logo">
+                <i class="fas fa-balance-scale"></i>
+                LegalCare
+            </a>
+            
+            <ul class="nav-menu">
+                <li><a href="{{ url_for('user.home') }}" class="nav-link">Home</a></li>
+                <li><a href="{{ url_for('assistant_bp.index') }}" class="nav-link">AI Assistant</a></li>
+                <li><a href="{{ url_for('user_lawyers_bp.list_lawyers') }}" class="nav-link">Our Lawyers</a></li>
+                <li><a href="{{ url_for('user_appt.my_appointments') }}" class="nav-link">Appointments</a></li>
+                <li><a href="{{ url_for('user_content_bp.content_list') }}" class="nav-link">Law Updates</a></li>
+            </ul>
+
+            <div class="nav-right">
+                <!-- Profile Section with Dropdown -->
+                <div class="nav-profile" id="userProfile">
+                    <div class="profile-avatar">
+                        <span id="userInitials">{{ user['full_name'][0] | upper if user['full_name'] else 'U' }}</span>
+                    </div>
+                    <div class="profile-info">
+                        <span class="profile-name" id="userName">{{ user['full_name'] or 'User' }}</span>
+                        <span class="profile-role" id="userRole">User</span>
+                    </div>
+                    <i class="fas fa-chevron-down profile-dropdown-icon" id="dropdownIcon"></i>
+                    
+                    <!-- Dropdown Menu -->
+                    <div class="profile-dropdown" id="profileDropdown">
+                        <div class="dropdown-header">
+                            <div class="dropdown-avatar">
+                                <span id="dropdownInitials">{{ user['full_name'][0] | upper if user['full_name'] else 'U' }}</span>
+                            </div>
+                            <div class="dropdown-user-info">
+                                <h4 id="dropdownUserName">{{ user['full_name'] or 'User' }}</h4>
+                                <p id="dropdownUserEmail">{{ user['email'] }}</p>
+                            </div>
+                        </div>
+                        <ul class="dropdown-menu">
+                            <li><a href="{{ url_for('user.user_profile') }}" class="dropdown-item active">
+                                <i class="fas fa-user"></i>
+                                My Profile
+                            </a></li>
+                            <li><a href="#" class="dropdown-item">
+                                <i class="fas fa-cog"></i>
+                                Settings
+                            </a></li>
+                            <li><a href="#" class="dropdown-item">
+                                <i class="fas fa-file-alt"></i>
+                                My Documents
+                            </a></li>
+                            <li><a href="#" class="dropdown-item">
+                                <i class="fas fa-bell"></i>
+                                Notifications
+                            </a></li>
+                            <li><a href="{{ url_for('user.user_logout') }}" class="dropdown-item logout">
+                                <i class="fas fa-sign-out-alt"></i>
+                                Logout
+                            </a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <button class="mobile-menu-toggle">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-overlay"></div>
+    <div class="mobile-menu">
+        <div class="mobile-menu-header">
+            <a href="{{ url_for('user.home') }}" class="nav-logo">
+                <i class="fas fa-balance-scale"></i>
+                LegalCare
+            </a>
+            <button class="mobile-menu-close">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        
+        <!-- Mobile Profile Section -->
+        <div class="mobile-nav-profile">
+            <div class="profile-avatar">
+                <span id="mobileUserInitials">{{ user['full_name'][0] | upper if user['full_name'] else 'U' }}</span>
+            </div>
+            <div class="profile-info">
+                <span class="profile-name" id="mobileUserName">{{ user['full_name'] or 'User' }}</span>
+                <span class="profile-role" id="mobileUserRole">User</span>
+            </div>
+        </div>
+        
+        <ul class="mobile-nav-menu">
+            <li><a href="{{ url_for('user.home') }}" class="nav-link">Home</a></li>
+            <li><a href="{{ url_for('assistant_bp.index') }}" class="nav-link">AI Assistant</a></li>
+            <li><a href="{{ url_for('user_lawyers_bp.list_lawyers') }}" class="nav-link">Our Lawyers</a></li>
+            <li><a href="{{ url_for('user_appt.my_appointments') }}" class="nav-link">Appointments</a></li>
+            <li><a href="{{ url_for('user_content_bp.content_list') }}" class="nav-link">Law Updates</a></li>
+        </ul>
+        
+        <div class="mobile-logout">
+            <a href="{{ url_for('user.user_logout') }}">
+                <i class="fas fa-sign-out-alt"></i>
+                Logout
+            </a>
+        </div>
+    </div>
+
+    
+
+    <div class="container">
+        <!-- Flash Messages -->
+        <div class="flash-messages">
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    {% for category, message in messages %}
+                        <div class="flash-message flash-{{ category }}">
+                            {% if category == 'success' %}
+                                <i class="fas fa-check-circle"></i>
+                            {% elif category == 'error' %}
+                                <i class="fas fa-exclamation-circle"></i>
+                            {% else %}
+                                <i class="fas fa-info-circle"></i>
+                            {% endif %}
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+        </div>
+
+        <div class="profile-container">
+            <!-- Profile Sidebar -->
+            <div class="profile-sidebar">
+                <div class="profile-card user-summary">
+                    <div class="avatar">
+                        {{ user['full_name'][0] | upper if user['full_name'] else 'U' }}
+                    </div>
+                    <h2>{{ user['full_name'] or 'User' }}</h2>
+                    <p>{{ user['email'] }}</p>
+                </div>
+
+                <div class="profile-card">
+                    <h3>Account Overview</h3>
+                    <ul class="quick-stats">
+                        <li>
+                            <span>Member since:</span>
+                            <span class="stat-value">2023</span>
+                        </li>
+                        <li>
+                            <span>Consultations:</span>
+                            <span class="stat-value">12</span>
+                        </li>
+                        <li>
+                            <span>Documents:</span>
+                            <span class="stat-value">5</span>
+                        </li>
+                        <li>
+                            <span>Status:</span>
+                            <span class="stat-value">Active</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="profile-card">
+                    <h3>Quick Actions</h3>
+                    <div style="display: flex; flex-direction: column; gap: 0.75rem; margin-top: 1rem;">
+                        <a href="#" class="btn" style="background: #f1f5f9; color: var(--dark-color); justify-content: center;">
+                            <i class="fas fa-file-alt"></i> My Documents
+                        </a>
+                        <a href="#" class="btn" style="background: #f1f5f9; color: var(--dark-color); justify-content: center;">
+                            <i class="fas fa-history"></i> Consultation History
+                        </a>
+                        <a href="#" class="btn" style="background: #f1f5f9; color: var(--dark-color); justify-content: center;">
+                            <i class="fas fa-cog"></i> Account Settings
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Profile Form -->
+            <div class="profile-form-container">
+                <div class="form-card">
+                    <div class="form-header">
+                        <h2>Update Your Profile</h2>
+                        <p>Keep your information up to date to get the most out of our services</p>
+                    </div>
+
+                    <form method="POST">
+                        <div class="form-group">
+                            <label for="full_name">Full Name</label>
+                            <div class="input-group">
+                                <input type="text" id="full_name" name="full_name" value="{{ user['full_name'] or '' }}" required>
+                                <span class="input-icon"><i class="fas fa-user"></i></span>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="email">Email Address</label>
+                            <div class="input-group">
+                                <input type="email" id="email" name="email" value="{{ user['email'] or '' }}" required>
+                                <span class="input-icon"><i class="fas fa-envelope"></i></span>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="password">New Password</label>
+                            <div class="input-group">
+                                <input type="password" id="password" name="password" placeholder="Enter new password">
+                                <span class="input-icon"><i class="fas fa-lock"></i></span>
+                            </div>
+                            <p class="password-note">Leave blank to keep your current password</p>
+                        </div>
+
+                        <h3 style="margin: 2rem 0 1rem; padding-bottom: 0.5rem; border-bottom: 1px solid var(--border-color);">Location Information</h3>
+
+                        <div class="form-row">
+                            <div class="form-half">
+                                <div class="form-group">
+                                    <label for="city">City</label>
+                                    <input type="text" id="city" name="city" value="{{ user['city'] or '' }}" required>
+                                </div>
+                            </div>
+                            <div class="form-half">
+                                <div class="form-group">
+                                    <label for="district">District</label>
+                                    <input type="text" id="district" name="district" value="{{ user['district'] or '' }}" required>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="province">Province</label>
+                            <select id="province" name="province" required>
+                                <option value="">Select Province</option>
+                                <option value="Central" {% if user['province'] == 'Central' %}selected{% endif %}>Central Province</option>
+                                <option value="Eastern" {% if user['province'] == 'Eastern' %}selected{% endif %}>Eastern Province</option>
+                                <option value="North Central" {% if user['province'] == 'North Central' %}selected{% endif %}>North Central Province</option>
+                                <option value="Northern" {% if user['province'] == 'Northern' %}selected{% endif %}>Northern Province</option>
+                                <option value="North Western" {% if user['province'] == 'North Western' %}selected{% endif %}>North Western Province</option>
+                                <option value="Sabaragamuwa" {% if user['province'] == 'Sabaragamuwa' %}selected{% endif %}>Sabaragamuwa Province</option>
+                                <option value="Southern" {% if user['province'] == 'Southern' %}selected{% endif %}>Southern Province</option>
+                                <option value="Uva" {% if user['province'] == 'Uva' %}selected{% endif %}>Uva Province</option>
+                                <option value="Western" {% if user['province'] == 'Western' %}selected{% endif %}>Western Province</option>
+                            </select>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary btn-block">
+                            <i class="fas fa-save"></i> Update Profile
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer - Improved to match homepage -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-col">
+                <h4>LegalCare</h4>
+                <p>Providing expert legal services with integrity and professionalism since 2020.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+            
+            <div class="footer-col">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="{{ url_for('user.home') }}">Home</a></li>
+                    <li><a href="{{ url_for('assistant_bp.index') }}">AI Assistant</a></li>
+                    <li><a href="{{ url_for('user_lawyers_bp.list_lawyers') }}">Our Lawyers</a></li>
+                    <li><a href="{{ url_for('user_appt.my_appointments') }}">Appointments</a></li>
+                    <li><a href="{{ url_for('user_content_bp.content_list') }}">Law Updates</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-col">
+                <h4>Our Services</h4>
+                <ul>
+                    <li><a href="#">Legal Consultation</a></li>
+                    <li><a href="#">Document Review</a></li>
+                    <li><a href="#">Case Representation</a></li>
+                    <li><a href="#">Contract Drafting</a></li>
+                    <li><a href="#">Legal Research</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-col">
+                <h4>Contact Info</h4>
+                <ul>
+                    <li><i class="fas fa-map-marker-alt"></i> 123 Legal Street, Colombo, Sri Lanka</li>
+                    <li><i class="fas fa-phone"></i> +94 11 234 5678</li>
+                    <li><i class="fas fa-envelope"></i> info@legalcare.lk</li>
+                    <li><i class="fas fa-clock"></i> Mon-Fri: 9AM - 5PM</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>&copy; 2023 LegalCare. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // User data
+        const userData = {
+            name: "{{ user['full_name'] or 'User' }}",
+            role: "User",
+            email: "{{ user['email'] }}"
+        };
+
+        // Function to update user profile information
+        function updateUserProfile() {
+            // Get user initials from name
+            const names = userData.name.split(' ');
+            let initials = '';
+            if (names.length > 0) {
+                initials = names[0].charAt(0);
+                if (names.length > 1) {
+                    initials += names[names.length - 1].charAt(0);
+                }
+            }
+            
+            // Update desktop profile
+            document.getElementById('userInitials').textContent = initials;
+            document.getElementById('userName').textContent = userData.name;
+            document.getElementById('userRole').textContent = userData.role;
+            
+            // Update dropdown
+            document.getElementById('dropdownInitials').textContent = initials;
+            document.getElementById('dropdownUserName').textContent = userData.name;
+            document.getElementById('dropdownUserEmail').textContent = userData.email;
+            
+            // Update mobile profile
+            document.getElementById('mobileUserInitials').textContent = initials;
+            document.getElementById('mobileUserName').textContent = userData.name;
+            document.getElementById('mobileUserRole').textContent = userData.role;
+        }
+
+        // Profile dropdown functionality
+        function initProfileDropdown() {
+            const profileButton = document.getElementById('userProfile');
+            const dropdown = document.getElementById('profileDropdown');
+            const dropdownIcon = document.getElementById('dropdownIcon');
+            let isOpen = false;
+
+            // Toggle dropdown on profile click
+            profileButton.addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                
+                if (isOpen) {
+                    closeDropdown();
+                } else {
+                    openDropdown();
+                }
+            });
+
+            function openDropdown() {
+                dropdown.classList.add('active');
+                dropdownIcon.classList.add('rotated');
+                isOpen = true;
+            }
+
+            function closeDropdown() {
+                dropdown.classList.remove('active');
+                dropdownIcon.classList.remove('rotated');
+                isOpen = false;
+            }
+
+            // Close dropdown when clicking outside
+            document.addEventListener('click', function(e) {
+                if (!profileButton.contains(e.target) && !dropdown.contains(e.target)) {
+                    closeDropdown();
+                }
+            });
+
+            // Close dropdown on escape key
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape' && isOpen) {
+                    closeDropdown();
+                }
+            });
+
+            // Prevent dropdown from closing when clicking inside it
+            dropdown.addEventListener('click', function(e) {
+                e.stopPropagation();
+            });
+        }
+
+        // Navigation functionality
+        function initNavigation() {
+            const navbar = document.querySelector('.navbar');
+            const mobileToggle = document.querySelector('.mobile-menu-toggle');
+            const mobileMenu = document.querySelector('.mobile-menu');
+            const mobileOverlay = document.querySelector('.mobile-overlay');
+            const mobileClose = document.querySelector('.mobile-menu-close');
+            const navLinks = document.querySelectorAll('.nav-link');
+
+            // Navbar scroll effect
+            let scrollTimer = null;
+            window.addEventListener('scroll', function() {
+                if (scrollTimer) clearTimeout(scrollTimer);
+                
+                scrollTimer = setTimeout(() => {
+                    if (window.scrollY > 50) {
+                        navbar.classList.add('scrolled');
+                    } else {
+                        navbar.classList.remove('scrolled');
+                    }
+                }, 10);
+            });
+
+            // Mobile menu functionality
+            function openMobileMenu() {
+                mobileMenu.classList.add('active');
+                mobileOverlay.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            }
+
+            function closeMobileMenu() {
+                mobileMenu.classList.remove('active');
+                mobileOverlay.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+
+            if (mobileToggle) {
+                mobileToggle.addEventListener('click', openMobileMenu);
+            }
+
+            if (mobileClose) {
+                mobileClose.addEventListener('click', closeMobileMenu);
+            }
+
+            if (mobileOverlay) {
+                mobileOverlay.addEventListener('click', closeMobileMenu);
+            }
+
+            // Close mobile menu on link click
+            const mobileNavLinks = document.querySelectorAll('.mobile-nav-menu .nav-link');
+            mobileNavLinks.forEach(link => {
+                link.addEventListener('click', closeMobileMenu);
+            });
+
+            // Handle window resize
+            window.addEventListener('resize', function() {
+                if (window.innerWidth > 768) {
+                    closeMobileMenu();
+                }
+            });
+
+            // Escape key to close mobile menu
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape') {
+                    closeMobileMenu();
+                }
+            });
+        }
+
+        // Initialize everything when DOM is ready
+        document.addEventListener('DOMContentLoaded', function() {
+            // Update user profile with dynamic data
+            updateUserProfile();
+            
+            initNavigation();
+            initProfileDropdown();
+        });
+    </script>
+</body>
+</html>

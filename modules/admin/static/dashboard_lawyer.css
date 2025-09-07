@@ -1,0 +1,614 @@
+:root {
+  --primary-color: #2563eb;
+  --primary-hover: #1d4ed8;
+  --secondary-color: #64748b;
+  --success-color: #10b981;
+  --warning-color: #f59e0b;
+  --danger-color: #ef4444;
+  --info-color: #3b82f6;
+  --dark-color: #0f172a;
+  --light-color: #f5faff;
+  --border-color: #e2e8f0;
+  --sidebar-width: 280px;
+  --sidebar-collapsed-width: 80px;
+  --header-height: 80px;
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+/* Main Content Area */
+.dashboard-content {
+  padding: 16px;
+  padding-top: 14px;
+  max-width: 1600px;
+  margin: 0 auto;
+  min-height: calc(100vh - var(--header-height) - 32px);
+}
+
+/* Flash Messages */
+.flash-messages {
+  margin-bottom: 20px;
+}
+
+.alert {
+  padding: 12px 16px;
+  border-radius: 8px;
+  margin-bottom: 12px;
+  font-size: 14px;
+  border: 1px solid transparent;
+}
+
+.alert-success {
+  background-color: rgba(16, 185, 129, 0.1);
+  border-color: rgba(16, 185, 129, 0.2);
+  color: var(--success-color);
+}
+
+.alert-danger {
+  background-color: rgba(239, 68, 68, 0.1);
+  border-color: rgba(239, 68, 68, 0.2);
+  color: var(--danger-color);
+}
+
+.alert-info {
+  background-color: rgba(59, 130, 246, 0.1);
+  border-color: rgba(59, 130, 246, 0.2);
+  color: var(--info-color);
+}
+
+/* Lawyer Management Header */
+.lawyer-management-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 12px;
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--border-color);
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.lawyer-stats {
+  display: flex;
+  gap: 16px;
+}
+
+.stat-card {
+  background: var(--light-color);
+  padding: 12px 20px;
+  border-radius: 8px;
+  text-align: center;
+  min-width: 100px;
+  border: 1px solid var(--border-color);
+}
+
+.stat-value {
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 4px;
+  color: var(--dark-color);
+}
+
+.stat-value.active {
+  color: var(--success-color);
+}
+
+.stat-value.inactive {
+  color: var(--danger-color);
+}
+
+.stat-label {
+  font-size: 13px;
+  color: var(--secondary-color);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.search-container {
+  position: relative;
+  width: 250px;
+}
+
+.search-input {
+  width: 100%;
+  padding: 10px 15px 10px 40px;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  font-size: 14px;
+  transition: all 0.3s ease;
+  background-color: white;
+}
+
+.search-input:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+.search-btn {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: transparent;
+  border: none;
+  color: var(--secondary-color);
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.filter-dropdown select {
+  padding: 10px 15px;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  font-size: 14px;
+  background-color: white;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  min-width: 180px;
+}
+
+.filter-dropdown select:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+.add-lawyer-btn {
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-weight: 500;
+  font-size: 14px;
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  box-shadow: var(--shadow-sm);
+  text-decoration: none;
+}
+
+.add-lawyer-btn:hover {
+  background-color: var(--primary-hover);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
+}
+
+/* Table Card */
+.table-card {
+  background: white;
+  border-radius: 12px;
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--border-color);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - 300px);
+  min-height: 400px;
+}
+
+/* Table Header */
+.table-header {
+  padding: 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.table-header h3 {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--dark-color);
+}
+
+.table-controls {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.table-count {
+  font-size: 14px;
+  color: var(--secondary-color);
+}
+
+.table-pagination {
+  display: flex;
+  gap: 8px;
+}
+
+.pagination-btn {
+  width: 32px;
+  height: 32px;
+  border: 1px solid var(--border-color);
+  background: white;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.pagination-btn:hover:not(:disabled) {
+  border-color: var(--primary-color);
+  color: var(--primary-color);
+}
+
+.pagination-btn.active {
+  background: var(--primary-color);
+  color: white;
+  border-color: var(--primary-color);
+}
+
+.pagination-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Table Styles - Fixed the scrolling issue here */
+.table-responsive {
+  flex: 1;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.table-scroll-container {
+  flex: 1;
+  overflow-y: auto;
+  position: relative;
+}
+
+.lawyer-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  table-layout: fixed;
+}
+
+.lawyer-table thead {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.lawyer-table th {
+  background: var(--light-color);
+  color: var(--dark-color);
+  font-weight: 600;
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  text-align: left;
+  padding: 12px 16px;
+  position: sticky;
+  top: 0;
+}
+
+.lawyer-table td {
+  padding: 16px;
+  border-top: 1px solid var(--border-color);
+  font-size: 14px;
+  vertical-align: middle;
+}
+
+.lawyer-table tr:hover td {
+  background: rgba(37, 99, 235, 0.03);
+}
+
+.select-col {
+  width: 40px;
+  padding-left: 24px !important;
+}
+
+.select-col input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+}
+
+/* User Cell */
+.user-cell {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.user-avatar, .user-avatar-img {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: 600;
+  font-size: 14px;
+  flex-shrink: 0;
+  object-fit: cover;
+}
+
+.user-avatar {
+  background: linear-gradient(135deg, var(--primary-color), #3b82f6);
+}
+
+.user-details {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.user-name {
+  font-weight: 600;
+  color: var(--dark-color);
+  margin-bottom: 2px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.user-email {
+  font-size: 12px;
+  color: var(--secondary-color);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Status Badge */
+.status-badge {
+  display: inline-block;
+  padding: 6px 10px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.status-badge.active {
+  background: rgba(16, 185, 129, 0.1);
+  color: var(--success-color);
+}
+
+.status-badge.inactive {
+  background: rgba(239, 68, 68, 0.1);
+  color: var(--danger-color);
+}
+
+/* Action Buttons */
+.action-buttons {
+  display: flex;
+  gap: 8px;
+}
+
+.action-btn {
+  width: 32px;
+  height: 32px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  background: transparent;
+  border: 1px solid var(--border-color);
+  color: inherit;
+}
+
+.action-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-sm);
+}
+
+.edit-btn {
+  color: var(--success-color);
+  border-color: rgba(16, 185, 129, 0.2);
+}
+
+.edit-btn:hover {
+  background: rgba(16, 185, 129, 0.05);
+  border-color: var(--success-color);
+}
+
+.delete-btn {
+  color: var(--danger-color);
+  border-color: rgba(239, 68, 68, 0.2);
+}
+
+.delete-btn:hover {
+  background: rgba(239, 68, 68, 0.05);
+  border-color: var(--danger-color);
+}
+
+.text-center {
+  text-align: center;
+}
+
+/* Empty State */
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+  text-align: center;
+  color: var(--secondary-color);
+}
+
+.empty-state i {
+  font-size: 48px;
+  margin-bottom: 16px;
+  color: var(--border-color);
+}
+
+/* Fade In Animation */
+.fade-in {
+  animation: fadeIn 0.5s ease-out;
+}
+
+@keyframes fadeIn {
+  from { 
+    opacity: 0; 
+    transform: translateY(20px); 
+  }
+  to { 
+    opacity: 1; 
+    transform: translateY(0); 
+  }
+}
+
+/* === Fix for column width not applying === */
+.lawyer-table {
+  table-layout: auto !important; /* Allow browser to size based on content */
+  width: 100%; /* Optional: can set to 1400px if using horizontal scroll */
+}
+
+/* Enable horizontal scrolling if table overflows */
+.table-scroll-container {
+  overflow-x: auto;
+}
+
+/* === Custom Column Width Overrides === */
+.lawyer-table th:nth-child(2),
+.lawyer-table td:nth-child(2) {
+  width: 140px !important; /* Lawyer ID */
+}
+
+.lawyer-table th:nth-child(3),
+.lawyer-table td:nth-child(3) {
+  min-width: 250px !important; /* Name with image and email */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.lawyer-table th:nth-child(4),
+.lawyer-table td:nth-child(4) {
+  width: 160px !important; /* Register No */
+}
+
+.lawyer-table th:nth-child(5),
+.lawyer-table td:nth-child(5) {
+  width: 180px !important; /* Specialization */
+}
+
+.lawyer-table th:nth-child(6),
+.lawyer-table td:nth-child(6) {
+  width: 170px !important; /* Active Status */
+}
+
+.lawyer-table th:nth-child(7),
+.lawyer-table td:nth-child(7) {
+  width: 160px !important; /* Actions */
+}
+
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .lawyer-management-header {
+    flex-direction: column;
+    gap: 16px;
+    align-items: stretch;
+  }
+  
+  .header-left, .header-right {
+    width: 100%;
+  }
+  
+  .header-left {
+    justify-content: space-between;
+  }
+  
+  .search-container {
+    width: 100%;
+  }
+}
+
+@media (max-width: 768px) {
+  .lawyer-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    width: 100%;
+  }
+  
+  .stat-card {
+    min-width: auto;
+    padding: 10px 12px;
+  }
+  
+  .header-right {
+    flex-direction: column;
+    gap: 12px;
+  }
+  
+  .filter-dropdown select {
+    width: 100%;
+  }
+
+  .table-card {
+    height: auto;
+    min-height: 400px;
+  }
+
+  .user-name, .user-email {
+    white-space: normal;
+  }
+}
+
+@media (max-width: 480px) {
+  .add-lawyer-btn {
+    padding: 8px 12px;
+    font-size: 13px;
+  }
+  
+  .stat-value {
+    font-size: 18px;
+  }
+  
+  .stat-label {
+    font-size: 11px;
+  }
+  
+  .table-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+  
+  .table-controls {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .lawyer-table td {
+    padding: 12px 8px;
+  }
+
+  .action-buttons {
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  
+}

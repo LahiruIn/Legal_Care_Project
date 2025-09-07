@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Register</title>
+
+  <!-- Poppins font + Font Awesome -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+  <!-- Your main stylesheet -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='register.css') }}">
+</head> <!-- ✅ FIXED: Added closing head tag -->
+
+<body>
+  <div class="form-container" style="max-width: 450px; flex-direction: column;">
+    <div class="form-content" style="width: 100%; padding: 40px;">
+      <h2><i class="fas fa-user-plus"></i> Register</h2>
+      <form method="POST" action="{{ url_for('register') }}"> <!-- ✅ Safer dynamic URL -->
+
+        <div class="input-group">
+          <label for="username"><i class="fas fa-user"></i> Username</label>
+          <input type="text" id="username" name="username" placeholder="Enter your username" required />
+        </div>
+
+        <div class="input-group">
+          <label for="password"><i class="fas fa-lock"></i> Password</label>
+          <input type="password" id="password" name="password" placeholder="Enter your password" required />
+        </div>
+
+        <button type="submit" class="submit-btn"><i class="fas fa-user-plus"></i> Register</button>
+      </form>
+
+      <p style="margin-top: 15px;">
+        Already have an account?
+        <a href="{{ url_for('login') }}">Login here</a> <!-- ✅ Safe dynamic link -->
+      </p>
+    </div>
+  </div>
+</body>
+</html>
